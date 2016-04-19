@@ -8,12 +8,31 @@
 
 /* Begin PBXBuildFile section */
 		E63710011CBAECA500BE64A1 /* SocketKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E63710001CBAECA500BE64A1 /* SocketKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E63710091CBAECC000BE64A1 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63710081CBAECC000BE64A1 /* Socket.swift */; };
+		E66953CE1CBC25C9004A973A /* InputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66953CD1CBC25C9004A973A /* InputStream.swift */; };
+		E669540D1CBC42F9004A973A /* ServerSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669540C1CBC42F9004A973A /* ServerSocket.swift */; };
+		E669540F1CBC4355004A973A /* OutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669540E1CBC4355004A973A /* OutputStream.swift */; };
+		E66954111CBC4395004A973A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66954101CBC4395004A973A /* Util.swift */; };
+		E68C8ADE1CBF9AAA00ABDE14 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C8ADD1CBF9AAA00ABDE14 /* Certificate.swift */; };
+		E68C8AE01CC1407D00ABDE14 /* TLSInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C8ADF1CC1407D00ABDE14 /* TLSInputStream.swift */; };
+		E68C8AE21CC1408800ABDE14 /* TLSOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C8AE11CC1408800ABDE14 /* TLSOutputStream.swift */; };
+		E68C8AE51CC199EB00ABDE14 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C8AE41CC199EB00ABDE14 /* HTTP.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E6370FFD1CBAECA500BE64A1 /* SocketKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SocketKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E63710001CBAECA500BE64A1 /* SocketKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketKit.h; sourceTree = "<group>"; };
 		E63710021CBAECA500BE64A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E63710081CBAECC000BE64A1 /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		E66953CD1CBC25C9004A973A /* InputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputStream.swift; sourceTree = "<group>"; };
+		E669540C1CBC42F9004A973A /* ServerSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerSocket.swift; sourceTree = "<group>"; };
+		E669540E1CBC4355004A973A /* OutputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputStream.swift; sourceTree = "<group>"; };
+		E66954101CBC4395004A973A /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		E680F2471CC5AC9700ACE3B8 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = readme.md; path = SocketKit/readme.md; sourceTree = "<group>"; };
+		E68C8ADD1CBF9AAA00ABDE14 /* Certificate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Certificate.swift; sourceTree = "<group>"; };
+		E68C8ADF1CC1407D00ABDE14 /* TLSInputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSInputStream.swift; sourceTree = "<group>"; };
+		E68C8AE11CC1408800ABDE14 /* TLSOutputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSOutputStream.swift; sourceTree = "<group>"; };
+		E68C8AE41CC199EB00ABDE14 /* HTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +49,7 @@
 		E6370FF31CBAECA500BE64A1 = {
 			isa = PBXGroup;
 			children = (
+				E680F2471CC5AC9700ACE3B8 /* readme.md */,
 				E6370FFF1CBAECA500BE64A1 /* SocketKit */,
 				E6370FFE1CBAECA500BE64A1 /* Products */,
 			);
@@ -47,6 +67,15 @@
 			isa = PBXGroup;
 			children = (
 				E63710001CBAECA500BE64A1 /* SocketKit.h */,
+				E68C8ADD1CBF9AAA00ABDE14 /* Certificate.swift */,
+				E68C8AE41CC199EB00ABDE14 /* HTTP.swift */,
+				E66953CD1CBC25C9004A973A /* InputStream.swift */,
+				E669540E1CBC4355004A973A /* OutputStream.swift */,
+				E669540C1CBC42F9004A973A /* ServerSocket.swift */,
+				E63710081CBAECC000BE64A1 /* Socket.swift */,
+				E68C8ADF1CC1407D00ABDE14 /* TLSInputStream.swift */,
+				E68C8AE11CC1408800ABDE14 /* TLSOutputStream.swift */,
+				E66954101CBC4395004A973A /* Util.swift */,
 				E63710021CBAECA500BE64A1 /* Info.plist */,
 			);
 			path = SocketKit;
@@ -130,6 +159,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E68C8AE51CC199EB00ABDE14 /* HTTP.swift in Sources */,
+				E68C8AE21CC1408800ABDE14 /* TLSOutputStream.swift in Sources */,
+				E68C8AE01CC1407D00ABDE14 /* TLSInputStream.swift in Sources */,
+				E63710091CBAECC000BE64A1 /* Socket.swift in Sources */,
+				E669540D1CBC42F9004A973A /* ServerSocket.swift in Sources */,
+				E66954111CBC4395004A973A /* Util.swift in Sources */,
+				E669540F1CBC4355004A973A /* OutputStream.swift in Sources */,
+				E66953CE1CBC25C9004A973A /* InputStream.swift in Sources */,
+				E68C8ADE1CBF9AAA00ABDE14 /* Certificate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +196,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -178,6 +217,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -206,10 +246,12 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -219,6 +261,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -227,6 +271,7 @@
 		E63710061CBAECA500BE64A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -239,12 +284,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.palleklewitz.SocketKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		E63710071CBAECA500BE64A1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -279,6 +326,7 @@
 				E63710071CBAECA500BE64A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
