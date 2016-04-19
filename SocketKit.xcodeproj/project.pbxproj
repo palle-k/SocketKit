@@ -13,6 +13,7 @@
 		E669540D1CBC42F9004A973A /* ServerSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669540C1CBC42F9004A973A /* ServerSocket.swift */; };
 		E669540F1CBC4355004A973A /* OutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669540E1CBC4355004A973A /* OutputStream.swift */; };
 		E66954111CBC4395004A973A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66954101CBC4395004A973A /* Util.swift */; };
+		E66DDFD91CC5B0B300A88A60 /* license in Resources */ = {isa = PBXBuildFile; fileRef = E66DDFD81CC5B0B300A88A60 /* license */; };
 		E68C8ADE1CBF9AAA00ABDE14 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C8ADD1CBF9AAA00ABDE14 /* Certificate.swift */; };
 		E68C8AE01CC1407D00ABDE14 /* TLSInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C8ADF1CC1407D00ABDE14 /* TLSInputStream.swift */; };
 		E68C8AE21CC1408800ABDE14 /* TLSOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C8AE11CC1408800ABDE14 /* TLSOutputStream.swift */; };
@@ -29,6 +30,7 @@
 		E669540E1CBC4355004A973A /* OutputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputStream.swift; sourceTree = "<group>"; };
 		E66954101CBC4395004A973A /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		E66DDFD71CC5B07C00A88A60 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
+		E66DDFD81CC5B0B300A88A60 /* license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
 		E68C8ADD1CBF9AAA00ABDE14 /* Certificate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Certificate.swift; sourceTree = "<group>"; };
 		E68C8ADF1CC1407D00ABDE14 /* TLSInputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSInputStream.swift; sourceTree = "<group>"; };
 		E68C8AE11CC1408800ABDE14 /* TLSOutputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSOutputStream.swift; sourceTree = "<group>"; };
@@ -50,6 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				E66DDFD71CC5B07C00A88A60 /* readme.md */,
+				E66DDFD81CC5B0B300A88A60 /* license */,
 				E6370FFF1CBAECA500BE64A1 /* SocketKit */,
 				E6370FFE1CBAECA500BE64A1 /* Products */,
 			);
@@ -149,6 +152,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E66DDFD91CC5B0B300A88A60 /* license in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
