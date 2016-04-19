@@ -28,7 +28,7 @@
 		E669540C1CBC42F9004A973A /* ServerSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerSocket.swift; sourceTree = "<group>"; };
 		E669540E1CBC4355004A973A /* OutputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputStream.swift; sourceTree = "<group>"; };
 		E66954101CBC4395004A973A /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
-		E680F2471CC5AC9700ACE3B8 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = readme.md; path = SocketKit/readme.md; sourceTree = "<group>"; };
+		E66DDFD71CC5B07C00A88A60 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		E68C8ADD1CBF9AAA00ABDE14 /* Certificate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Certificate.swift; sourceTree = "<group>"; };
 		E68C8ADF1CC1407D00ABDE14 /* TLSInputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSInputStream.swift; sourceTree = "<group>"; };
 		E68C8AE11CC1408800ABDE14 /* TLSOutputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSOutputStream.swift; sourceTree = "<group>"; };
@@ -49,7 +49,7 @@
 		E6370FF31CBAECA500BE64A1 = {
 			isa = PBXGroup;
 			children = (
-				E680F2471CC5AC9700ACE3B8 /* readme.md */,
+				E66DDFD71CC5B07C00A88A60 /* readme.md */,
 				E6370FFF1CBAECA500BE64A1 /* SocketKit */,
 				E6370FFE1CBAECA500BE64A1 /* Products */,
 			);
