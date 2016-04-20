@@ -69,8 +69,8 @@ public class TLSOutputStream : OutputStream
 				}
 				else if let error = error
 				{
-					throw error
 					self.error = nil
+					throw error
 				}
 				else
 				{
@@ -104,15 +104,14 @@ public class TLSOutputStream : OutputStream
 			{
 			case IOError.WouldBlock, IOError.Again, IOError.Interrupted:
 				return errSSLWouldBlock
+			case IOError.NotConnected:
+				return errSSLConnectionRefused
+			case IOError.EndOfFile:
+				return errSSLClosedGraceful
 			default:
 				return errSSLInternal
 			}
 		}
-	}
-	
-	public func flush() throws
-	{
-		try underlyingStream.flush()
 	}
 	
 	deinit

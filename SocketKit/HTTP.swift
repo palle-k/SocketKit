@@ -26,6 +26,11 @@
 
 import Foundation
 
+/**
+
+Date formatter for HTML time format
+
+*/
 private let DateFormatter:NSDateFormatter =
 {
 	let formatter = NSDateFormatter()
@@ -34,6 +39,14 @@ private let DateFormatter:NSDateFormatter =
 	return formatter
 }()
 
+
+/**
+
+Basic HTTP response to a get request.
+
+Sends the given data as content to the client
+
+*/
 public class HTTPResponse : StreamWritable
 {
 	public let content:NSData

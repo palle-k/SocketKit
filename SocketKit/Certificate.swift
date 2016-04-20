@@ -28,10 +28,41 @@ import CoreFoundation
 import Foundation
 import Security
 
-public struct Certificate
+/**
+
+Certificate for TLS/SSL encrypted connections
+
+A certificate can be loaded from a PKCS12-file
+or directly as a SecIdentityRef.
+
+*/
+public struct Certificate : Equatable
 {
+	/**
+	
+	Identity containing the certificate sent to the client
+	and the private key for decryption
+	
+	*/
 	internal let identity:SecIdentityRef
 	
+	
+	/**
+
+	Initialize a new certificate with the given data protected by the given password.
+	The data has to be in PKCS12 format.
+	
+	If the certificate cannot be loaded, a TLSError is thrown.
+	For further information, activate the -skdebug flag, which prints further error messages.
+	
+	- parameter data: Data object containing the PKCS12 certificate and key
+	
+	- parameter password: Password protecting the the specified PKCS12 certificate.
+	If no password should be used, the password should be nil.
+	
+	- throws: A TLSError indicating that the certificate could not be loaded.
+	
+	*/
 	public init(withData data:NSData, password:String? = nil) throws
 	{
 		let options = [String(kSecImportExportPassphrase) : (password ?? "")]
@@ -71,11 +102,36 @@ public struct Certificate
 		self.identity = identity
 	}
 	
+	
+	/**
+
+	Creates a new certificate with the specified SecIdentityRef.
+	
+	- parameter identity: Identity containing the certificate and private key to use
+	
+	*/
 	public init(withSecIdentity identity: SecIdentityRef)
 	{
 		self.identity = identity
 	}
 	
+	
+	/**
+	
+	Initialize a new certificate with the data at the given path protected by the given password.
+	The data has to be in PKCS12 format.
+	
+	If the certificate cannot be loaded, a TLSError is thrown.
+	For further information, activate the -skdebug flag, which prints further error messages.
+	
+	- parameter filePath: Path to file containing the PKCS12 certificate and key
+	
+	- parameter password: Password protecting the the specified PKCS12 certificate
+	If no password should be used, the password should be nil.
+	
+	- throws: A TLSError indicating that the certificate could not be loaded.
+	
+	*/
 	public init(withContentsOfFile filePath: String, password: String? = nil) throws
 	{
 		guard let data = NSData(contentsOfFile: filePath)
@@ -87,9 +143,59 @@ public struct Certificate
 		try self.init(withData: data, password: password)
 	}
 	
-	public init?(withContentsOfFile filePath: String, readingOptions: NSDataReadingOptions, password: String? = nil) throws
+	
+	/**
+	
+	Initialize a new certificate with the data at the given path protected by the given password.
+	The data has to be in PKCS12 format.
+	
+	If the certificate cannot be loaded, a TLSError is thrown.
+	For further information, activate the -skdebug flag, which prints further error messages.
+	
+	- parameter filePath: Path to file containing the PKCS12 certificate and key
+	
+	- parameter readingOptions: Options for reading
+	
+	- parameter password: Password protecting the the specified PKCS12 certificate
+	If no password should be used, the password should be nil.
+	
+	- throws: A TLSError indicating that the certificate could not be loaded.
+	
+	*/
+	public init(withContentsOfFile filePath: String, readingOptions: NSDataReadingOptions, password: String? = nil) throws
 	{
 		let data = try NSData(contentsOfFile: filePath, options: readingOptions)
 		try self.init(withData: data, password: password)
 	}
+}
+
+
+/**
+
+Compares the two certificates.
+
+If both certificates are equal, true is returned.
+If not, false is returned.
+
+The comparison is based on the private keys of
+
+- parameter left: First certificate for comparison
+
+- parameter right: Second certificate for comparison
+
+- returns: A boolean indicating if the two certificates are equal.
+
+*/
+public func == (left: Certificate, right: Certificate) -> Bool
+{
+	let leftKeyPtr = UnsafeMutablePointer<SecKey?>.alloc(sizeof(SecKey))
+	let rightKeyPtr = UnsafeMutablePointer<SecKey?>.alloc(sizeof(SecKey))
+	
+	SecIdentityCopyPrivateKey(left.identity, leftKeyPtr)
+	SecIdentityCopyPrivateKey(right.identity, rightKeyPtr)
+	
+	let result = memcmp(leftKeyPtr, rightKeyPtr, sizeof(SecKey)) > 0
+	leftKeyPtr.dealloc(sizeof(SecKey))
+	rightKeyPtr.dealloc(sizeof(SecKey))
+	return result
 }

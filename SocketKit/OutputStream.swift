@@ -28,25 +28,201 @@ import CoreFoundation
 import Darwin
 import Foundation
 
+/**
+
+Output stream for writing to an underlying target.
+
+**Implementation notes:**
+
+Only the function `write(data: UnsafePointer<Void>, lengthInBytes byteCount: Int) throws`
+should be implemented. Other `write`/`writeln` functions should not be implemented
+as they are already implemented as an extension which will call the 
+`write(data: UnsafePointer<Void>, lengthInBytes byteCount: Int) throws`
+function.
+
+*/
 public protocol OutputStream
 {
+	
+	/**
+	
+	True, if the stream is open and data can be written.
+	
+	False, if the stream is closed and data cannot be written.
+	Any calls of the write-function will fail and an IOError will
+	be thrown.
+	
+	If the state of the stream changes, the delegate is notified
+	by a call of the `didClose`-Method.
+	
+	*/
 	var open:Bool { get }
+	
+	
+	/**
+	
+	Writes the given data into the underlying ressource.
+	
+	The error may be .WouldBlock or .Again, which indicates
+	that the read operation failed because no data is available
+	and non-blocking I/O is used.
+	In this case, the write operation has to be repeated.
+	
+	- parameter data: Data which should be written.
+	
+	- throws: An IOError indicating that the operation failed.
+	
+	*/
 	func write(data: NSData) throws
+	
+	
+	/**
+	
+	Writes the given string encoded by the given encoding
+	into the underlying ressource.
+	
+	The error may be .WouldBlock or .Again, which indicates
+	that the read operation failed because no data is available
+	and non-blocking I/O is used.
+	In this case, the write operation has to be repeated.
+	
+	- parameter string: String which should be written
+	
+	- parameter encoding: Encoding to be used to convert the 
+	string to bytes. By default the string will be encoded
+	using UTF-8 encoding.
+	
+	- throws: An IOError indicating that the operation failed.
+	
+	*/
 	func write(string: String, encoding: UInt) throws
+	
+	
+	/**
+
+	Writes the data at the given pointer into the underlying
+	target. The byteCount specifies that
+	
+	The error may be .WouldBlock or .Again, which indicates
+	that the read operation failed because no data is available
+	and non-blocking I/O is used.
+	In this case, the write operation has to be repeated.
+	
+	- parameter data: Pointer to the data to be written
+	
+	- parameter byteCount: Number of bytes to be written
+	
+	- throws: An IOError indicating that the operation failed.
+	
+	*/
 	func write(data: UnsafePointer<Void>, lengthInBytes byteCount: Int) throws
+	
+	
+	/**
+
+	Writes the given StreamWritable-object into the underlying
+	target.
+	
+	The error may be .WouldBlock or .Again, which indicates
+	that the read operation failed because no data is available
+	and non-blocking I/O is used.
+	In this case, the write operation has to be repeated.
+	
+	- parameter streamWritable: The object to be written.
+	
+	- throws: An IOError indicating that the operation failed.
+	
+	*/
 	func write(streamWritable: StreamWritable) throws
+	
+	
+	/**
+	
+	Writes the given string followed by a newline
+	encoded by the given encoding into the underlying ressource.
+	
+	The error may be .WouldBlock or .Again, which indicates
+	that the read operation failed because no data is available
+	and non-blocking I/O is used.
+	In this case, the write operation has to be repeated.
+	
+	- parameter string: String which should be written. If no string
+	is specified, only a newline will be written.
+	
+	- parameter encoding: Encoding to be used to convert the
+	string to bytes. By default the string will be encoded
+	using UTF-8 encoding.
+	
+	- throws: An IOError indicating that the operation failed.
+	
+	*/
 	func writeln(string: String, encoding: UInt) throws
-	func flush() throws
+	
+	
+	/**
+
+	Closes the stream and releases any associated ressources.
+	
+	Subsequent calls to the write-function should fail with
+	an IOError.
+	
+	If the stream writes into a socket, the socket should be notified
+	of this operation so it can be closed automatically if both streams
+	are closed.
+	
+	*/
 	func close()
+	
 }
 
+
+/**
+
+Extension of the OutputStream protocol
+for the default implementation of write-function
+overloads.
+
+*/
 public extension OutputStream
 {
+
+	/**
+	
+	Writes the given data into the underlying ressource.
+	
+	The error may be .WouldBlock or .Again, which indicates
+	that the read operation failed because no data is available
+	and non-blocking I/O is used.
+	In this case, the write operation has to be repeated.
+	
+	- parameter data: Data which should be written.
+	
+	- throws: An IOError indicating that the operation failed.
+	
+	*/
 	public func write(data: NSData) throws
 	{
 		try write(data.bytes, lengthInBytes: data.length)
 	}
 	
+	
+	/**
+	
+	Writes the data at the given pointer into the underlying
+	target. The byteCount specifies that
+	
+	The error may be .WouldBlock or .Again, which indicates
+	that the read operation failed because no data is available
+	and non-blocking I/O is used.
+	In this case, the write operation has to be repeated.
+	
+	- parameter data: Pointer to the data to be written
+	
+	- parameter byteCount: Number of bytes to be written
+	
+	- throws: An IOError indicating that the operation failed.
+	
+	*/
 	public func write(string: String, encoding: UInt = NSUTF8StringEncoding) throws
 	{
 		guard let data = string.dataUsingEncoding(encoding)
@@ -57,6 +233,27 @@ public extension OutputStream
 		try write(data)
 	}
 	
+	
+	/**
+	
+	Writes the given string followed by a newline
+	encoded by the given encoding into the underlying ressource.
+	
+	The error may be .WouldBlock or .Again, which indicates
+	that the read operation failed because no data is available
+	and non-blocking I/O is used.
+	In this case, the write operation has to be repeated.
+	
+	- parameter string: String which should be written. If no string
+	is specified, only a newline will be written.
+	
+	- parameter encoding: Encoding to be used to convert the
+	string to bytes. By default the string will be encoded
+	using UTF-8 encoding.
+	
+	- throws: An IOError indicating that the operation failed.
+	
+	*/
 	public func writeln(string: String = "", encoding: UInt = NSUTF8StringEncoding) throws
 	{
 		guard let data = "\(string)\r\n".dataUsingEncoding(encoding)
@@ -67,15 +264,56 @@ public extension OutputStream
 		try write(data)
 	}
 	
+	
+	/**
+	
+	Writes the given StreamWritable-object into the underlying
+	target.
+	
+	The error may be .WouldBlock or .Again, which indicates
+	that the read operation failed because no data is available
+	and non-blocking I/O is used.
+	In this case, the write operation has to be repeated.
+	
+	- parameter streamWritable: The object to be written.
+	
+	- throws: An IOError indicating that the operation failed.
+	
+	*/
 	public func write(streamWritable: StreamWritable) throws
 	{
 		try streamWritable.write(toStream: self)
 	}
+	
 }
 
+
+/**
+
+Protocol for stream-serialization
+of objects.
+
+A type implementing this protocol
+can write itself into an OutputStream.
+
+If an object should also 
+be stream-deserializable, it must implement the
+StreamReadable-protocol.
+
+*/
 public protocol StreamWritable
 {
+	
+	/**
+
+	Writes the object into the given stream.
+	
+	If any write operation fails,
+	this method may throw an IOError.
+	
+	*/
 	func write(toStream outputStream: OutputStream) throws
+	
 }
 
 internal class SocketOutputStreamImpl : OutputStream
@@ -103,29 +341,6 @@ internal class SocketOutputStreamImpl : OutputStream
 		
 		DEBUG_HEXDUMP ?-> print("Write:\n\(hex(data, length: byteCount))")
 		
-		
-//		var bytePosition = 0
-//		while bytePosition < byteCount
-//		{
-//			print("Copying from input buffer at offset \(bytePosition)")
-//			print("Copying into write buffer at offset \(buffer_count)")
-//			let offsetTarget = buffer.advancedBy(buffer_count)
-//			let offsetSource = data.advancedBy(bytePosition)
-//			let numBytes = min(bufferSize - buffer_count, byteCount - bytePosition)
-//			print("Copying \(numBytes) bytes")
-//			bytePosition += numBytes
-//			buffer_count = (buffer_count + numBytes) % bufferSize
-//			print("Advancing buffer count to \(buffer_count)")
-//			memcpy(offsetTarget, offsetSource, numBytes)
-//			if buffer_count == 0
-//			{
-//				print("Flushing buffer.")
-//				try flush()
-//			}
-//		}
-//		try flush()
-//		
-		
 		var advance = 0
 		repeat
 		{
@@ -149,57 +364,6 @@ internal class SocketOutputStreamImpl : OutputStream
 			}
 		}
 		while advance < byteCount
-	}
-	
-	internal func flush() throws
-	{
-//		var data_count = 0
-//		var advance = 0
-//		
-//		repeat
-//		{
-//			let maxCount = (buffer_count == 0 ? bufferSize : buffer_count) - advance
-//			data_count = Darwin.write(handle, buffer.advancedBy(advance), maxCount)
-//			advance += max(data_count, 0)
-//		}
-//		while /*data_count < 0 && (errno == EAGAIN || errno == EINTR) &&*/ advance < buffer_count
-//		
-//		print("Flushed buffer.")
-//		
-//		buffer_count = 0
-//		
-//		if data_count < 0
-//		{
-//			switch errno
-//			{
-//			case EBADF:
-//				throw IOError.InvalidSocket
-//			case EBADMSG:
-//				throw IOError.BadMessage
-//			case EINVAL:
-//				throw IOError.Invalid
-//			case EIO:
-//				throw IOError.Physical
-//			case EOVERFLOW:
-//				throw IOError.Overflow
-//			case ECONNRESET:
-//				throw IOError.ConnectionReset
-//			case ENOTCONN:
-//				throw IOError.NotConnected
-//			case ETIMEDOUT:
-//				throw IOError.TimedOut
-//			case ENOBUFS:
-//				throw IOError.InsufficientRessources
-//			case ENOMEM:
-//				throw IOError.OutOfMemory
-//			case EFBIG:
-//				throw IOError.TooBig
-//			case ENXIO:
-//				throw IOError.NonexistentDevice
-//			default:
-//				throw IOError.Unknown
-//			}
-//		}
 	}
 	
 	internal func close()
