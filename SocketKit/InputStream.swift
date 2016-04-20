@@ -230,7 +230,7 @@ internal class SocketInputStreamImpl : InputStream
 	Socket, from which this stream reads data.
 	
 	If the stream is closed, the socket will be notified of this
-	and close, if both streams are closed.
+	and close itself, if both streams are closed.
 	
 	*/
 	internal weak var socket: Socket?
@@ -238,7 +238,7 @@ internal class SocketInputStreamImpl : InputStream
 	
 	/**
 
-	Specifies, if this stream is open and data can be written to it.
+	Specifies, if this stream is open and data can be read from it.
 	
 	If the stream is closed and a read operation is initiated, 
 	an IOError will be thrown.
@@ -330,7 +330,7 @@ internal class SocketInputStreamImpl : InputStream
 	
 	- parameter maxByteCount: Maximum number of bytes to read.
 	
-	- throws: An IOError indicating that the read operation has failed.
+	- throws: An IOError indicating that the read operation failed.
 	
 	- returns: An array of chars containing the data which was read.
 	
@@ -374,7 +374,8 @@ internal class SocketInputStreamImpl : InputStream
 	
 	/**
 
-	Closes the stream manually.
+	Closes the stream manually and shuts down the socket
+	so no more read calls are possible.
 	
 	Subsequent calls to the read-function function will fail.
 	

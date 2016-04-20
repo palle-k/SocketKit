@@ -27,9 +27,33 @@ import CoreFoundation
 import Darwin
 import Foundation
 
-internal var DEBUG = Process.arguments.contains("-skdebug")
-internal var DEBUG_HEXDUMP = Process.arguments.contains("-skdebug-hexdump")
 
+/**
+
+Flag which indicates if debug output should be written to the console.
+
+*/
+internal let DEBUG = Process.arguments.contains("-skdebug")
+
+
+/**
+
+Flag which indicates if all written and read data should be written to the
+console in hexadecimal notation.
+
+*/
+internal let DEBUG_HEXDUMP = Process.arguments.contains("-skdebug-hexdump")
+
+
+/**
+
+Casts a sockaddr to a sockaddr_in.
+
+- parameter addr: Address which should be converted
+
+- returns: Converted address as a sockaddr_in instance.
+
+*/
 internal func sockaddr_cast(inout addr: sockaddr) -> sockaddr_in
 {
 	return withUnsafePointer(&addr)
@@ -39,6 +63,12 @@ internal func sockaddr_cast(inout addr: sockaddr) -> sockaddr_in
 		return sockaddr_in_result
 	}
 }
+
+//TODO: Add all these cipher suites to the enum.
+//Group them by the amount of security they provide
+//Deprecate insecure suites.
+//Create arrays of suites, which should be used in the best case.
+//(Forward secrecy, eliptic curve diffie hellmann, etc...)
 
 /*
 typedef UInt32 SSLCipherSuite;
@@ -276,55 +306,240 @@ public enum TLSCipherSuite
 	
 }
 */
-//Name this properly
+
+
+/**
+
+Error type for errors which occurred while working with data.
+
+*/
+//TODO: Name this properly
 public enum DataError : ErrorType
 {
+	
+	/**
+	
+	Indicates that an error occurred during string conversion.
+	
+	This may happen, if it is not possible to encode all characters
+	in a string with a specified format.
+	
+	*/
 	case StringConversion
 }
 
+
+/**
+
+Error type for errors which occurred while working with sockets and streams.
+
+*/
 public enum IOError : ErrorType
 {
 	//Internal errors
 
-	case InvalidSocket
-	case BadMessage
-	case Invalid
-	case Overflow
-	case InsufficientRessources
-	case OutOfMemory
-	case TooBig
+	/**
 
+	Indicates that the socket handle which is used
+	is not correct and does not belong to a socket
+	
+	*/
+	case InvalidSocket
+	
+	
+	/**
+
+	Indicates that an input stream received a bad message.
+	
+	*/
+	case BadMessage
+	
+	
+	/**
+
+	Indicates that an invalid operation was executed.
+	
+	*/
+	case Invalid
+	
+	
+	/**
+
+	Indicates that a buffer overflow occurred.
+	
+	*/
+	case Overflow
+	
+	
+	/**
+
+	Indicates that not enough ressources are available to handle a socket.
+	
+	*/
+	case InsufficientRessources
+	
+	
+	/**
+
+	Indicates that not enough memory is available to handle a socket.
+	
+	*/
+	case OutOfMemory
+	
+	
 	//Network errors
 
+	
+	/**
+
+	Indicates that the target 
+	of a stream or a socket does not exist.
+	
+	*/
 	case NonexistentDevice
+	
+	
+	/**
+
+	Indicates that the process does not have the appropriate
+	privileges to access the peer.
+	
+	*/
 	case InsufficientPermissions
+	
+	
+	/**
+
+	Indicates that the network is down.
+	
+	*/
 	case NetworkDown
+	
+	
+	/**
+
+	Indicates that there is no route to the peer
+	of a socket.
+	
+	*/
 	case NoRoute
+	
+	
+	/**
+
+	Indicates that a socket is no longer connected.
+	
+	*/
 	case ConnectionReset
+	
+	
+	/**
+
+	Indicates that a socket is not connected.
+	
+	*/
 	case NotConnected
+	
+	
+	/**
+
+	Indicates that the connection timed out.
+	
+	*/
 	case TimedOut
+	
+	
+	/**
+
+	Indicates that a physical I/O error occurred.
+	
+	*/
 	case Physical
+	
+	
+	/**
+
+	Indicates that the connection is broken.
+	
+	*/
 	case BrokenPipe
+	
+	
+	/**
+
+	Indicates that the peer cannot be reached.
+	
+	*/
+	case Unreachable
 
 	//End of stream error
 
+	
+	/**
+
+	Indicates that the end of the transmission was reached.
+	
+	*/
 	case EndOfFile
 
 	//Non-fatal errors
 
+	
+	/**
+
+	Indicates that an operation on the socket was interrupted by the system.
+	This error is not fatal and the operation should be tried again.
+	
+	*/
 	case Interrupted
+	
+	
+	/**
+
+	Indicates that a read or write operation could not be initiated because the
+	socket is busy and the thread which performs the operation would be blocked.
+	This error is not fatal and the operation should be tried again.
+	
+	*/
 	case Again
+	
+	
+	/**
+	
+	Indicates that a read or write operation could not be initiated because the
+	socket is busy and the thread which performs the operation would be blocked.
+	This error is not fatal and the operation should be tried again.
+	
+	*/
 	case WouldBlock
 
 	//Other
 
+	
+	/**
+
+	Indicates an unknown error.
+	
+	*/
 	case Unknown
 	
+	
+	/**
+
+	Returns a SSLError associated with the current IOError case.
+	
+	A SSLError can be converted back into an IOError with the
+	`IOError.FromSSLError(error) -> IOError`-function.
+	
+	**Note:** This conversion is not lossless and some error types
+	may be converted to the same sslError.
+	
+	*/
 	internal var sslError:OSStatus
 	{
 		switch self
 		{
-		case .InvalidSocket, .Overflow, .InsufficientRessources, .OutOfMemory, .TooBig, .Invalid:
+		case .InvalidSocket, .Overflow, .InsufficientRessources, .OutOfMemory, .Invalid:
 			return errSSLInternal
 		case .BadMessage:
 			return errSSLPeerUnexpectedMsg
@@ -343,6 +558,51 @@ public enum IOError : ErrorType
 		}
 	}
 	
+	
+	/**
+
+	Converts a SSLError to an IOError.
+	
+	**Note:** This conversion is not lossless and some error types
+	may be converted to the same sslError.
+	
+	- parameter error: The OSStatus-SSLError
+	
+	- returns: An IOError corresponding to the provided OSStatus.
+	
+	*/
+	static internal func FromSSlError(error: OSStatus) -> IOError
+	{
+		switch error
+		{
+		case errSSLInternal:
+			return .Invalid
+		case errSSLConnectionRefused:
+			return .NoRoute
+		case errSSLPeerUnexpectedMsg:
+			return .BadMessage
+		case errSSLClosedAbort:
+			return .BrokenPipe
+		case errSSLWouldBlock:
+			return .WouldBlock
+		case errSSLClosedGraceful:
+			return .EndOfFile
+		case errSSLPeerAccessDenied:
+			return .InsufficientPermissions
+		default:
+			return .Unknown
+		}
+	}
+	
+	
+	/**
+
+	Creates an IOError based on the current value of the
+	errno global.
+	
+	- returns: The error corresponding to the current errno-value.
+	
+	*/
 	static internal func FromCurrentErrno() -> IOError
 	{
 		switch errno
@@ -355,6 +615,10 @@ public enum IOError : ErrorType
 			return IOError.Invalid
 		case EIO:
 			return IOError.Physical
+		case ENETDOWN:
+			return IOError.NetworkDown
+		case ENETUNREACH:
+			return IOError.Unreachable
 		case EOVERFLOW:
 			return IOError.Overflow
 		case ECONNRESET:
@@ -383,33 +647,145 @@ public enum IOError : ErrorType
 	}
 }
 
+
+/**
+
+An error type indicating an error
+associated with a socket operation.
+
+These errors are not very likely to occur.
+
+*/
 public enum SocketError : ErrorType
 {
+	
+	/**
+
+	Indicates that a flag of a socket could not be retrieved or set.
+	
+	*/
 	case Flags
+	
+	
+	/**
+
+	Indicates that an error occurred while allowing 
+	a socket address to be reused.
+	
+	*/
 	case Reuse
+	
+	
+	/**
+
+	Indicates that a socket could not be bound.
+	
+	*/
 	case Bind
+	
+	
+	/**
+
+	Indicates that an error occurred while trying to retrieve or set
+	the nonblocking-property of a socket.
+	
+	*/
 	case Nonblocking
+	
+	
+	/**
+
+	Indicates that an error occurred while trying to make a socket listen.
+	
+	*/
 	case Listen
+	
+	
+	/**
+
+	Indicates that an error occurred while trying to accept a new connection.
+	
+	*/
 	case Accept
+	
+	
+	/**
+
+	Indicates that an error occurred while trying to open a socket.
+	
+	*/
 	case Open
 }
 
+
+/**
+
+Currently not used.
+
+*/
 public enum DNSError : ErrorType
 {
 	case InvalidAddress
 	case LookupFailed(info: String?)
 }
 
+
+/**
+
+An error type for errors which may occurr during a TLS/SSL session.
+
+*/
 public enum TLSError : ErrorType
 {
+	
+	/**
+
+	Indicates that a TLS/SSL session could not be created.
+	
+	*/
 	case SessionNotCreated
+	
+	
+	/**
+
+	Indicates that the TLS/SSL handshake 
+	between the server and the client failed.
+	
+	*/
 	case HandshakeFailed
+	
+	
+	/**
+
+	Indicates that a certificate could not be loaded.
+	
+	*/
 	case ImportFailed
+	
+	
+	/**
+
+	Indicates that a certificate could not be loaded because 
+	the data cannot be accessed.
+	
+	*/
 	case DataNotAccessible
+	
+	
+	/**
+
+	Indicates an unknown TLS/SSL error.
+	
+	*/
 	case Unknown
 }
 
 
+/**
+
+Functions for the conversion between host byte order and network byte order
+
+*/
 internal let isLittleEndian = Int(OSHostByteOrder()) == OSLittleEndian
 
 internal let htons  = isLittleEndian ? _OSSwapInt16 : { $0 }
@@ -419,8 +795,41 @@ internal let ntohs  = isLittleEndian ? _OSSwapInt16 : { $0 }
 internal let ntohl  = isLittleEndian ? _OSSwapInt32 : { $0 }
 internal let ntohll = isLittleEndian ? _OSSwapInt64 : { $0 }
 
+
+/**
+
+Custom operator for short conditional statements.
+
+*/
 infix operator ?-> { associativity left precedence 50 }
 
+
+/**
+
+Conditional statement operator
+
+Executes the closure on the right if the condition on the left is true.
+
+The type returned by this operation is an optional type of the
+type returned by the right side.
+
+The right side can be written using autoclosures so
+
+	condition ?-> doSomethingConditionally()
+
+is a valid statement.
+
+- parameter left: A boolean as a condition for the operation on the right.
+If the condition is true, the right side is executed and the result is
+returned.
+
+If the condition is false, nil will be returned.
+
+- parameter right: Function which should be executed conditionally.
+
+- returns: Optional result of the right function.
+
+*/
 @inline(__always) internal func ?-> <Result>(left: Bool, @autoclosure right: () throws -> Result) rethrows -> Result?
 {
 	if left
@@ -430,6 +839,20 @@ infix operator ?-> { associativity left precedence 50 }
 	return nil
 }
 
+
+/**
+
+Converts data from memory into a hexadecimal string.
+
+Bytes are grouped and always represented with 2 characters.
+
+- parameter data: Data which should be represented as a hexadecimal string
+
+- parameter length: Number of bytes which should be represented as hex.
+
+- returns: A string of hexadecimal bytes.
+
+*/
 internal func hex(data: UnsafePointer<Void>, length: Int) -> String
 {
 	var chars = Array<UInt8>(count: length, repeatedValue: 0)
@@ -438,6 +861,18 @@ internal func hex(data: UnsafePointer<Void>, length: Int) -> String
 	return reduced
 }
 
+
+/**
+
+Converts data from the provided array to a hexadecimal string.
+
+Bytes are grouped and always represented with 2 characters.
+
+- parameter data: Data which should be represented as a hexadecimal string
+
+- returns: A string of hexadecimal bytes.
+
+*/
 internal func hex(data: [CChar]) -> String
 {
 	return hex(data, length: data.count)

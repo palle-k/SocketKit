@@ -28,27 +28,120 @@ import Security
 
 public class TLSOutputStream : OutputStream
 {
+	
+	/**
+	
+	Creates a TLS/SSL session for the provided streams.
+	
+	This currently works for server side only.
+	
+	The provided Certificates are used for encryption.
+	
+	When creating an encrypted stream pair, a handshake will automatically be performed.
+	If the handshake fails, a TLSError will be thrown.
+	
+	- parameter inputStream: Input stream which should be used as an underlying stream to the TLS/SSL input stream.
+	Reads the encrypted data.
+	
+	- parameter outputStream: Output stream which should be used as an underlying stream to the TLS/SSL output stream.
+	The encrypted data will be written to it.
+	
+	- parameter certificates: Array of certificates for encryption. The first certificate has to contain a private key used for
+	decryption. A private key will automatically be included if the certificate is loaded from a PKCS12-file.
+	
+	- throws: A TLSError indicating that the TLS/SSL session could not be created.
+	
+	- returns: An encrypted input and output stream.
+	
+	*/
 	public class func CreateStreamPair(fromInputStream inputStream: InputStream, outputStream: OutputStream, certificates: [Certificate]) throws -> (inputStream: TLSInputStream, outputStream: TLSOutputStream)
 	{
 		return try TLSInputStream.CreateStreamPair(fromInputStream: inputStream, outputStream: outputStream, certificates: certificates)
 	}
 	
-	public let underlyingStream: OutputStream
-	internal let context: SSLContext
-	internal weak var inputStream: TLSInputStream?
-	private var error:ErrorType?
 	
+	/**
+	
+	Underlying stream of the encrypted stream.
+	
+	Writes data to a source which is TLS/SSL encrypted.
+	
+	Data written to the TLSOutputStream will be encrypted
+	and written to this underlying stream.
+	
+	*/
+	public let underlyingStream: OutputStream
+	
+	
+	/**
+	
+	Context of the TLS/SSL connection.
+	
+	The TLS/SSL session context object references the state associated with a session.
+	
+	*/
+	internal let context: SSLContext
+	
+	
+	/**
+	
+	The encrypted input stream.
+	
+	The input and output stream require each other
+	to work so if one stream is closed, the other will also be closed.
+	
+	*/
+	internal weak var inputStream: TLSInputStream?
+	
+	
+	
+	
+	/**
+	
+	Specifies, if this stream is open and data can be written to it.
+	
+	If the stream is closed and a write operation is initiated,
+	an IOError will be thrown.
+	
+	*/
 	public var open: Bool
 	{
 		return self.underlyingStream.open
 	}
 	
+	
+	/**
+	
+	Initializes an encrypted output stream with a stream to write to
+	and a TLS/SSL context which stores the connection state.
+	read buffer, which has a default size of 4096 bytes.
+	
+	- parameter stream: Output stream to write to.
+	
+	- parameter context: The TLS/SSL context.
+	
+	*/
 	internal init(withStream stream: OutputStream, context: SSLContext)
 	{
 		self.underlyingStream = stream
 		self.context = context
 	}
 	
+	
+	/**
+
+	Encrypts the provided data and writes it to the underlying stream.
+	
+	If the operation fails, an IOError is thrown.
+	
+	If an .Interrupted error is thrown, the operation
+	has to be tried again.
+	
+	- parameter data: Data which should be encrypted and written to the stream.
+	
+	- parameter byteCount: Number of bytes to encrypt and write.
+	
+	*/
 	public func write(data: UnsafePointer<Void>, lengthInBytes byteCount: Int) throws
 	{
 		var processed = 0
@@ -67,53 +160,71 @@ public class TLSOutputStream : OutputStream
 				{
 					continue
 				}
-				else if let error = error
-				{
-					self.error = nil
-					throw error
-				}
 				else
 				{
-					throw IOError.Unknown
+					throw IOError.FromSSlError(status)
 				}
 			}
 			processed += max(written, 0)
 		}
 	}
 	
+	
+	/**
+	
+	Closes the stream manually and shuts down the underlying stream
+	so no more write calls are possible.
+	
+	Subsequent calls to the write-function function will fail.
+	
+	This operation also closes the underlying stream.
+	
+	*/
 	public func close()
 	{
 		self.inputStream?.close()
 		self.underlyingStream.close()
 	}
 	
+	
+	/**
+
+	Writes encrypted data to the underlying stream.
+	
+	- parameter connection: Connection info
+	
+	- parameter data: Pointer to the data which should be written.
+	
+	- parameter length: Pointer to the number of bytes which should
+	maximally be written. After reading, the value in memory should indicate
+	how many bytes were written.
+	
+	- returns: Result code of the read function.
+	If no error occurred, noErr will be returned.
+	
+	*/
 	internal func writeFunc(connection: SSLConnectionRef, data: UnsafePointer<Void>, length: UnsafeMutablePointer<Int>) -> OSStatus
 	{
 		do
 		{
 			DEBUG ?-> print("SSL - write: \(length.memory) bytes")
-			//DEBUG_HEXDUMP ?-> print("SSL - write: \(hex(data, length: length.memory))")
 			try underlyingStream.write(data, lengthInBytes: length.memory)
 			return noErr
 		}
 		catch
 		{
-			self.error = error
+			let error = error as? IOError
 			DEBUG ?-> print("SSL - write: Error - \(error)")
-			switch error
-			{
-			case IOError.WouldBlock, IOError.Again, IOError.Interrupted:
-				return errSSLWouldBlock
-			case IOError.NotConnected:
-				return errSSLConnectionRefused
-			case IOError.EndOfFile:
-				return errSSLClosedGraceful
-			default:
-				return errSSLInternal
-			}
+			return error?.sslError ?? errSSLInternal
 		}
 	}
 	
+	
+	/**
+	
+	The stream will be closed when it is deallocated.
+	
+	*/
 	deinit
 	{
 		close()

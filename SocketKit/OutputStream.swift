@@ -311,30 +311,90 @@ public protocol StreamWritable
 	If any write operation fails,
 	this method may throw an IOError.
 	
+	- parameter outputStream: Stream to write this object to
+	
+	- throws: An IOError indicating that the operation failed.
+	
 	*/
 	func write(toStream outputStream: OutputStream) throws
 	
 }
 
+
+/**
+
+Implementation of the OutputStream protocol for 
+writing into a POSIX-socket.
+
+*/
 internal class SocketOutputStreamImpl : OutputStream
 {
+	
+	/**
+	
+	The posix socket handle for network writing.
+	
+	*/
 	private let handle: Int32
-	private let buffer: UnsafeMutablePointer<CChar>
-	private let bufferSize: Int
-	private var buffer_count: Int
+	
+	
+	/**
+	
+	Socket, to which this stream writes data.
+	
+	If the stream is closed, the socket will be notified of this
+	and close itself, if both streams are closed.
+	
+	*/
 	private weak var socket: Socket?
+	
+	
+	/**
+	
+	Specifies, if this stream is open and data can be written to it.
+	
+	If the stream is closed and a write operation is initiated,
+	an IOError will be thrown.
+	
+	*/
 	internal private(set) var open = false
 	
-	internal init(socket: Socket, handle: Int32, bufferSize: Int = 2048)
+	
+	/**
+	
+	Initializes the stream with the socket to write to
+	and the POSIX-socket handle for write operations.
+	
+	- parameter socket: The socket to which this stream writes.
+	
+	- parameter handle: The POSIX-socket handle for write operations.
+	
+	*/
+	internal init(socket: Socket, handle: Int32)
 	{
 		self.socket = socket
 		self.handle = handle
-		buffer = UnsafeMutablePointer<CChar>.alloc(bufferSize)
-		buffer_count = 0
-		self.bufferSize = bufferSize
 		self.open = true
 	}
 	
+	
+	/**
+
+	Writes the given data of the specified length into
+	the underlying POSIX-socket.
+	
+	If the operation fails, an IOError is thrown.
+	
+	If an .Interrupted error is thrown, the operation
+	has to be repeated.
+	
+	- parameter data: Pointer to the data to be written.
+	
+	- parameter byteCount: Number of bytes to be written.
+	
+	- throws: An IOError indicating that the write operation failed.
+	
+	*/
 	internal func write(data: UnsafePointer<Void>, lengthInBytes byteCount: Int) throws
 	{
 		assert(byteCount >= 0, "Byte count must be greater than or equal to zero.")
@@ -366,15 +426,28 @@ internal class SocketOutputStreamImpl : OutputStream
 		while advance < byteCount
 	}
 	
+	
+	/**
+	
+	Closes the stream manually and shuts down the socket
+	so no more write calls are possible.
+	
+	Subsequent calls to the write-function function will fail.
+	*/
 	internal func close()
 	{
 		guard open else { return }
 		open = false
-		buffer.dealloc(bufferSize)
 		shutdown(handle, SHUT_WR) < 0
 		socket?.checkStreams()
 	}
 	
+	
+	/**
+	
+	When deinitialized, the stream will be closed.
+	
+	*/
 	deinit
 	{
 		close()

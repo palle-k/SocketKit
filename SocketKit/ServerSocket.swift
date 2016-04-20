@@ -28,25 +28,148 @@ import CoreFoundation
 import Darwin
 import Foundation
 
+
+/**
+
+Delegate for a server socket.
+
+The delegate of a server socket will receive notifications
+about new connections or errors.
+
+*/
 public protocol ServerSocketDelegate
 {
+	
+	/**
+
+	The delegate is notified that the server accepted a new connection by 
+	getting a call to this method.
+	
+	- parameter serverSocket: The server socket which received the connection.
+	
+	- paramerer socket: Socket of the new connection.
+	
+	*/
 	func serverSocket(serverSocket: ServerSocket, didAcceptConnectionWithSocket socket: Socket)
+	
+	
+	/**
+
+	The delegate is notified about an error which occurred by getting a
+	call to this method.
+	
+	- parameter serverSocket: The server socket which is affected by the error.
+	
+	- parameter error: The error which was encountered.
+	
+	*/
 	func serverSocket(serverSocket: ServerSocket, didFailToAcceptConnectionWithError error: SocketError)
 }
 
-public class ServerSocket
+
+/**
+
+A server socket which accepts TCP/IP connections coming to 
+the device on the specified port.
+
+A server socket automatically listens for IPv4 and IPv6 connections.
+
+The server socket listens asynchronously in the background and
+will notify the delegate about new connections.
+
+*/
+public class ServerSocket : CustomStringConvertible
 {
+	
+	/**
+
+	The handle of the IPv4 server socket
+	
+	*/
 	private let socket_ipv4:Int32
+	
+	
+	/**
+
+	The handle of the IPv6 server socket
+	
+	*/
 	private let socket_ipv6:Int32
 	
+	
+	/**
+
+	The address of the IPv4 server socket.
+	
+	The address contains the port on which the server socket listens.
+	
+	*/
 	private var address_in_ipv4:sockaddr_in
+	
+	
+	/**
+	
+	The address of the IPv6 server socket.
+	
+	The address contains the port on which the server socket listens.
+	
+	*/
 	private var address_in_ipv6:sockaddr_in6
 	
+	
+	/**
+
+	Dispatch source which listens for new connections
+	on the IPv4 server socket.
+	
+	*/
 	private var dispatch_source_ipv4:dispatch_source_t!
+	
+	
+	/**
+
+	Dispatch source which listens for new connections
+	on the IPv6 server socket.
+	
+	*/
 	private var dispatch_source_ipv6:dispatch_source_t!
 	
+	
+	/**
+
+	Delegate, which is notified about new connections
+	and errors which occurred on this server socket
+	
+	*/
 	public var delegate:ServerSocketDelegate?
 	
+	
+	public var description: String
+	{
+		return "ServerSocket (listening on port \(self.address_in_ipv4.sin_port))"
+	}
+	
+	
+	/**
+
+	Initializes a new server socket which listens on the specified port.
+	
+	This method may throw a SocketError, if the server socket could not be opened.
+	If this happens, make sure that no other service already listens on this port.
+	
+	A server socket automatically listens for IPv4 and IPv6 connections.
+
+	**If a port below 1024 is used, the process has to be launched with root permissions.**
+	
+	For HTTP port 80 should be used.
+	
+	For HTTPS port 443 should be used.
+	
+	- parameter port: Port on which the server socket should listen.
+	
+	- throws: A SocketError indicating that the server socket could not be opened
+	
+	*/
 	public init(port: UInt16) throws
 	{
 		signal(SIGPIPE, SIG_IGN)
@@ -166,12 +289,34 @@ public class ServerSocket
 		dispatch_resume(dispatch_source_ipv6)
 	}
 	
+	
+	/**
+
+	The server socket is closed when 
+	it is released.
+	
+	*/
 	deinit
 	{
 		close()
 	}
 	
-	func acceptConnection(server_socket: Int32)
+	
+	/**
+
+	Accepts a new connection and tries to create a socket
+	object for it.
+	
+	On success, the delegate is notified and the created socket is
+	passed to the delegate.
+	
+	On failure, the delegate is notified and the error
+	is passed to the delegate.
+	
+	- parameter server_socket: The server socket which received a new connection
+	
+	*/
+	private func acceptConnection(server_socket: Int32)
 	{
 		var address = sockaddr()
 		var address_length = socklen_t(sizeof(address.dynamicType))
@@ -190,6 +335,14 @@ public class ServerSocket
 		}
 	}
 	
+	
+	/**
+
+	Closes the server socket so no more connections can be made to it.
+	
+	After the server socket was closed, other server sockets may be opened on the same port.
+	
+	*/
 	public func close()
 	{
 		Darwin.close(socket_ipv4)

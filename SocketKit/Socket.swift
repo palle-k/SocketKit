@@ -28,15 +28,104 @@ import Darwin
 import Foundation
 
 
+/**
+
+Socket: Endpoint of a TCP/IP connection.
+
+Data can be read from the socket with the input stream
+provided as a property of a socket instance.
+
+Data can be written to the socket with the output stream
+provided as a property of a socket instance.
+
+*/
 public class Socket : CustomStringConvertible, Equatable
 {
+	
+	/**
+
+	The POSIX-socket handle of this socket.
+	
+	Input and output streams use this for read
+	and write operations.
+	
+	*/
 	private let handle: Int32
+	
+	
+	/**
+
+	The address of the socket.
+	
+	Contains port and ip information
+	
+	*/
 	private var address: sockaddr
+	
+	
+	/**
+
+	Host address of the peer.
+	
+	Only used for outgoing connections.
+	
+	*/
 	public private(set) var hostAddress: String?
 	
+	
+	/**
+
+	The input stream of the socket.
+	
+	Incoming data can be read from it.
+	
+	If the socket uses non-blocking I/O,
+	a delegate should be used to receive notifications about
+	incoming data.
+	
+	
+	*/
 	public private(set) var inputStream: InputStream!
+	
+	/**
+	
+	The output stream of the socket.
+	
+	Can write data to the socket.
+	
+	If the socket uses non-blocking I/O,
+	the operation may fail and a 
+	.WouldBlock or .Again IOError may be thrown.
+	The operation must then be tried again.
+	
+	*/
 	public private(set) var outputStream: OutputStream!
 	
+	
+	/**
+	
+	Indicates, if non-blocking I/O is used
+	or en-/disables non-blocking I/O.
+	
+	If non-blocking I/O is used, reading
+	from the socket may not return any data
+	and writing may fail because it would otherwise
+	block the current thread.
+	
+	In this case, a .WouldBlock or .Again
+	IOError will be thrown. 
+	
+	The operation must be repeated until it was successful.
+	
+	For read operations, the delegate of the stream should be used
+	for efficient reading.
+	
+	- parameter new: Specifies, if the socket should be non-blocking or not.
+	A value of true sets the socket to nonblocking mode, false to blocking mode.
+	
+	- returns: true, if the socket is nonblocking, false if it is blocking.
+	
+	*/
 	public var nonblocking: Bool
 	{
 		get
@@ -59,6 +148,16 @@ public class Socket : CustomStringConvertible, Equatable
 		}
 	}
 	
+	
+	/**
+
+	Returns the IP address of the peer
+	to which this socket is connected to.
+	
+	The result is a IPv4 or IPv6 address
+	depending on the IP protocol version used.
+	
+	*/
 	public var peerIP:String?
 	{
 		if address.sa_family == sa_family_t(AF_INET)
@@ -79,6 +178,14 @@ public class Socket : CustomStringConvertible, Equatable
 		return nil
 	}
 	
+	
+	/**
+
+	Checks if the socket is open.
+	
+	The socket is open if at least one of the streams associated with this socket is open.
+	
+	*/
 	public var open:Bool
 	{
 		return inputStream.open || outputStream.open
@@ -89,6 +196,20 @@ public class Socket : CustomStringConvertible, Equatable
 		return "Socket (host: \(self.hostAddress ?? "unknown"), ip: \(self.peerIP ?? "unknown"), \(self.open ? "open" : "closed"))\n\t-> \(self.inputStream)\n\t<- \(self.outputStream)"
 	}
 	
+	
+	/**
+
+	Initializes the socket and connects to the address specified in `host`.
+	
+	The `host` address must be an IPv4 address.
+	
+	- parameter host: IPv4 peer address string
+	
+	- parameter port: Port to which the socket should connect.
+	
+	- throws: A SocketError if the socket could not be connected.
+	
+	*/
 	public convenience init(ipv4host host: String, port: UInt16) throws
 	{
 		let handle = Darwin.socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
@@ -122,6 +243,21 @@ public class Socket : CustomStringConvertible, Equatable
 		hostAddress = host
 	}
 	
+	
+	/**
+
+	Initializes a socket with the given handle and address.
+	
+	The handle must be the value of a POSIX-socket.
+	
+	The socket address should contain information about the
+	peer to which this socket is connected.
+	
+	- parameter handle: The POSIX-socket handle.
+	
+	- parameter address: The peer address.
+	
+	*/
 	internal init(handle: Int32, address: sockaddr)
 	{
 		self.handle = handle
@@ -140,11 +276,27 @@ public class Socket : CustomStringConvertible, Equatable
 		outputStream = SocketOutputStreamImpl(socket: self, handle: handle)
 	}
 	
+	
+	/**
+
+	The socket is closed when deallocated.
+	
+	*/
 	deinit
 	{
 		close()
 	}
 	
+	
+	/**
+
+	Manually closes the socket
+	and releases any ressources related to it.
+	
+	Subsequent calls of the streams' read and write
+	functions will fail.
+	
+	*/
 	public func close()
 	{
 		DEBUG ?-> print("Closing socket...")
@@ -153,6 +305,14 @@ public class Socket : CustomStringConvertible, Equatable
 		Darwin.close(handle)
 	}
 	
+	
+	/**
+
+	Checks the status of the streams which read and write from and to this socket.
+	
+	If both streams are closed, the socket will be closed.
+	
+	*/
 	internal func checkStreams()
 	{
 		DEBUG ?-> print("Checking streams. input stream: \(inputStream.open ? "open" : "closed"), output stream: \(outputStream.open ? "open" : "closed")")
@@ -163,6 +323,21 @@ public class Socket : CustomStringConvertible, Equatable
 	}
 }
 
+
+/**
+
+Compares two sockets.
+
+If the handles of the left and right socket are
+equal, true is returned, otherwise falls will be returned.
+
+- parameter left: First socket to compare
+
+- parameter right: Second socket to compare
+
+- returns: The comparison result from the comparison of the two sockets.
+
+*/
 public func == (left: Socket, right: Socket) -> Bool
 {
 	return left.handle == right.handle

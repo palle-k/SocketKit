@@ -4,6 +4,7 @@ SocketKit is a client and server side networking framework for Mac OS X written 
 ## Features
 - Open a server for any application protocol
 - Use secure streams encrypted with TLS/SSL
+- IPv4 and IPv6 support
 
 Documentation coming soon...
 
