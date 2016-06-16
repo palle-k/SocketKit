@@ -233,7 +233,7 @@ internal class SocketInputStreamImpl : InputStream
 	and close itself, if both streams are closed.
 	
 	*/
-	internal weak var socket: Socket?
+	internal unowned var socket: Socket
 	
 	
 	/**
@@ -292,7 +292,7 @@ internal class SocketInputStreamImpl : InputStream
 			self.open = false
 			self.buffer.dealloc(bufferSize)
 			shutdown(handle, SHUT_RD)
-			self.socket?.checkStreams()
+			self.socket.checkStreams()
 			self.delegate?.didClose(self)
 		}
 		dispatch_resume(dispatch_source)
@@ -400,3 +400,183 @@ internal class SocketInputStreamImpl : InputStream
 	}
 	
 }
+
+/**
+
+An input stream which wraps around a 
+system stream.
+
+*/
+internal class SystemInputStream : NSObject, InputStream, NSStreamDelegate
+{
+	
+	/**
+	
+	True, if the stream is open and data can be read.
+	
+	False, if the stream is closed and data cannot be read.
+	Any calls to the read function will fail with an error.
+	
+	If the state of the stream changes, the delegate is notified
+	by a call of the `didClose`-Method.
+	
+	*/
+	var open: Bool
+	
+	
+	/**
+	
+	Delegate for state change notifications.
+	
+	Reports, if new data is available or if the stream was closed.
+	
+	*/
+	var delegate: InputStreamDelegate?
+	
+	
+	/**
+	
+	Buffer for read operations.
+	
+	Reading data from the stream will fill the buffer which is then copied to
+	a char-array.
+	
+	The buffer has a size of `bufferSize`
+	
+	*/
+	private let buffer: UnsafeMutablePointer<CChar>
+	
+	
+	/**
+	
+	Size of the read buffer in bytes.
+	
+	*/
+	private let bufferSize: Int
+	
+	
+	/**
+	
+	Pointer to the insert position of the read buffer relative
+	to the read buffer start pointer.
+	
+	*/
+	private var buffer_count: Int
+	
+	
+	/**
+	
+	Socket, from which this stream reads data.
+	
+	If the stream is closed, the socket will be notified of this
+	and close itself, if both streams are closed.
+	
+	*/
+	internal unowned var socket: Socket
+	
+	
+	private let underlyingStream: NSInputStream
+	
+	init(underlyingStream: NSInputStream, socket: Socket, bufferSize: Int = 4096)
+	{
+		open = true
+		self.underlyingStream = underlyingStream
+		self.socket = socket
+		buffer = UnsafeMutablePointer<CChar>.alloc(bufferSize)
+		self.bufferSize = bufferSize
+		buffer_count = 0
+		
+		super.init()
+		
+		underlyingStream.delegate = self
+	}
+	
+	
+	/**
+	
+	Read data from the stream.
+	
+	The length of the returned array has a maximum length of `maxByteCount`.
+	
+	If an error occurred, an IOError will be thrown.
+	
+	The thrown IOError may be `IOError.WouldBlock`, `IOError.Again`
+	or `IOError.Interrupted`. This occurs, if no data is available and
+	the read-operation should be tried again.
+	To avoid `IOError.WouldBlock` or `IOError.Again`, use the delegate
+	to receive notifications about incoming data or use blocking I/O.
+	
+	- parameter maxByteCount: Maximum number of bytes to read.
+	
+	- returns: An array of bytes which were read as CChar (Int8)
+	
+	- throws: An IOError if the read operation failed.
+	
+	*/
+	func read(maxByteCount: Int) throws -> [CChar]
+	{
+		if !open
+		{
+			throw IOError.NotConnected
+		}
+		
+		let dataCount = underlyingStream.read(UnsafeMutablePointer<UInt8>(buffer), maxLength: bufferSize)
+		if dataCount > 0
+		{
+			DEBUG ?-> print("Reading \(dataCount) bytes from socket...")
+			var data = [CChar](count: dataCount, repeatedValue: 0)
+			memcpy(&data, buffer, dataCount)
+			DEBUG_HEXDUMP ?-> print("Read:\n\(hex(data))")
+			return data
+		}
+		else if dataCount == 0
+		{
+			DEBUG ?-> print("End of file.")
+			throw IOError.EndOfFile
+		}
+		else if let error = underlyingStream.streamError
+		{
+			close()
+			throw error
+		}
+		else
+		{
+			throw IOError.Unknown
+		}
+	}
+	
+	
+	/**
+	
+	Closes the stream manually and shuts down the socket
+	so no more read calls are possible.
+	
+	Subsequent calls to the read-function function will fail.
+	
+	The delegate will be notified of this operation.
+	
+	*/
+	func close()
+	{
+		underlyingStream.close()
+	}
+	
+	@objc func stream(aStream: NSStream, handleEvent eventCode: NSStreamEvent)
+	{
+		guard aStream === underlyingStream else { return }
+		
+		switch eventCode
+		{
+		case NSStreamEvent.HasBytesAvailable:
+			delegate?.canRead(fromStream: self)
+			break
+		case NSStreamEvent.ErrorOccurred:
+			delegate?.didClose(self)
+			break
+		default:
+			break
+		}
+	}
+	
+}
+

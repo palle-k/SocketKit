@@ -54,9 +54,10 @@ public class TLSOutputStream : OutputStream
 	- returns: An encrypted input and output stream.
 	
 	*/
+	@available(*, deprecated=0.1, message="TLSOutputStream.CreateStreamPair has been deprecated. Use TLSCreateStreamPair(...) instead.")
 	public class func CreateStreamPair(fromInputStream inputStream: InputStream, outputStream: OutputStream, certificates: [Certificate]) throws -> (inputStream: TLSInputStream, outputStream: TLSOutputStream)
 	{
-		return try TLSInputStream.CreateStreamPair(fromInputStream: inputStream, outputStream: outputStream, certificates: certificates)
+		return try TLSCreateStreamPair(fromInputStream: inputStream, outputStream: outputStream, certificates: certificates)
 	}
 	
 	
@@ -92,8 +93,6 @@ public class TLSOutputStream : OutputStream
 	
 	*/
 	internal weak var inputStream: TLSInputStream?
-	
-	
 	
 	
 	/**

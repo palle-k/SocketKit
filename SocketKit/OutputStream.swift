@@ -346,7 +346,7 @@ internal class SocketOutputStreamImpl : OutputStream
 	and close itself, if both streams are closed.
 	
 	*/
-	private weak var socket: Socket?
+	private unowned var socket: Socket
 	
 	
 	/**
@@ -439,7 +439,7 @@ internal class SocketOutputStreamImpl : OutputStream
 		guard open else { return }
 		open = false
 		shutdown(handle, SHUT_WR) < 0
-		socket?.checkStreams()
+		socket.checkStreams()
 	}
 	
 	
@@ -451,6 +451,60 @@ internal class SocketOutputStreamImpl : OutputStream
 	deinit
 	{
 		close()
+	}
+}
+
+
+internal class SystemOutputStream : NSObject, OutputStream, NSStreamDelegate
+{
+	private(set) var open: Bool
+	
+	private let underlyingStream: NSOutputStream
+	
+	internal init(underlyingStream: NSOutputStream)
+	{
+		self.underlyingStream = underlyingStream
+		open = true
+		
+		super.init()
+		
+		self.underlyingStream.delegate = self
+		self.underlyingStream.open()
+	}
+	
+	func write(data: UnsafePointer<Void>, lengthInBytes byteCount: Int) throws
+	{
+		guard open else { throw underlyingStream.streamError ?? IOError.NotConnected }
+		
+		var offset = 0;
+		
+		repeat
+		{
+			let written = underlyingStream.write(UnsafePointer<UInt8>(data.advancedBy(offset)), maxLength: byteCount - offset)
+			if written < 0
+			{
+				throw underlyingStream.streamError ?? IOError.Unknown
+			}
+			offset += written
+		}
+		while offset < byteCount
+	}
+	
+	func close()
+	{
+		underlyingStream.close()
+	}
+	
+	@objc func stream(aStream: NSStream, handleEvent eventCode: NSStreamEvent)
+	{
+		switch eventCode
+		{
+		case NSStreamEvent.EndEncountered, NSStreamEvent.ErrorOccurred:
+			open = false
+			break
+		default:
+			break
+		}
 	}
 }
 

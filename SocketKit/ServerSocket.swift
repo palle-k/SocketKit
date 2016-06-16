@@ -328,7 +328,7 @@ public class ServerSocket : CustomStringConvertible
 			return
 		}
 		
-		let socket = Socket(handle: socketHandle, address: address)
+		let socket = TCPSocket(handle: socketHandle, address: address)
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
 		{
 			self.delegate?.serverSocket(self, didAcceptConnectionWithSocket: socket)

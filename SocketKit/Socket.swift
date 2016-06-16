@@ -30,51 +30,27 @@ import Foundation
 
 /**
 
-Socket: Endpoint of a TCP/IP connection.
+The Socket protocol provides an interface for a network socket,
+which is an endpoint in network communication.
 
-Data can be read from the socket with the input stream
-provided as a property of a socket instance.
-
-Data can be written to the socket with the output stream
-provided as a property of a socket instance.
+The user can communicate through the streams provided by the socket.
+Incoming data can be retrieved through the input stream and data can be written
+to the network with the output stream.
 
 */
-public class Socket : CustomStringConvertible, Equatable
+public protocol Socket : class
 {
-	
 	/**
-
-	The POSIX-socket handle of this socket.
 	
-	Input and output streams use this for read
-	and write operations.
-	
-	*/
-	private let handle: Int32
-	
-	
-	/**
-
-	The address of the socket.
-	
-	Contains port and ip information
-	
-	*/
-	private var address: sockaddr
-	
-	
-	/**
-
 	Host address of the peer.
 	
 	Only used for outgoing connections.
 	
 	*/
-	public private(set) var hostAddress: String?
-	
+	var hostAddress: String? { get }
 	
 	/**
-
+	
 	The input stream of the socket.
 	
 	Incoming data can be read from it.
@@ -85,7 +61,7 @@ public class Socket : CustomStringConvertible, Equatable
 	
 	
 	*/
-	public private(set) var inputStream: InputStream!
+	var inputStream: InputStream! { get }
 	
 	/**
 	
@@ -94,12 +70,12 @@ public class Socket : CustomStringConvertible, Equatable
 	Can write data to the socket.
 	
 	If the socket uses non-blocking I/O,
-	the operation may fail and a 
+	the operation may fail and a
 	.WouldBlock or .Again IOError may be thrown.
 	The operation must then be tried again.
 	
 	*/
-	public private(set) var outputStream: OutputStream!
+	var outputStream: OutputStream! { get }
 	
 	
 	/**
@@ -113,7 +89,169 @@ public class Socket : CustomStringConvertible, Equatable
 	block the current thread.
 	
 	In this case, a .WouldBlock or .Again
-	IOError will be thrown. 
+	IOError will be thrown.
+	
+	The operation must be repeated until it was successful.
+	
+	For read operations, the delegate of the stream should be used
+	for efficient reading.
+	
+	- parameter new: Specifies, if the socket should be non-blocking or not.
+	A value of true sets the socket to nonblocking mode, false to blocking mode.
+	
+	- returns: true, if the socket is nonblocking, false if it is blocking.
+	
+	*/
+	var nonblocking: Bool { get set }
+	
+	/**
+	
+	Checks if the socket is open.
+	
+	The socket is open if at least one of the streams associated with this socket is open.
+	
+	*/
+	var open:Bool { get }
+	
+	
+	/**
+	
+	Manually closes the socket
+	and releases any ressources related to it.
+	
+	Subsequent calls of the streams' read and write
+	functions will fail.
+	
+	*/
+	func close()
+	
+	
+	/**
+	
+	Checks the status of the streams which read and write from and to this socket.
+	
+	If both streams are closed, the socket will be closed.
+	
+	*/
+	func checkStreams()
+}
+
+
+/**
+
+Extension for stream checking.
+
+*/
+public extension Socket
+{
+	
+	/**
+	
+	Checks the status of the streams which read and write from and to this socket.
+	
+	If both streams are closed, the socket will be closed.
+	
+	*/
+	func checkStreams()
+	{
+		if !inputStream.open && !outputStream.open
+		{
+			close()
+		}
+	}
+	
+}
+
+/**
+
+A socket which internally uses POSIX APIs
+
+This may include UDP, TCP or RAW sockets.
+
+*/
+internal protocol POSIXSocket : Socket
+{
+	
+	/**
+	
+	The POSIX-socket handle of this socket.
+	
+	Input and output streams use this for read
+	and write operations.
+	
+	*/
+	var handle: Int32 { get }
+	
+	
+	/**
+	
+	The address of the socket.
+	
+	Contains port and ip information
+	
+	*/
+	var address: sockaddr { get }
+	
+}
+
+
+/**
+
+Socket: Endpoint of a TCP/IP connection.
+
+Data can be read from the socket with the input stream
+provided as a property of a socket instance.
+
+Data can be written to the socket with the output stream
+provided as a property of a socket instance.
+
+*/
+public class TCPSocket : POSIXSocket, CustomStringConvertible
+{
+	
+	/**
+
+	The POSIX-socket handle of this socket.
+	
+	Input and output streams use this for read
+	and write operations.
+	
+	*/
+	internal let handle: Int32
+	
+	
+	/**
+
+	The address of the socket.
+	
+	Contains port and ip information
+	
+	*/
+	internal var address: sockaddr
+	
+	
+	/**
+
+	Host address of the peer.
+	
+	Only used for outgoing connections.
+	
+	*/
+	public private(set) var hostAddress: String?
+	
+	
+	/**
+	
+	Indicates, if non-blocking I/O is used
+	or en-/disables non-blocking I/O.
+	
+	If non-blocking I/O is used, reading
+	from the socket may not return any data
+	and writing may fail because it would otherwise
+	block the current thread.
+	
+	In this case, a .WouldBlock or .Again
+	IOError will be thrown.
 	
 	The operation must be repeated until it was successful.
 	
@@ -135,18 +273,40 @@ public class Socket : CustomStringConvertible, Equatable
 		}
 		set (new)
 		{
-			var flags = fcntl(handle, F_GETFL, 0)
-			if new
-			{
-				flags |= O_NONBLOCK
-			}
-			else
-			{
-				flags &= ~O_NONBLOCK
-			}
-			_ = fcntl(handle, F_SETFL, flags)
+			let flags = fcntl(handle, F_GETFL, 0)
+			_ = fcntl(handle, F_SETFL, new ? (flags | O_NONBLOCK) : (flags & ~O_NONBLOCK))
 		}
 	}
+	
+	
+	/**
+
+	The input stream of the socket.
+	
+	Incoming data can be read from it.
+	
+	If the socket uses non-blocking I/O,
+	a delegate should be used to receive notifications about
+	incoming data.
+	
+	
+	*/
+	public private(set) var inputStream: InputStream!
+	
+	
+	/**
+	
+	The output stream of the socket.
+	
+	Can write data to the socket.
+	
+	If the socket uses non-blocking I/O,
+	the operation may fail and a 
+	.WouldBlock or .Again IOError may be thrown.
+	The operation must then be tried again.
+	
+	*/
+	public private(set) var outputStream: OutputStream!
 	
 	
 	/**
@@ -191,6 +351,12 @@ public class Socket : CustomStringConvertible, Equatable
 		return inputStream.open || outputStream.open
 	}
 	
+	
+	/**
+
+	A textual representation of self.
+	
+	*/
 	public var description: String
 	{
 		return "Socket (host: \(self.hostAddress ?? "unknown"), ip: \(self.peerIP ?? "unknown"), \(self.open ? "open" : "closed"))\n\t-> \(self.inputStream)\n\t<- \(self.outputStream)"
@@ -241,6 +407,40 @@ public class Socket : CustomStringConvertible, Equatable
 		
 		self.init(handle: handle, address: sockaddr())
 		hostAddress = host
+	}
+	
+	
+	/**
+
+	Initializes a socket with a given host address and TCP port
+	
+	The socket will automatically connect to the given host.
+	
+	- parameter address: The host address of the server to connect to.
+	
+	- parameter port: The TCP port on which the server should be connected.
+	
+	*/
+	public init?(address: String, port: UInt16) throws
+	{
+		var readStreamRef:Unmanaged<CFReadStream>?
+		var writeStreamRef:Unmanaged<CFWriteStream>?
+		CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, address, UInt32(port), &readStreamRef, &writeStreamRef)
+		guard
+		let readStream = readStreamRef?.takeRetainedValue(),
+		let writeStream = writeStreamRef?.takeRetainedValue()
+			else { return nil }
+		
+		CFReadStreamOpen(readStream)
+		CFWriteStreamOpen(writeStream)
+		
+		guard let handle = CFReadStreamCopyProperty(readStream, kCFStreamPropertySocketNativeHandle) as? Int32 else { return nil }
+		self.handle = handle
+		
+		var sockaddress = sockaddr()
+		var sockaddrlen = socklen_t(sizeof(sockaddr.self))
+		getpeername(handle, &sockaddress, &sockaddrlen)
+		self.address = sockaddress
 	}
 	
 	
@@ -313,7 +513,7 @@ public class Socket : CustomStringConvertible, Equatable
 	If both streams are closed, the socket will be closed.
 	
 	*/
-	internal func checkStreams()
+	public func checkStreams()
 	{
 		DEBUG ?-> print("Checking streams. input stream: \(inputStream.open ? "open" : "closed"), output stream: \(outputStream.open ? "open" : "closed")")
 		if !inputStream.open && !outputStream.open
@@ -323,6 +523,180 @@ public class Socket : CustomStringConvertible, Equatable
 	}
 }
 
+
+//public class RawSocket : POSIXSocket
+//{
+//	
+//	/**
+//	
+//	The POSIX-socket handle of this socket.
+//	
+//	Input and output streams use this for read
+//	and write operations.
+//	
+//	*/
+//	private(set) var handle: Int32
+//	
+//	
+//	/**
+//	
+//	The address of the socket.
+//	
+//	Contains port and ip information
+//	
+//	*/
+//	private (set) var address: sockaddr
+//	
+//	
+//	/**
+//	
+//	The address of the host to which this socket is connected.
+//	
+//	Will always be nil because a raw socket does not work on a connection.
+//	
+//	*/
+//	public let hostAddress: String? = nil
+//	
+//	
+//	/**
+//	
+//	Checks if the socket is open.
+//	
+//	The socket is open if at least one of the streams associated with this socket is open.
+//	
+//	*/
+//	public private(set) var open: Bool
+//	
+//	
+//	/**
+//	
+//	Indicates, if non-blocking I/O is used
+//	or en-/disables non-blocking I/O.
+//	
+//	If non-blocking I/O is used, reading
+//	from the socket may not return any data
+//	and writing may fail because it would otherwise
+//	block the current thread.
+//	
+//	In this case, a .WouldBlock or .Again
+//	IOError will be thrown.
+//	
+//	The operation must be repeated until it was successful.
+//	
+//	For read operations, the delegate of the stream should be used
+//	for efficient reading.
+//	
+//	- parameter new: Specifies, if the socket should be non-blocking or not.
+//	A value of true sets the socket to nonblocking mode, false to blocking mode.
+//	
+//	- returns: true, if the socket is nonblocking, false if it is blocking.
+//	
+//	*/
+//	public var nonblocking: Bool
+//	{
+//		get
+//		{
+//			let flags = fcntl(handle, F_GETFL, 0)
+//			return (flags & O_NONBLOCK) != 0
+//		}
+//		set (new)
+//		{
+//			let flags = fcntl(handle, F_GETFL, 0)
+//			_ = fcntl(handle, F_SETFL, new ? (flags | O_NONBLOCK) : (flags & ~O_NONBLOCK))
+//		}
+//	}
+//	
+//	
+//	/**
+//	
+//	The input stream of the socket.
+//	
+//	Incoming data can be read from it.
+//	
+//	If the socket uses non-blocking I/O,
+//	a delegate should be used to receive notifications about
+//	incoming data.
+//	
+//	*/
+//	public private(set) var inputStream: InputStream!
+//	
+//	
+//	/**
+//	
+//	The output stream of the socket.
+//	
+//	Can write data to the socket.
+//	
+//	If the socket uses non-blocking I/O,
+//	the operation may fail and a
+//	.WouldBlock or .Again IOError may be thrown.
+//	The operation must then be tried again.
+//	
+//	*/
+//	public private(set) var outputStream: OutputStream!
+//	
+//	
+//	public init() throws
+//	{
+//		handle = socket(PF_INET, SOCK_RAW, IPPROTO_ICMP)
+//		
+//		guard handle >= 0 else
+//		{
+//			throw SocketError.Open
+//		}
+//		
+//		//simulating undeclared sockaddr_ll struct
+//		var ll_addr = [UInt8](count: 13, repeatedValue: 0)
+//		ll_addr[0] = UInt8(AF_LINK)
+//		ll_addr[1] = UInt8(AF_LINK >> 8)
+//		
+//		address = sockaddr()
+//		memcpy(&address, &ll_addr, 13)
+//		
+//		guard bind(handle, &address, socklen_t(sizeof(ll_addr.dynamicType))) >= 0
+//		else
+//		{
+//			throw SocketError.Bind
+//		}
+//		
+//		open = true
+//		
+//		inputStream = nil
+//		outputStream = nil
+//		inputStream = SocketInputStreamImpl(socket: self, handle: handle)
+//		outputStream = SocketOutputStreamImpl(socket: self, handle: handle)
+//		nonblocking = true
+//	}
+//	
+//	
+//	/**
+//	
+//	The socket is closed when deallocated.
+//	
+//	*/
+//	deinit
+//	{
+//		close()
+//	}
+//	
+//	
+//	/**
+//	
+//	Manually closes the socket
+//	and releases any ressources related to it.
+//	
+//	Subsequent calls of the streams' read and write
+//	functions will fail.
+//	
+//	*/
+//	public func close()
+//	{
+//		DEBUG ?-> print("Closing socket...")
+//		inputStream.close()
+//		outputStream.close()
+//		Darwin.close(handle)
+//	}
+//}
 
 /**
 
@@ -338,8 +712,10 @@ equal, true is returned, otherwise falls will be returned.
 - returns: The comparison result from the comparison of the two sockets.
 
 */
-public func == (left: Socket, right: Socket) -> Bool
+internal func == (left: POSIXSocket, right: POSIXSocket) -> Bool
 {
 	return left.handle == right.handle
 }
+
+
 
