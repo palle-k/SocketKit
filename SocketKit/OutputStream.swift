@@ -346,7 +346,7 @@ internal class SocketOutputStreamImpl : OutputStream
 	and close itself, if both streams are closed.
 	
 	*/
-	private unowned var socket: Socket
+	private weak var socket: Socket?
 	
 	
 	/**
@@ -416,7 +416,12 @@ internal class SocketOutputStreamImpl : OutputStream
 			{
 				DEBUG ?-> print("An error occurred while writing. Check thrown IOError.")
 				DEBUG ?-> print(String.fromCString(strerror(errno)))
-				throw IOError.FromCurrentErrno()
+				let error = IOError.FromCurrentErrno()
+				if error != .WouldBlock
+				{
+					socket?.close()
+				}
+				throw error
 			}
 			else
 			{
@@ -439,7 +444,7 @@ internal class SocketOutputStreamImpl : OutputStream
 		guard open else { return }
 		open = false
 		shutdown(handle, SHUT_WR) < 0
-		socket.checkStreams()
+		socket?.checkStreams()
 	}
 	
 	

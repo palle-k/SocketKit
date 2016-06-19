@@ -233,7 +233,7 @@ internal class SocketInputStreamImpl : InputStream
 	and close itself, if both streams are closed.
 	
 	*/
-	internal unowned var socket: Socket
+	internal weak var socket: Socket?
 	
 	
 	/**
@@ -292,7 +292,7 @@ internal class SocketInputStreamImpl : InputStream
 			self.open = false
 			self.buffer.dealloc(bufferSize)
 			shutdown(handle, SHUT_RD)
-			self.socket.checkStreams()
+			self.socket?.checkStreams()
 			self.delegate?.didClose(self)
 		}
 		dispatch_resume(dispatch_source)
@@ -366,7 +366,7 @@ internal class SocketInputStreamImpl : InputStream
 		{
 			DEBUG ?-> print(String.fromCString(strerror(errno)))
 			DEBUG ?-> print("Error. Closing.")
-			dispatch_source_cancel(dispatch_source)
+			socket?.close()
 			throw IOError.FromCurrentErrno()
 		}
 	}

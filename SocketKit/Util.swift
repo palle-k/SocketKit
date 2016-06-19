@@ -783,17 +783,92 @@ public enum TLSError : ErrorType
 
 /**
 
-Functions for the conversion between host byte order and network byte order
+Specifies the endianess of integer types on this system.
+
+True, if the system uses little endian.
+
+False, if the system uses big endian.
 
 */
-internal let isLittleEndian = Int(OSHostByteOrder()) == OSLittleEndian
+internal let IsLittleEndian = Int(OSHostByteOrder()) == OSLittleEndian
 
-internal let htons  = isLittleEndian ? _OSSwapInt16 : { $0 }
-internal let htonl  = isLittleEndian ? _OSSwapInt32 : { $0 }
-internal let htonll = isLittleEndian ? _OSSwapInt64 : { $0 }
-internal let ntohs  = isLittleEndian ? _OSSwapInt16 : { $0 }
-internal let ntohl  = isLittleEndian ? _OSSwapInt32 : { $0 }
-internal let ntohll = isLittleEndian ? _OSSwapInt64 : { $0 }
+
+/**
+
+Converts a 16 bit unsigned integer from
+host byte order to network byte order.
+
+- parameter value: A 16 bit host byte order integer
+
+- returns: A 16 bit network byte order integer
+
+*/
+internal let htons  = IsLittleEndian ? _OSSwapInt16 : { $0 }
+
+
+/**
+
+Converts a 32 bit unsigned integer from
+host byte order to network byte order.
+
+- parameter value: A 32 bit host byte order integer
+
+- returns: A 32 bit network byte order integer
+
+*/
+internal let htonl  = IsLittleEndian ? _OSSwapInt32 : { $0 }
+
+
+/**
+
+Converts a 64 bit unsigned integer from
+host byte order to network byte order.
+
+- parameter value: A 64 bit host byte order integer
+
+- returns: A 64 bit network byte order integer
+
+*/
+internal let htonll = IsLittleEndian ? _OSSwapInt64 : { $0 }
+
+
+/**
+
+Converts a 16 bit unsigned integer from
+network byte order to host byte order.
+
+- parameter value: A 16 bit network byte order integer
+
+- returns: A 16 bit host byte order integer
+
+*/
+internal let ntohs  = IsLittleEndian ? _OSSwapInt16 : { $0 }
+
+
+/**
+
+Converts a 32 bit unsigned integer from
+network byte order to host byte order.
+
+- parameter value: A 32 bit network byte order integer
+
+- returns: A 32 bit host byte order integer
+
+*/
+internal let ntohl  = IsLittleEndian ? _OSSwapInt32 : { $0 }
+
+
+/**
+
+Converts a 64 bit unsigned integer from
+network byte order to host byte order.
+
+- parameter value: A 64 bit network byte order integer
+
+- returns: A 64 bit host byte order integer
+
+*/
+internal let ntohll = IsLittleEndian ? _OSSwapInt64 : { $0 }
 
 
 /**
@@ -832,11 +907,7 @@ If the condition is false, nil will be returned.
 */
 @inline(__always) internal func ?-> <Result>(left: Bool, @autoclosure right: () throws -> Result) rethrows -> Result?
 {
-	if left
-	{
-		return try right()
-	}
-	return nil
+	return left ? try right() : nil
 }
 
 
