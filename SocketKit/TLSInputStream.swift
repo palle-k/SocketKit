@@ -28,7 +28,6 @@ import Foundation
 import Security
 
 
-
 /**
 
 An input stream which is encrypted using the
@@ -328,11 +327,11 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	- parameter inputStream: The input stream which has new data available.
 	
 	*/
-	public func canRead(fromStream inputStream: InputStream)
+	public func canRead(from inputStream: InputStream)
 	{
 		if inputStream === underlyingStream
 		{
-			delegate?.canRead(fromStream: self)
+			delegate?.canRead(from: self)
 		}
 	}
 	

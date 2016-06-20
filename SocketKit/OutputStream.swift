@@ -282,7 +282,7 @@ public extension OutputStream
 	*/
 	public func write(streamWritable: StreamWritable) throws
 	{
-		try streamWritable.write(toStream: self)
+		try streamWritable.write(to: self)
 	}
 	
 }
@@ -316,7 +316,7 @@ public protocol StreamWritable
 	- throws: An IOError indicating that the operation failed.
 	
 	*/
-	func write(toStream outputStream: OutputStream) throws
+	func write(to outputStream: OutputStream) throws
 	
 }
 

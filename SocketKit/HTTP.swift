@@ -128,6 +128,7 @@ public enum HTTPRequestHeaderField: String
 	A Base64-encoded binary MD5 sum of the content of the request body
 	
 	*/
+	@available(*, introduced=0.1, deprecated=0.1)
 	case ContentMD5 = "Content-MD5"
 	
 	
@@ -567,6 +568,7 @@ public enum HTTPResponseHeaderField: String
 	A Base64-encoded binary MD5 sum of the content of the response
 	
 	*/
+	@available(*, introduced=0.1, deprecated=0.1)
 	case ContentMD5 = "Content-MD5"
 	
 	
@@ -795,6 +797,7 @@ public enum HTTPResponseHeaderField: String
 	Clickjacking protection
 	
 	*/
+	@available(*, introduced=0.1, deprecated=0.1)
 	case XFrameOptions = "X-Frame-Options"
 	
 	
@@ -873,6 +876,26 @@ public enum HTTPResponseHeaderField: String
 	case XRequestID = "X-Request-ID"
 }
 
+
+public struct HTTPRequest : StreamReadable, StreamWritable
+{
+	public init(byReadingFrom stream: InputStream) throws
+	{
+		
+	}
+	
+	public init()
+	{
+		
+	}
+	
+	public func write(to outputStream: OutputStream) throws
+	{
+		
+	}
+}
+
+
 /**
 
 Basic HTTP response to a get request.
@@ -885,19 +908,19 @@ public class HTTPResponse : StreamWritable
 	public let content:NSData
 	public let mimeType:String
 	
-	public init(withContent content: String)
+	public init(with content: String)
 	{
 		self.content = content.dataUsingEncoding(NSUTF8StringEncoding)!
 		self.mimeType = "text/html"
 	}
 	
-	public init(withContent content: NSData, mimeType: String)
+	public init(with content: NSData, mimeType: String)
 	{
 		self.content = content
 		self.mimeType = mimeType
 	}
 	
-	public func write(toStream outputStream: OutputStream) throws
+	public func write(to outputStream: OutputStream) throws
 	{
 		try outputStream.writeln("HTTP/1.1 200 OK")
 		try outputStream.writeln("Date: \(DateFormatter.stringFromDate(NSDate()))")

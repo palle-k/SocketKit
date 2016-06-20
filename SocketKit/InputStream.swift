@@ -48,7 +48,7 @@ public protocol InputStreamDelegate
 	- parameter inputStream: Stream, which did receive data which can be read.
 	
 	*/
-	func canRead(fromStream inputStream: InputStream)
+	func canRead(from inputStream: InputStream)
 	
 	
 	/**
@@ -131,6 +131,24 @@ public protocol InputStream : class
 	
 	
 	/**
+	
+	Reads data from the stream until a line break is encountered.
+	
+	If an error occurred, an IOError will be thrown.
+	
+	The thrown IOError may be `IOError.WouldBlock`, `IOError.Again`
+	or `IOError.Interrupted`. This occurs, if no data is available and
+	the read-operation should be tried again.
+	To avoid `IOError.WouldBlock` or `IOError.Again`, use the delegate
+	to receive notifications about incoming data or use blocking I/O.
+	
+	- returns: A string containing a single line read from the stream
+	
+	*/
+	func readln(encoding: UInt) throws -> String?
+	
+	
+	/**
 
 	Closes the input stream and any associated ressources.
 	
@@ -142,6 +160,43 @@ public protocol InputStream : class
 	
 	*/
 	func close()
+	
+}
+
+
+public extension InputStream
+{
+	
+	
+	/**
+	
+	Reads data from the stream until a line break is encountered.
+	
+	If an error occurred, an IOError will be thrown.
+	
+	The thrown IOError may be `IOError.WouldBlock`, `IOError.Again`
+	or `IOError.Interrupted`. This occurs, if no data is available and
+	the read-operation should be tried again.
+	To avoid `IOError.WouldBlock` or `IOError.Again`, use the delegate
+	to receive notifications about incoming data or use blocking I/O.
+	
+	- returns: A string containing a single line read from the stream
+	
+	*/
+	func readln(encoding: UInt = NSUTF8StringEncoding) throws -> String?
+	{
+		var buffer:[CChar] = []
+		
+		repeat
+		{
+			buffer += try read(1)
+		}
+		while buffer.isEmpty || [0x0, 0x4, 0xA, 0xD].contains(buffer.last!)
+		
+		buffer[buffer.count-1] = 0
+		
+		return String(CString: buffer, encoding: encoding)
+	}
 	
 }
 
@@ -164,7 +219,7 @@ public protocol StreamReadable
 	- throws: An IOError if reading from the stream fails.
 	
 	*/
-	init(byReadingFromStream stream: InputStream) throws
+	init(byReadingFrom stream: InputStream) throws
 }
 
 
@@ -284,7 +339,7 @@ internal class SocketInputStreamImpl : InputStream
 		dispatch_source = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, UInt(handle), 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
 		dispatch_source_set_event_handler(dispatch_source)
 		{
-			self.delegate?.canRead(fromStream: self)
+			self.delegate?.canRead(from: self)
 		}
 		dispatch_source_set_cancel_handler(dispatch_source)
 		{
@@ -568,7 +623,7 @@ internal class SystemInputStream : NSObject, InputStream, NSStreamDelegate
 		switch eventCode
 		{
 		case NSStreamEvent.HasBytesAvailable:
-			delegate?.canRead(fromStream: self)
+			delegate?.canRead(from: self)
 			break
 		case NSStreamEvent.ErrorOccurred:
 			delegate?.didClose(self)
