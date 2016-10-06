@@ -73,7 +73,7 @@ public protocol OutputStream
 	- throws: An IOError indicating that the operation failed.
 	
 	*/
-	func write(data: NSData) throws
+	func write(_ data: Data) throws
 	
 	
 	/**
@@ -95,7 +95,7 @@ public protocol OutputStream
 	- throws: An IOError indicating that the operation failed.
 	
 	*/
-	func write(string: String, encoding: UInt) throws
+	func write(_ string: String, encoding: String.Encoding) throws
 	
 	
 	/**
@@ -115,7 +115,7 @@ public protocol OutputStream
 	- throws: An IOError indicating that the operation failed.
 	
 	*/
-	func write(data: UnsafePointer<Void>, lengthInBytes byteCount: Int) throws
+	func write(_ data: UnsafeRawPointer, lengthInBytes byteCount: Int) throws
 	
 	
 	/**
@@ -133,7 +133,7 @@ public protocol OutputStream
 	- throws: An IOError indicating that the operation failed.
 	
 	*/
-	func write(streamWritable: StreamWritable) throws
+	func write(_ streamWritable: StreamWritable) throws
 	
 	
 	/**
@@ -156,7 +156,7 @@ public protocol OutputStream
 	- throws: An IOError indicating that the operation failed.
 	
 	*/
-	func writeln(string: String, encoding: UInt) throws
+	func writeln(_ string: String, encoding: String.Encoding) throws
 	
 	
 	/**
@@ -200,9 +200,9 @@ public extension OutputStream
 	- throws: An IOError indicating that the operation failed.
 	
 	*/
-	public func write(data: NSData) throws
+	public func write(_ data: Data) throws
 	{
-		try write(data.bytes, lengthInBytes: data.length)
+		try write((data as NSData).bytes, lengthInBytes: data.count)
 	}
 	
 	
@@ -223,12 +223,12 @@ public extension OutputStream
 	- throws: An IOError indicating that the operation failed.
 	
 	*/
-	public func write(string: String, encoding: UInt = NSUTF8StringEncoding) throws
+	public func write(_ string: String, encoding: String.Encoding = String.Encoding.utf8) throws
 	{
-		guard let data = string.dataUsingEncoding(encoding)
+		guard let data = string.data(using: encoding)
 		else
 		{
-			throw DataError.StringConversion
+			throw DataError.stringConversion
 		}
 		try write(data)
 	}
@@ -254,12 +254,12 @@ public extension OutputStream
 	- throws: An IOError indicating that the operation failed.
 	
 	*/
-	public func writeln(string: String = "", encoding: UInt = NSUTF8StringEncoding) throws
+	public func writeln(_ string: String = "", encoding: String.Encoding = String.Encoding.utf8) throws
 	{
-		guard let data = "\(string)\r\n".dataUsingEncoding(encoding)
+		guard let data = "\(string)\r\n".data(using: encoding)
 			else
 		{
-			throw DataError.StringConversion
+			throw DataError.stringConversion
 		}
 		try write(data)
 	}
@@ -280,7 +280,7 @@ public extension OutputStream
 	- throws: An IOError indicating that the operation failed.
 	
 	*/
-	public func write(streamWritable: StreamWritable) throws
+	public func write(_ streamWritable: StreamWritable) throws
 	{
 		try streamWritable.write(to: self)
 	}
@@ -335,7 +335,7 @@ internal class SocketOutputStreamImpl : OutputStream
 	The posix socket handle for network writing.
 	
 	*/
-	private let handle: Int32
+	fileprivate let handle: Int32
 	
 	
 	/**
@@ -346,7 +346,7 @@ internal class SocketOutputStreamImpl : OutputStream
 	and close itself, if both streams are closed.
 	
 	*/
-	private weak var socket: Socket?
+	fileprivate weak var socket: Socket?
 	
 	
 	/**
@@ -357,7 +357,7 @@ internal class SocketOutputStreamImpl : OutputStream
 	an IOError will be thrown.
 	
 	*/
-	internal private(set) var open = false
+	internal fileprivate(set) var open = false
 	
 	
 	/**
@@ -395,7 +395,7 @@ internal class SocketOutputStreamImpl : OutputStream
 	- throws: An IOError indicating that the write operation failed.
 	
 	*/
-	internal func write(data: UnsafePointer<Void>, lengthInBytes byteCount: Int) throws
+	internal func write(_ data: UnsafeRawPointer, lengthInBytes byteCount: Int) throws
 	{
 		assert(byteCount >= 0, "Byte count must be greater than or equal to zero.")
 		
@@ -408,16 +408,16 @@ internal class SocketOutputStreamImpl : OutputStream
 			
 			DEBUG ?-> print("Writing into socket... (left: \(maxBytes), written: \(advance))")
 			
-			let written = Darwin.write(handle, data.advancedBy(advance), maxBytes)
+			let written = Darwin.write(handle, data.advanced(by: advance), maxBytes)
 			
 			DEBUG ?-> print("\(written) bytes written.")
 			
 			if written < 0 && !(errno == EAGAIN || errno == EINTR)
 			{
 				DEBUG ?-> print("An error occurred while writing. Check thrown IOError.")
-				DEBUG ?-> print(String.fromCString(strerror(errno)))
+				DEBUG ?-> print(String(cString: strerror(errno)))
 				let error = IOError.FromCurrentErrno()
-				if error != .WouldBlock
+				if error != .wouldBlock
 				{
 					socket?.close()
 				}
@@ -443,7 +443,7 @@ internal class SocketOutputStreamImpl : OutputStream
 	{
 		guard open else { return }
 		open = false
-		shutdown(handle, SHUT_WR) < 0
+		shutdown(handle, SHUT_WR)
 		socket?.checkStreams()
 	}
 	
@@ -460,13 +460,13 @@ internal class SocketOutputStreamImpl : OutputStream
 }
 
 
-internal class SystemOutputStream : NSObject, OutputStream, NSStreamDelegate
+internal class SystemOutputStream : NSObject, OutputStream, StreamDelegate
 {
-	private(set) var open: Bool
+	fileprivate(set) var open: Bool
 	
-	private let underlyingStream: NSOutputStream
+	fileprivate let underlyingStream: Foundation.OutputStream
 	
-	internal init(underlyingStream: NSOutputStream)
+	internal init(underlyingStream: Foundation.OutputStream)
 	{
 		self.underlyingStream = underlyingStream
 		open = true
@@ -477,18 +477,18 @@ internal class SystemOutputStream : NSObject, OutputStream, NSStreamDelegate
 		self.underlyingStream.open()
 	}
 	
-	func write(data: UnsafePointer<Void>, lengthInBytes byteCount: Int) throws
+	func write(_ data: UnsafeRawPointer, lengthInBytes byteCount: Int) throws
 	{
-		guard open else { throw underlyingStream.streamError ?? IOError.NotConnected }
+		guard open else { throw underlyingStream.streamError ?? IOError.notConnected }
 		
 		var offset = 0;
 		
 		repeat
 		{
-			let written = underlyingStream.write(UnsafePointer<UInt8>(data.advancedBy(offset)), maxLength: byteCount - offset)
+			let written = underlyingStream.write(data.advanced(by: offset).assumingMemoryBound(to: UInt8.self), maxLength: byteCount - offset)
 			if written < 0
 			{
-				throw underlyingStream.streamError ?? IOError.Unknown
+				throw underlyingStream.streamError ?? IOError.unknown
 			}
 			offset += written
 		}
@@ -500,11 +500,11 @@ internal class SystemOutputStream : NSObject, OutputStream, NSStreamDelegate
 		underlyingStream.close()
 	}
 	
-	@objc func stream(aStream: NSStream, handleEvent eventCode: NSStreamEvent)
+	@objc func stream(_ aStream: Stream, handle eventCode: Stream.Event)
 	{
 		switch eventCode
 		{
-		case NSStreamEvent.EndEncountered, NSStreamEvent.ErrorOccurred:
+		case Stream.Event.endEncountered, Stream.Event.errorOccurred:
 			open = false
 			break
 		default:

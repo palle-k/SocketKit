@@ -207,7 +207,7 @@ Data can be written to the socket with the output stream
 provided as a property of a socket instance.
 
 */
-public class TCPSocket : POSIXSocket, CustomStringConvertible
+open class TCPSocket : POSIXSocket, CustomStringConvertible
 {
 	
 	/**
@@ -238,7 +238,7 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 	Only used for outgoing connections.
 	
 	*/
-	public private(set) var hostAddress: String?
+	open fileprivate(set) var hostAddress: String?
 	
 	
 	/**
@@ -265,7 +265,7 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 	- returns: true, if the socket is nonblocking, false if it is blocking.
 	
 	*/
-	public var nonblocking: Bool
+	open var nonblocking: Bool
 	{
 		get
 		{
@@ -292,7 +292,7 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 	
 	
 	*/
-	public private(set) var inputStream: InputStream!
+	open fileprivate(set) var inputStream: InputStream!
 	
 	
 	/**
@@ -307,7 +307,7 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 	The operation must then be tried again.
 	
 	*/
-	public private(set) var outputStream: OutputStream!
+	open fileprivate(set) var outputStream: OutputStream!
 	
 	
 	/**
@@ -319,21 +319,21 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 	depending on the IP protocol version used.
 	
 	*/
-	public var peerIP:String?
+	open var peerIP:String?
 	{
 		if address.sa_family == sa_family_t(AF_INET)
 		{
-			let ptr = UnsafeMutablePointer<CChar>.alloc(Int(INET_ADDRSTRLEN))
+			let ptr = UnsafeMutablePointer<CChar>.allocate(capacity: Int(INET_ADDRSTRLEN))
 			var address_in = sockaddr_cast(&address)
 			inet_ntop(AF_INET, &address_in.sin_addr, ptr, socklen_t(INET_ADDRSTRLEN))
-			return String.fromCString(ptr)
+			return String(cString: ptr)
 		}
 		else if address.sa_family == sa_family_t(AF_INET6)
 		{
-			let ptr = UnsafeMutablePointer<CChar>.alloc(Int(INET6_ADDRSTRLEN))
+			let ptr = UnsafeMutablePointer<CChar>.allocate(capacity: Int(INET6_ADDRSTRLEN))
 			var address_in = sockaddr_cast(&address)
 			inet_ntop(AF_INET, &address_in.sin_addr, ptr, socklen_t(INET6_ADDRSTRLEN))
-			return String.fromCString(ptr)
+			return String(cString: ptr)
 		}
 		
 		return nil
@@ -347,7 +347,7 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 	The socket is open if at least one of the streams associated with this socket is open.
 	
 	*/
-	public var open:Bool
+	open var open:Bool
 	{
 		return inputStream.open || outputStream.open
 	}
@@ -358,7 +358,7 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 	A textual representation of self.
 	
 	*/
-	public var description: String
+	open var description: String
 	{
 		return "Socket (host: \(self.hostAddress ?? "unknown"), ip: \(self.peerIP ?? "unknown"), \(self.open ? "open" : "closed"))\n\t-> \(self.inputStream)\n\t<- \(self.outputStream)"
 	}
@@ -383,27 +383,24 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 		guard handle >= 0
 		else
 		{
-			Darwin.close(handle)
-			throw SocketError.Open
+			_ = Darwin.close(handle)
+			throw SocketError.open
 		}
 		
 		var address = sockaddr_in()
 		
-		address.sin_len = __uint8_t(sizeof(address.dynamicType))
+		address.sin_len = __uint8_t(MemoryLayout<sockaddr_in>.size)
 		address.sin_family = sa_family_t(AF_INET)
 		address.sin_port = htons(port)
 		address.sin_addr = in_addr(s_addr: inet_addr(host))
 		
-		let success = withUnsafePointer(&address)
-		{
-			connect(handle, UnsafePointer<sockaddr>($0), socklen_t(sizeof(address.dynamicType)))
-		}
+		let success = connect(handle, [sockaddr_in_cast(&address)], socklen_t(MemoryLayout<sockaddr_in>.size))
 		
 		guard success >= 0
 		else
 		{
-			Darwin.close(handle)
-			throw SocketError.Open
+			_ = Darwin.close(handle)
+			throw SocketError.open
 		}
 		
 		self.init(handle: handle, address: sockaddr())
@@ -426,7 +423,7 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 	{
 		var readStreamRef:Unmanaged<CFReadStream>?
 		var writeStreamRef:Unmanaged<CFWriteStream>?
-		CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, address, UInt32(port), &readStreamRef, &writeStreamRef)
+		CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, address as CFString!, UInt32(port), &readStreamRef, &writeStreamRef)
 		guard
 		let readStream = readStreamRef?.takeRetainedValue(),
 		let writeStream = writeStreamRef?.takeRetainedValue()
@@ -435,11 +432,11 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 		CFReadStreamOpen(readStream)
 		CFWriteStreamOpen(writeStream)
 		
-		guard let handle = CFReadStreamCopyProperty(readStream, kCFStreamPropertySocketNativeHandle) as? Int32 else { return nil }
+		guard let handle = CFReadStreamCopyProperty(readStream, CFStreamPropertyKey.socketNativeHandle) as? Int32 else { return nil }
 		self.handle = handle
 		
 		var sockaddress = sockaddr()
-		var sockaddrlen = socklen_t(sizeof(sockaddr.self))
+		var sockaddrlen = socklen_t(MemoryLayout<sockaddr>.size)
 		getpeername(handle, &sockaddress, &sockaddrlen)
 		self.address = sockaddress
 	}
@@ -466,7 +463,7 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 		
 		var one:Int32 = 1
 		
-		setsockopt(self.handle, SOL_SOCKET, SO_NOSIGPIPE, &one, UInt32(sizeof(one.dynamicType)))
+		setsockopt(self.handle, SOL_SOCKET, SO_NOSIGPIPE, &one, UInt32(MemoryLayout<Int32>.size))
 		
 		nonblocking = false
 		
@@ -498,12 +495,12 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 	functions will fail.
 	
 	*/
-	public func close()
+	open func close()
 	{
 		DEBUG ?-> print("Closing socket...")
 		inputStream.close()
 		outputStream.close()
-		Darwin.close(handle)
+		_ = Darwin.close(handle)
 	}
 	
 	
@@ -514,7 +511,7 @@ public class TCPSocket : POSIXSocket, CustomStringConvertible
 	If both streams are closed, the socket will be closed.
 	
 	*/
-	public func checkStreams()
+	open func checkStreams()
 	{
 		DEBUG ?-> print("Checking streams. input stream: \(inputStream.open ? "open" : "closed"), output stream: \(outputStream.open ? "open" : "closed")")
 		if !inputStream.open && !outputStream.open

@@ -60,7 +60,7 @@ public protocol InputStreamDelegate
 	- parameter inputStream: Stream, which was closed.
 	
 	*/
-	func didClose(inputStream: InputStream)
+	func didClose(_ inputStream: InputStream)
 }
 
 
@@ -127,7 +127,7 @@ public protocol InputStream : class
 	- throws: An IOError if the read operation failed.
 	
 	*/
-	func read(maxByteCount: Int) throws -> [CChar]
+	func read(_ maxByteCount: Int) throws -> [CChar]
 	
 	
 	/**
@@ -145,7 +145,7 @@ public protocol InputStream : class
 	- returns: A string containing a single line read from the stream
 	
 	*/
-	func readln(encoding: UInt) throws -> String?
+	func readLine(_ encoding: String.Encoding) throws -> String?
 	
 	
 	/**
@@ -183,7 +183,7 @@ public extension InputStream
 	- returns: A string containing a single line read from the stream
 	
 	*/
-	func readln(encoding: UInt = NSUTF8StringEncoding) throws -> String?
+	func readLine(_ encoding: String.Encoding = String.Encoding.utf8) throws -> String?
 	{
 		var buffer:[CChar] = []
 		
@@ -195,7 +195,7 @@ public extension InputStream
 		
 		buffer[buffer.count-1] = 0
 		
-		return String(CString: buffer, encoding: encoding)
+		return String(cString: buffer, encoding: encoding)
 	}
 	
 }
@@ -237,7 +237,7 @@ internal class SocketInputStreamImpl : InputStream
 	The posix socket handle for network reading.
 	
 	*/
-	private let handle: Int32
+	fileprivate let handle: Int32
 	
 	
 	/**
@@ -250,7 +250,7 @@ internal class SocketInputStreamImpl : InputStream
 	The buffer has a size of `bufferSize`
 	
 	*/
-	private let buffer: UnsafeMutablePointer<CChar>
+	fileprivate let buffer: UnsafeMutablePointer<CChar>
 	
 	
 	/**
@@ -258,7 +258,7 @@ internal class SocketInputStreamImpl : InputStream
 	Size of the read buffer in bytes.
 	
 	*/
-	private let bufferSize: Int
+	fileprivate let bufferSize: Int
 	
 	
 	/**
@@ -267,7 +267,7 @@ internal class SocketInputStreamImpl : InputStream
 	to the read buffer start pointer.
 	
 	*/
-	private var buffer_count: Int
+	fileprivate var buffer_count: Int
 	
 	
 	/**
@@ -277,7 +277,7 @@ internal class SocketInputStreamImpl : InputStream
 	Handles events of incoming data or connection updates.
 	
 	*/
-	private let dispatch_source: dispatch_source_t
+	fileprivate let dispatch_source: DispatchSource
 	
 	
 	/**
@@ -299,7 +299,7 @@ internal class SocketInputStreamImpl : InputStream
 	an IOError will be thrown.
 	
 	*/
-	internal private(set) var open:Bool = false
+	internal fileprivate(set) var open:Bool = false
 	
 	
 	/**
@@ -332,25 +332,25 @@ internal class SocketInputStreamImpl : InputStream
 	{
 		self.socket = socket
 		self.handle = handle
-		buffer = UnsafeMutablePointer<CChar>.alloc(bufferSize)
+		buffer = UnsafeMutablePointer<CChar>.allocate(capacity: bufferSize)
 		buffer_count = 0
 		self.bufferSize = bufferSize
 		
-		dispatch_source = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, UInt(handle), 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
-		dispatch_source_set_event_handler(dispatch_source)
+		dispatch_source = DispatchSource.makeReadSource(fileDescriptor: handle, queue: DispatchQueue.global()) /*Migrator FIXME: Use DispatchSourceRead to avoid the cast*/ as! DispatchSource
+		dispatch_source.setEventHandler
 		{
 			self.delegate?.canRead(from: self)
 		}
-		dispatch_source_set_cancel_handler(dispatch_source)
+		dispatch_source.setCancelHandler
 		{
 			DEBUG ?-> print("Closing input stream...")
 			self.open = false
-			self.buffer.dealloc(bufferSize)
+			self.buffer.deallocate(capacity: bufferSize)
 			shutdown(handle, SHUT_RD)
 			self.socket?.checkStreams()
 			self.delegate?.didClose(self)
 		}
-		dispatch_resume(dispatch_source)
+		dispatch_source.resume()
 		open = true
 	}
 	
@@ -390,11 +390,11 @@ internal class SocketInputStreamImpl : InputStream
 	- returns: An array of chars containing the data which was read.
 	
 	*/
-	internal func read(maxByteCount: Int) throws -> [CChar]
+	internal func read(_ maxByteCount: Int) throws -> [CChar]
 	{
 		if !open
 		{
-			throw IOError.NotConnected
+			throw IOError.notConnected
 		}
 		
 		let dataCount = Darwin.read(handle, buffer, min(bufferSize, maxByteCount))
@@ -402,7 +402,7 @@ internal class SocketInputStreamImpl : InputStream
 		if dataCount > 0
 		{
 			DEBUG ?-> print("Reading \(dataCount) bytes from socket...")
-			var data = [CChar](count: dataCount, repeatedValue: 0)
+			var data = [CChar](repeating: 0, count: dataCount)
 			memcpy(&data, buffer, dataCount)
 			DEBUG_HEXDUMP ?-> print("Read:\n\(hex(data))")
 			return data
@@ -410,8 +410,8 @@ internal class SocketInputStreamImpl : InputStream
 		else if dataCount == 0
 		{
 			DEBUG ?-> print("End of file.")
-			dispatch_source_cancel(dispatch_source)
-			throw IOError.EndOfFile
+			dispatch_source.cancel()
+			throw IOError.endOfFile
 		}
 		else if errno == EWOULDBLOCK || errno == EAGAIN || errno == EINTR
 		{
@@ -419,7 +419,7 @@ internal class SocketInputStreamImpl : InputStream
 		}
 		else
 		{
-			DEBUG ?-> print(String.fromCString(strerror(errno)))
+			DEBUG ?-> print(String(cString: strerror(errno)))
 			DEBUG ?-> print("Error. Closing.")
 			socket?.close()
 			throw IOError.FromCurrentErrno()
@@ -440,7 +440,7 @@ internal class SocketInputStreamImpl : InputStream
 	internal func close()
 	{
 		guard open else { return }
-		dispatch_source_cancel(dispatch_source)
+		dispatch_source.cancel()
 	}
 	
 	
@@ -462,7 +462,7 @@ An input stream which wraps around a
 system stream.
 
 */
-internal class SystemInputStream : NSObject, InputStream, NSStreamDelegate
+internal class SystemInputStream : NSObject, InputStream, StreamDelegate
 {
 	
 	/**
@@ -499,7 +499,7 @@ internal class SystemInputStream : NSObject, InputStream, NSStreamDelegate
 	The buffer has a size of `bufferSize`
 	
 	*/
-	private let buffer: UnsafeMutablePointer<CChar>
+	fileprivate let buffer: UnsafeMutableRawPointer
 	
 	
 	/**
@@ -507,7 +507,7 @@ internal class SystemInputStream : NSObject, InputStream, NSStreamDelegate
 	Size of the read buffer in bytes.
 	
 	*/
-	private let bufferSize: Int
+	fileprivate let bufferSize: Int
 	
 	
 	/**
@@ -516,7 +516,7 @@ internal class SystemInputStream : NSObject, InputStream, NSStreamDelegate
 	to the read buffer start pointer.
 	
 	*/
-	private var buffer_count: Int
+	fileprivate var buffer_count: Int
 	
 	
 	/**
@@ -530,14 +530,14 @@ internal class SystemInputStream : NSObject, InputStream, NSStreamDelegate
 	internal unowned var socket: Socket
 	
 	
-	private let underlyingStream: NSInputStream
+	fileprivate let underlyingStream: Foundation.InputStream
 	
-	init(underlyingStream: NSInputStream, socket: Socket, bufferSize: Int = 4096)
+	init(underlyingStream: Foundation.InputStream, socket: Socket, bufferSize: Int = 4096)
 	{
 		open = true
 		self.underlyingStream = underlyingStream
 		self.socket = socket
-		buffer = UnsafeMutablePointer<CChar>.alloc(bufferSize)
+		buffer = UnsafeMutableRawPointer.allocate(bytes: bufferSize, alignedTo: MemoryLayout<UInt8>.alignment)
 		self.bufferSize = bufferSize
 		buffer_count = 0
 		
@@ -568,18 +568,17 @@ internal class SystemInputStream : NSObject, InputStream, NSStreamDelegate
 	- throws: An IOError if the read operation failed.
 	
 	*/
-	func read(maxByteCount: Int) throws -> [CChar]
+	func read(_ maxByteCount: Int) throws -> [CChar]
 	{
 		if !open
 		{
-			throw IOError.NotConnected
+			throw IOError.notConnected
 		}
-		
-		let dataCount = underlyingStream.read(UnsafeMutablePointer<UInt8>(buffer), maxLength: bufferSize)
+		let dataCount = underlyingStream.read(buffer.assumingMemoryBound(to: UInt8.self), maxLength: bufferSize)
 		if dataCount > 0
 		{
 			DEBUG ?-> print("Reading \(dataCount) bytes from socket...")
-			var data = [CChar](count: dataCount, repeatedValue: 0)
+			var data = [CChar](repeating: 0, count: dataCount)
 			memcpy(&data, buffer, dataCount)
 			DEBUG_HEXDUMP ?-> print("Read:\n\(hex(data))")
 			return data
@@ -587,7 +586,7 @@ internal class SystemInputStream : NSObject, InputStream, NSStreamDelegate
 		else if dataCount == 0
 		{
 			DEBUG ?-> print("End of file.")
-			throw IOError.EndOfFile
+			throw IOError.endOfFile
 		}
 		else if let error = underlyingStream.streamError
 		{
@@ -596,7 +595,7 @@ internal class SystemInputStream : NSObject, InputStream, NSStreamDelegate
 		}
 		else
 		{
-			throw IOError.Unknown
+			throw IOError.unknown
 		}
 	}
 	
@@ -616,16 +615,16 @@ internal class SystemInputStream : NSObject, InputStream, NSStreamDelegate
 		underlyingStream.close()
 	}
 	
-	@objc func stream(aStream: NSStream, handleEvent eventCode: NSStreamEvent)
+	@objc func stream(_ aStream: Stream, handle eventCode: Stream.Event)
 	{
 		guard aStream === underlyingStream else { return }
 		
 		switch eventCode
 		{
-		case NSStreamEvent.HasBytesAvailable:
+		case Stream.Event.hasBytesAvailable:
 			delegate?.canRead(from: self)
 			break
-		case NSStreamEvent.ErrorOccurred:
+		case Stream.Event.errorOccurred:
 			delegate?.didClose(self)
 			break
 		default:

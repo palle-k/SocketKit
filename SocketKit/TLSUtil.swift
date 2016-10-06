@@ -76,10 +76,10 @@ public func TLSCreateStreamPair(fromInputStream inputStream: InputStream, output
 {
 	
 	//FIXME: Make this available for client side.
-	guard let context = SSLCreateContext(kCFAllocatorMalloc, .ServerSide, .StreamType)
+	guard let context = SSLCreateContext(kCFAllocatorMalloc, .serverSide, .streamType)
 		else
 	{
-		throw TLSError.SessionNotCreated
+		throw TLSError.sessionNotCreated
 	}
 	
 	DEBUG ?-> print("Creating TLS encrypted stream pair...")
@@ -91,25 +91,24 @@ public func TLSCreateStreamPair(fromInputStream inputStream: InputStream, output
 	tlsOutputStream.inputStream = tlsInputStream
 	
 	let info = TLSConnectionInfo(inputStream: tlsInputStream, outputStream: tlsOutputStream)
-	let ptr = UnsafeMutablePointer<TLSConnectionInfo>.alloc(sizeof(TLSConnectionInfo))
-	ptr.initialize(info)
+	let ptr = UnsafeMutablePointer<TLSConnectionInfo>.allocate(capacity: MemoryLayout<TLSConnectionInfo>.size)
+	ptr.initialize(to: info)
 	SSLSetConnection(context, ptr)
 	tlsInputStream.connection = ptr
 	
 	SSLSetIOFuncs(context,
 	{ (connection, data, length) -> OSStatus in
-		let ptr = UnsafePointer<TLSConnectionInfo>(connection)
-		let info = ptr.memory
+		let info = connection.assumingMemoryBound(to: TLSConnectionInfo.self).pointee
 		return info.inputStream.readFunc(connection, data: data, length: length)
 	},
 	{ (connection, data, length) -> OSStatus in
-		let ptr = UnsafePointer<TLSConnectionInfo>(connection)
-		let info = ptr.memory
+		let info = connection.assumingMemoryBound(to: TLSConnectionInfo.self).pointee
 		return info.outputStream.writeFunc(connection, data: data, length: length)
 	})
 	
 	
 	//FIXME: Allow changing this peer name.
+	//This hostname was chosen as valid TLS certificates are publicly available.
 	let peername = "localhost.daplie.com"
 	
 	DEBUG ?-> print("Setting peer name to \(peername)...")
@@ -118,7 +117,7 @@ public func TLSCreateStreamPair(fromInputStream inputStream: InputStream, output
 	
 	//FIXME: Allow no certificate, if the client side is used.
 	DEBUG ?-> print("Setting certificate...")
-	let certificateState = SSLSetCertificate(context, certificates.map{$0.identity})
+	let certificateState = SSLSetCertificate(context, certificates.map{$0.identity} as CFArray)
 	DEBUG ?-> print("Resulting status: \(certificateState)")
 	
 	DEBUG ?-> print("Beginning handshake...")
@@ -128,12 +127,12 @@ public func TLSCreateStreamPair(fromInputStream inputStream: InputStream, output
 	{
 		handshakeResult = SSLHandshake(context)
 	}
-		while handshakeResult == errSSLWouldBlock
+	while handshakeResult == errSSLWouldBlock
 	
 	if handshakeResult != noErr
 	{
 		DEBUG ?-> print("Handshake failed. Code: \(handshakeResult)")
-		throw TLSError.HandshakeFailed
+		throw TLSError.handshakeFailed
 	}
 	
 	inputStream.delegate = tlsInputStream

@@ -26,7 +26,7 @@
 import Foundation
 import Security
 
-public class TLSOutputStream : OutputStream
+open class TLSOutputStream : OutputStream
 {
 	
 	/**
@@ -54,8 +54,8 @@ public class TLSOutputStream : OutputStream
 	- returns: An encrypted input and output stream.
 	
 	*/
-	@available(*, deprecated=0.1, message="TLSOutputStream.CreateStreamPair has been deprecated. Use TLSCreateStreamPair(...) instead.")
-	public class func CreateStreamPair(fromInputStream inputStream: InputStream, outputStream: OutputStream, certificates: [Certificate]) throws -> (inputStream: TLSInputStream, outputStream: TLSOutputStream)
+	@available(*, deprecated: 0.1, message: "TLSOutputStream.CreateStreamPair has been deprecated. Use TLSCreateStreamPair(...) instead.")
+	open class func CreateStreamPair(fromInputStream inputStream: InputStream, outputStream: OutputStream, certificates: [Certificate]) throws -> (inputStream: TLSInputStream, outputStream: TLSOutputStream)
 	{
 		return try TLSCreateStreamPair(fromInputStream: inputStream, outputStream: outputStream, certificates: certificates)
 	}
@@ -71,7 +71,7 @@ public class TLSOutputStream : OutputStream
 	and written to this underlying stream.
 	
 	*/
-	public let underlyingStream: OutputStream
+	open let underlyingStream: OutputStream
 	
 	
 	/**
@@ -103,7 +103,7 @@ public class TLSOutputStream : OutputStream
 	an IOError will be thrown.
 	
 	*/
-	public var open: Bool
+	open var open: Bool
 	{
 		return self.underlyingStream.open
 	}
@@ -141,12 +141,12 @@ public class TLSOutputStream : OutputStream
 	- parameter byteCount: Number of bytes to encrypt and write.
 	
 	*/
-	public func write(data: UnsafePointer<Void>, lengthInBytes byteCount: Int) throws
+	open func write(_ data: UnsafeRawPointer, lengthInBytes byteCount: Int) throws
 	{
 		var processed = 0
 		while processed < byteCount
 		{
-			let ptr = data.advancedBy(processed)
+			let ptr = data.advanced(by: processed)
 			var written = 0
 			let status = SSLWrite(context, ptr, byteCount - processed, &written)
 			
@@ -179,7 +179,7 @@ public class TLSOutputStream : OutputStream
 	This operation also closes the underlying stream.
 	
 	*/
-	public func close()
+	open func close()
 	{
 		self.inputStream?.close()
 		self.underlyingStream.close()
@@ -202,12 +202,12 @@ public class TLSOutputStream : OutputStream
 	If no error occurred, noErr will be returned.
 	
 	*/
-	internal func writeFunc(connection: SSLConnectionRef, data: UnsafePointer<Void>, length: UnsafeMutablePointer<Int>) -> OSStatus
+	internal func writeFunc(_ connection: SSLConnectionRef, data: UnsafeRawPointer, length: UnsafeMutablePointer<Int>) -> OSStatus
 	{
 		do
 		{
-			DEBUG ?-> print("SSL - write: \(length.memory) bytes")
-			try underlyingStream.write(data, lengthInBytes: length.memory)
+			DEBUG ?-> print("SSL - write: \(length.pointee) bytes")
+			try underlyingStream.write(data, lengthInBytes: length.pointee)
 			return noErr
 		}
 		catch

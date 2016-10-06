@@ -39,7 +39,7 @@ read the encrypted data, which is then decrypted.
 The decrypted data can then be read from this stream.
 
 */
-public class TLSInputStream : InputStream, InputStreamDelegate
+open class TLSInputStream : InputStream, InputStreamDelegate
 {
 	
 	/**
@@ -67,8 +67,8 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	- returns: An encrypted input and output stream.
 	
 	*/
-	@available(*, deprecated=0.1, message="TLSInputStream.CreateStreamPair has been deprecated. Use TLSCreateStreamPair(...) instead.")
-	public class func CreateStreamPair(fromInputStream inputStream: InputStream, outputStream: OutputStream, certificates: [Certificate]) throws -> (inputStream: TLSInputStream, outputStream: TLSOutputStream)
+	@available(*, deprecated: 0.1, message: "TLSInputStream.CreateStreamPair has been deprecated. Use TLSCreateStreamPair(...) instead.")
+	open class func CreateStreamPair(fromInputStream inputStream: InputStream, outputStream: OutputStream, certificates: [Certificate]) throws -> (inputStream: TLSInputStream, outputStream: TLSOutputStream)
 	{
 		return try TLSCreateStreamPair(fromInputStream: inputStream, outputStream: outputStream, certificates: certificates)
 	}
@@ -83,7 +83,7 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	from the TLSInputStream.
 	
 	*/
-	public let underlyingStream: InputStream
+	open let underlyingStream: InputStream
 	
 	
 	/**
@@ -112,7 +112,7 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	A buffer for reading the decrypted data.
 	
 	*/
-	private var buffer:UnsafeMutablePointer<CChar>
+	fileprivate var buffer:UnsafeMutablePointer<CChar>
 	
 	
 	/**
@@ -120,7 +120,7 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	The size of the read buffer
 	
 	*/
-	private var bufferSize:Int
+	fileprivate var bufferSize:Int
 	
 	
 	/**
@@ -139,7 +139,7 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	if new data is available or the stream was closed.
 	
 	*/
-	public var delegate: InputStreamDelegate?
+	open var delegate: InputStreamDelegate?
 	
 	
 	/**
@@ -159,7 +159,7 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	{
 		self.underlyingStream = stream
 		self.context = context
-		buffer = UnsafeMutablePointer<CChar>.alloc(bufferSize)
+		buffer = UnsafeMutablePointer<CChar>.allocate(capacity: bufferSize)
 		self.bufferSize = bufferSize
 	}
 	
@@ -172,7 +172,7 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	an IOError will be thrown.
 	
 	*/
-	public var open: Bool
+	open var open: Bool
 	{
 		return self.underlyingStream.open
 	}
@@ -214,7 +214,7 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	- returns: An array of chars containing the data which was read.
 	
 	*/
-	public func read(maxByteCount: Int) throws -> [CChar]
+	open func read(_ maxByteCount: Int) throws -> [CChar]
 	{
 		var buffer_count = 0
 		let result = SSLRead(context, buffer, min(bufferSize, maxByteCount), &buffer_count)
@@ -225,7 +225,7 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 			//TODO: Error handling
 			return []
 		}
-		var data = Array<CChar>(count: buffer_count, repeatedValue: 0)
+		var data = Array<CChar>(repeating: 0, count: buffer_count)
 		memcpy(&data, buffer, buffer_count)
 		return data
 	}
@@ -243,14 +243,14 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	This operation also closes the underlying stream.
 	
 	*/
-	public func close()
+	open func close()
 	{
 		if !open
 		{
 			return
 		}
 		SSLClose(context)
-		connection?.dealloc(sizeof(TLSConnectionInfo))
+		connection?.deallocate(capacity: MemoryLayout<TLSConnectionInfo>.size)
 		self.underlyingStream.close()
 	}
 	
@@ -272,25 +272,25 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	If no error occurred, noErr will be returned.
 	
 	*/
-	internal func readFunc(connection: SSLConnectionRef, data: UnsafeMutablePointer<Void>, length: UnsafeMutablePointer<Int>) -> OSStatus
+	internal func readFunc(_ connection: SSLConnectionRef, data: UnsafeMutableRawPointer, length: UnsafeMutablePointer<Int>) -> OSStatus
 	{
 		do
 		{
-			DEBUG ?-> print("SSL - read maximum: \(length.memory) bytes")
-			var readData = try underlyingStream.read(length.memory)
-			length.memory = readData.count
-			DEBUG ?-> print("SSL - read: \(length.memory) bytes")
+			DEBUG ?-> print("SSL - read maximum: \(length.pointee) bytes")
+			var readData = try underlyingStream.read(length.pointee)
+			length.pointee = readData.count
+			DEBUG ?-> print("SSL - read: \(length.pointee) bytes")
 			memcpy(data, &readData, readData.count)
 		}
 		catch
 		{
 			switch error
 			{
-			case IOError.WouldBlock, IOError.Again, IOError.Interrupted:
+			case IOError.wouldBlock, IOError.again, IOError.interrupted:
 				return errSSLWouldBlock
-			case IOError.EndOfFile:
+			case IOError.endOfFile:
 				return errSSLClosedGraceful
-			case IOError.BrokenPipe, IOError.BadMessage, IOError.ConnectionReset, IOError.TimedOut:
+			case IOError.brokenPipe, IOError.badMessage, IOError.connectionReset, IOError.timedOut:
 				return errSSLClosedAbort
 			default:
 				return errSSLInternal
@@ -327,7 +327,7 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	- parameter inputStream: The input stream which has new data available.
 	
 	*/
-	public func canRead(from inputStream: InputStream)
+	open func canRead(from inputStream: InputStream)
 	{
 		if inputStream === underlyingStream
 		{
@@ -351,7 +351,7 @@ public class TLSInputStream : InputStream, InputStreamDelegate
 	- parameter inputStream: The input stream which has new data available.
 	
 	*/
-	public func didClose(inputStream: InputStream)
+	open func didClose(_ inputStream: InputStream)
 	{
 		if inputStream === underlyingStream
 		{

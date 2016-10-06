@@ -50,7 +50,7 @@ public protocol ServerSocketDelegate
 	- paramerer socket: Socket of the new connection.
 	
 	*/
-	func serverSocket(serverSocket: ServerSocket, didAcceptConnectionWithSocket socket: Socket)
+	func serverSocket(_ serverSocket: ServerSocket, didAcceptConnectionWithSocket socket: Socket)
 	
 	
 	/**
@@ -63,7 +63,7 @@ public protocol ServerSocketDelegate
 	- parameter error: The error which was encountered.
 	
 	*/
-	func serverSocket(serverSocket: ServerSocket, didFailToAcceptConnectionWithError error: SocketError)
+	func serverSocket(_ serverSocket: ServerSocket, didFailToAcceptConnectionWithError error: SocketError)
 }
 
 
@@ -86,7 +86,7 @@ public class ServerSocket : CustomStringConvertible
 	The handle of the IPv4 server socket
 	
 	*/
-	private let socket_ipv4:Int32
+	fileprivate let socket_ipv4:Int32
 	
 	
 	/**
@@ -94,7 +94,7 @@ public class ServerSocket : CustomStringConvertible
 	The handle of the IPv6 server socket
 	
 	*/
-	private let socket_ipv6:Int32
+	fileprivate let socket_ipv6:Int32
 	
 	
 	/**
@@ -104,7 +104,7 @@ public class ServerSocket : CustomStringConvertible
 	The address contains the port on which the server socket listens.
 	
 	*/
-	private var address_in_ipv4:sockaddr_in
+	fileprivate var address_in_ipv4:sockaddr_in
 	
 	
 	/**
@@ -114,7 +114,7 @@ public class ServerSocket : CustomStringConvertible
 	The address contains the port on which the server socket listens.
 	
 	*/
-	private var address_in_ipv6:sockaddr_in6
+	fileprivate var address_in_ipv6:sockaddr_in6
 	
 	
 	/**
@@ -123,7 +123,7 @@ public class ServerSocket : CustomStringConvertible
 	on the IPv4 server socket.
 	
 	*/
-	private var dispatch_source_ipv4:dispatch_source_t!
+	fileprivate var dispatch_source_ipv4:DispatchSource!
 	
 	
 	/**
@@ -132,7 +132,7 @@ public class ServerSocket : CustomStringConvertible
 	on the IPv6 server socket.
 	
 	*/
-	private var dispatch_source_ipv6:dispatch_source_t!
+	fileprivate var dispatch_source_ipv6:DispatchSource!
 	
 	
 	/**
@@ -141,10 +141,10 @@ public class ServerSocket : CustomStringConvertible
 	and errors which occurred on this server socket
 	
 	*/
-	public var delegate:ServerSocketDelegate?
+	open var delegate:ServerSocketDelegate?
 	
 	
-	public var description: String
+	open var description: String
 	{
 		return "ServerSocket (listening on port \(self.address_in_ipv4.sin_port))"
 	}
@@ -182,28 +182,28 @@ public class ServerSocket : CustomStringConvertible
 		guard socket_ipv4 >= 0
 			else
 		{
-			Darwin.close(socket_ipv4)
-			throw SocketError.Open
+			_ = Darwin.close(socket_ipv4)
+			throw SocketError.open
 		}
 		
 		guard socket_ipv6 >= 0
 			else
 		{
-			Darwin.close(socket_ipv6)
-			throw SocketError.Open
+			_ = Darwin.close(socket_ipv6)
+			throw SocketError.open
 		}
 		
 		var reuse:Int32 = 1
 		
-		let succes_reuse_ipv4 = setsockopt(socket_ipv4, SOL_SOCKET, SO_REUSEADDR, &reuse, socklen_t(sizeof(reuse.dynamicType)))
-		let succes_reuse_ipv6 = setsockopt(socket_ipv6, SOL_SOCKET, SO_REUSEADDR, &reuse, socklen_t(sizeof(reuse.dynamicType)))
+		let succes_reuse_ipv4 = setsockopt(socket_ipv4, SOL_SOCKET, SO_REUSEADDR, &reuse, socklen_t(MemoryLayout<Int32>.size))
+		let succes_reuse_ipv6 = setsockopt(socket_ipv6, SOL_SOCKET, SO_REUSEADDR, &reuse, socklen_t(MemoryLayout<Int32>.size))
 		
 		guard succes_reuse_ipv4 >= 0 && succes_reuse_ipv6 >= 0
 			else
 		{
-			Darwin.close(socket_ipv4)
-			Darwin.close(socket_ipv6)
-			throw SocketError.Reuse
+			_ = Darwin.close(socket_ipv4)
+			_ = Darwin.close(socket_ipv6)
+			throw SocketError.reuse
 		}
 		
 		let flags_ipv4 = fcntl(socket_ipv4, F_GETFL, 0)
@@ -212,9 +212,9 @@ public class ServerSocket : CustomStringConvertible
 		guard flags_ipv4 >= 0 && flags_ipv6 >= 0
 		else
 		{
-			Darwin.close(socket_ipv4)
-			Darwin.close(socket_ipv6)
-			throw SocketError.Flags
+			_ = Darwin.close(socket_ipv4)
+			_ = Darwin.close(socket_ipv6)
+			throw SocketError.flags
 		}
 		
 		let success_nonblocking_ipv4 = fcntl(socket_ipv4, F_SETFL, flags_ipv4 | O_NONBLOCK)
@@ -223,16 +223,16 @@ public class ServerSocket : CustomStringConvertible
 		guard success_nonblocking_ipv4 >= 0 && success_nonblocking_ipv6 >= 0
 		else
 		{
-			Darwin.close(socket_ipv4)
-			Darwin.close(socket_ipv6)
-			throw SocketError.Nonblocking
+			_ = Darwin.close(socket_ipv4)
+			_ = Darwin.close(socket_ipv6)
+			throw SocketError.nonblocking
 		}
 		
 		address_in_ipv4 = sockaddr_in()
 		address_in_ipv6 = sockaddr_in6()
 		
-		address_in_ipv4.sin_len = __uint8_t(sizeof(address_in_ipv4.dynamicType))
-		address_in_ipv6.sin6_len = __uint8_t(sizeof(address_in_ipv6.dynamicType))
+		address_in_ipv4.sin_len = __uint8_t(MemoryLayout<sockaddr_in>.size)
+		address_in_ipv6.sin6_len = __uint8_t(MemoryLayout<sockaddr_in6>.size)
 		
 		address_in_ipv4.sin_family = sa_family_t(AF_INET)
 		address_in_ipv6.sin6_family = sa_family_t(AF_INET6)
@@ -245,22 +245,15 @@ public class ServerSocket : CustomStringConvertible
 		
 		address_in_ipv4.sin_zero = (0, 0, 0, 0, 0, 0, 0, 0)
 		
-		let success_ipv4 = withUnsafePointer(&address_in_ipv4)
-		{
-			bind(socket_ipv4, UnsafePointer<sockaddr>($0), socklen_t(sizeof(address_in_ipv4.dynamicType)))
-		}
-		
-		let success_ipv6 = withUnsafePointer(&address_in_ipv6)
-		{
-			bind(socket_ipv6, UnsafePointer<sockaddr>($0), socklen_t(sizeof(address_in_ipv6.dynamicType)))
-		}
+		let success_ipv4 = bind(socket_ipv4, [sockaddr_in_cast(&address_in_ipv4)], socklen_t(MemoryLayout<sockaddr_in>.size))
+		let success_ipv6 = bind(socket_ipv6, [sockaddr_in_cast(&address_in_ipv6)], socklen_t(MemoryLayout<sockaddr_in6>.size))
 		
 		guard success_ipv4 >= 0 && success_ipv6 >= 0
 		else
 		{
-			Darwin.close(socket_ipv4)
-			Darwin.close(socket_ipv6)
-			throw SocketError.Bind
+			_ = Darwin.close(socket_ipv4)
+			_ = Darwin.close(socket_ipv6)
+			throw SocketError.bind
 		}
 		
 		let success_listen_ipv4 = listen(socket_ipv4, SOMAXCONN)
@@ -269,24 +262,24 @@ public class ServerSocket : CustomStringConvertible
 		guard success_listen_ipv4 >= 0 && success_listen_ipv6 >= 0
 			else
 		{
-			Darwin.close(socket_ipv4)
-			Darwin.close(socket_ipv6)
-			throw SocketError.Listen
+			_ = Darwin.close(socket_ipv4)
+			_ = Darwin.close(socket_ipv6)
+			throw SocketError.listen
 		}
 		
-		dispatch_source_ipv4 = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, UInt(socket_ipv4), 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
-		dispatch_source_set_event_handler(dispatch_source_ipv4)
+		dispatch_source_ipv4 = DispatchSource.makeReadSource(fileDescriptor: socket_ipv4, queue: DispatchQueue.global()) /*Migrator FIXME: Use DispatchSourceRead to avoid the cast*/ as! DispatchSource
+		dispatch_source_ipv4.setEventHandler
 		{
 			self.acceptConnection(self.socket_ipv4)
 		}
-		dispatch_resume(dispatch_source_ipv4)
+		dispatch_source_ipv4.resume()
 		
-		dispatch_source_ipv6 = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, UInt(socket_ipv6), 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
-		dispatch_source_set_event_handler(dispatch_source_ipv6)
+		dispatch_source_ipv6 = DispatchSource.makeReadSource(fileDescriptor: socket_ipv6, queue: DispatchQueue.global()) /*Migrator FIXME: Use DispatchSourceRead to avoid the cast*/ as! DispatchSource
+		dispatch_source_ipv6.setEventHandler
 		{
 			self.acceptConnection(self.socket_ipv6)
 		}
-		dispatch_resume(dispatch_source_ipv6)
+		dispatch_source_ipv6.resume()
 	}
 	
 	
@@ -316,20 +309,20 @@ public class ServerSocket : CustomStringConvertible
 	- parameter server_socket: The server socket which received a new connection
 	
 	*/
-	private func acceptConnection(server_socket: Int32)
+	fileprivate func acceptConnection(_ server_socket: Int32)
 	{
 		var address = sockaddr()
-		var address_length = socklen_t(sizeof(address.dynamicType))
+		var address_length = socklen_t(MemoryLayout<sockaddr>.size)
 		let socketHandle = accept(server_socket, &address, &address_length)
 		guard socketHandle >= 0
 			else
 		{
-			delegate?.serverSocket(self, didFailToAcceptConnectionWithError: SocketError.Accept)
+			delegate?.serverSocket(self, didFailToAcceptConnectionWithError: SocketError.accept)
 			return
 		}
 		
 		let socket = TCPSocket(handle: socketHandle, address: address)
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
+		DispatchQueue.global().async
 		{
 			self.delegate?.serverSocket(self, didAcceptConnectionWithSocket: socket)
 		}
@@ -345,16 +338,16 @@ public class ServerSocket : CustomStringConvertible
 	*/
 	public func close()
 	{
-		Darwin.close(socket_ipv4)
-		Darwin.close(socket_ipv6)
+		_ = Darwin.close(socket_ipv4)
+		_ = Darwin.close(socket_ipv6)
 		
 		if dispatch_source_ipv4 != nil
 		{
-			dispatch_source_cancel(dispatch_source_ipv4)
+			dispatch_source_ipv4.cancel()
 		}
 		if dispatch_source_ipv6 != nil
 		{
-			dispatch_source_cancel(dispatch_source_ipv6)
+			dispatch_source_ipv6.cancel()
 		}
 	}
 }

@@ -1,7 +1,8 @@
 # SocketKit
-SocketKit is a client and server side networking framework for Mac OS X written entirely in Swift.
+SocketKit is a client and server side TCP networking framework for macOS written entirely in Swift.
 
 ## Features
+- Send raw data using TCP sockets using custom protocols 
 - Open a server for any application protocol
 - Use secure streams encrypted with TLS/SSL
 - IPv4 and IPv6 support

@@ -33,7 +33,7 @@ import Foundation
 Flag which indicates if debug output should be written to the console.
 
 */
-internal let DEBUG = Process.arguments.contains("-skdebug")
+internal let DEBUG = CommandLine.arguments.contains("-skdebug")
 
 
 /**
@@ -42,7 +42,7 @@ Flag which indicates if all written and read data should be written to the
 console in hexadecimal notation.
 
 */
-internal let DEBUG_HEXDUMP = Process.arguments.contains("-skdebug-hexdump")
+internal let DEBUG_HEXDUMP = CommandLine.arguments.contains("-skdebug-hexdump")
 
 
 /**
@@ -54,14 +54,25 @@ Casts a sockaddr to a sockaddr_in.
 - returns: Converted address as a sockaddr_in instance.
 
 */
-internal func sockaddr_cast(inout addr: sockaddr) -> sockaddr_in
+internal func sockaddr_cast(_ addr: inout sockaddr) -> sockaddr_in
 {
-	return withUnsafePointer(&addr)
-	{ sockaddr_ptr -> sockaddr_in in
-		var sockaddr_in_result = sockaddr_in()
-		memcpy(&sockaddr_in_result, sockaddr_ptr, sizeof(sockaddr_in_result.dynamicType))
-		return sockaddr_in_result
-	}
+	var sockaddr_in_result = sockaddr_in()
+	memcpy(&sockaddr_in_result, &addr, MemoryLayout<sockaddr_in>.size)
+	return sockaddr_in_result
+}
+
+internal func sockaddr_in_cast(_ addr: inout sockaddr_in) -> sockaddr
+{
+	var sockaddr_result = sockaddr()
+	memcpy(&sockaddr_result, &addr, MemoryLayout<sockaddr_in>.size)
+	return sockaddr_result
+}
+
+internal func sockaddr_in_cast(_ addr: inout sockaddr_in6) -> sockaddr
+{
+	var sockaddr_result = sockaddr()
+	memcpy(&sockaddr_result, &addr, MemoryLayout<sockaddr_in6>.size)
+	return sockaddr_result
 }
 
 //TODO: Add all these cipher suites to the enum.
@@ -314,7 +325,7 @@ Error type for errors which occurred while working with data.
 
 */
 //TODO: Name this properly
-public enum DataError : ErrorType
+public enum DataError : Error
 {
 	
 	/**
@@ -325,7 +336,7 @@ public enum DataError : ErrorType
 	in a string with a specified format.
 	
 	*/
-	case StringConversion
+	case stringConversion
 }
 
 
@@ -334,7 +345,7 @@ public enum DataError : ErrorType
 Error type for errors which occurred while working with sockets and streams.
 
 */
-public enum IOError : ErrorType
+public enum IOError : Error
 {
 	//Internal errors
 
@@ -344,7 +355,7 @@ public enum IOError : ErrorType
 	is not correct and does not belong to a socket
 	
 	*/
-	case InvalidSocket
+	case invalidSocket
 	
 	
 	/**
@@ -352,7 +363,7 @@ public enum IOError : ErrorType
 	Indicates that an input stream received a bad message.
 	
 	*/
-	case BadMessage
+	case badMessage
 	
 	
 	/**
@@ -360,7 +371,7 @@ public enum IOError : ErrorType
 	Indicates that an invalid operation was executed.
 	
 	*/
-	case Invalid
+	case invalid
 	
 	
 	/**
@@ -368,7 +379,7 @@ public enum IOError : ErrorType
 	Indicates that a buffer overflow occurred.
 	
 	*/
-	case Overflow
+	case overflow
 	
 	
 	/**
@@ -376,7 +387,7 @@ public enum IOError : ErrorType
 	Indicates that not enough ressources are available to handle a socket.
 	
 	*/
-	case InsufficientRessources
+	case insufficientRessources
 	
 	
 	/**
@@ -384,7 +395,7 @@ public enum IOError : ErrorType
 	Indicates that not enough memory is available to handle a socket.
 	
 	*/
-	case OutOfMemory
+	case outOfMemory
 	
 	
 	//Network errors
@@ -396,7 +407,7 @@ public enum IOError : ErrorType
 	of a stream or a socket does not exist.
 	
 	*/
-	case NonexistentDevice
+	case nonexistentDevice
 	
 	
 	/**
@@ -405,7 +416,7 @@ public enum IOError : ErrorType
 	privileges to access the peer.
 	
 	*/
-	case InsufficientPermissions
+	case insufficientPermissions
 	
 	
 	/**
@@ -413,7 +424,7 @@ public enum IOError : ErrorType
 	Indicates that the network is down.
 	
 	*/
-	case NetworkDown
+	case networkDown
 	
 	
 	/**
@@ -422,7 +433,7 @@ public enum IOError : ErrorType
 	of a socket.
 	
 	*/
-	case NoRoute
+	case noRoute
 	
 	
 	/**
@@ -430,7 +441,7 @@ public enum IOError : ErrorType
 	Indicates that a socket is no longer connected.
 	
 	*/
-	case ConnectionReset
+	case connectionReset
 	
 	
 	/**
@@ -438,7 +449,7 @@ public enum IOError : ErrorType
 	Indicates that a socket is not connected.
 	
 	*/
-	case NotConnected
+	case notConnected
 	
 	
 	/**
@@ -446,7 +457,7 @@ public enum IOError : ErrorType
 	Indicates that the connection timed out.
 	
 	*/
-	case TimedOut
+	case timedOut
 	
 	
 	/**
@@ -454,7 +465,7 @@ public enum IOError : ErrorType
 	Indicates that a physical I/O error occurred.
 	
 	*/
-	case Physical
+	case physical
 	
 	
 	/**
@@ -462,7 +473,7 @@ public enum IOError : ErrorType
 	Indicates that the connection is broken.
 	
 	*/
-	case BrokenPipe
+	case brokenPipe
 	
 	
 	/**
@@ -470,7 +481,7 @@ public enum IOError : ErrorType
 	Indicates that the peer cannot be reached.
 	
 	*/
-	case Unreachable
+	case unreachable
 
 	//End of stream error
 
@@ -480,7 +491,7 @@ public enum IOError : ErrorType
 	Indicates that the end of the transmission was reached.
 	
 	*/
-	case EndOfFile
+	case endOfFile
 
 	//Non-fatal errors
 
@@ -491,7 +502,7 @@ public enum IOError : ErrorType
 	This error is not fatal and the operation should be tried again.
 	
 	*/
-	case Interrupted
+	case interrupted
 	
 	
 	/**
@@ -501,7 +512,7 @@ public enum IOError : ErrorType
 	This error is not fatal and the operation should be tried again.
 	
 	*/
-	case Again
+	case again
 	
 	
 	/**
@@ -511,7 +522,7 @@ public enum IOError : ErrorType
 	This error is not fatal and the operation should be tried again.
 	
 	*/
-	case WouldBlock
+	case wouldBlock
 
 	//Other
 
@@ -521,7 +532,7 @@ public enum IOError : ErrorType
 	Indicates an unknown error.
 	
 	*/
-	case Unknown
+	case unknown
 	
 	
 	/**
@@ -539,19 +550,19 @@ public enum IOError : ErrorType
 	{
 		switch self
 		{
-		case .InvalidSocket, .Overflow, .InsufficientRessources, .OutOfMemory, .Invalid:
+		case .invalidSocket, .overflow, .insufficientRessources, .outOfMemory, .invalid:
 			return errSSLInternal
-		case .BadMessage:
+		case .badMessage:
 			return errSSLPeerUnexpectedMsg
-		case .NonexistentDevice, .NetworkDown, .NoRoute:
+		case .nonexistentDevice, .networkDown, .noRoute:
 			return errSSLConnectionRefused
-		case .ConnectionReset, .NotConnected, .TimedOut, .Physical, .BrokenPipe:
+		case .connectionReset, .notConnected, .timedOut, .physical, .brokenPipe:
 			return errSSLClosedAbort
-		case .Interrupted, .Again, .WouldBlock:
+		case .interrupted, .again, .wouldBlock:
 			return errSSLWouldBlock
-		case .EndOfFile:
+		case .endOfFile:
 			return errSSLClosedGraceful
-		case .InsufficientPermissions:
+		case .insufficientPermissions:
 			return errSSLPeerAccessDenied
 		default:
 			return errSSLInternal
@@ -571,26 +582,26 @@ public enum IOError : ErrorType
 	- returns: An IOError corresponding to the provided OSStatus.
 	
 	*/
-	static internal func FromSSlError(error: OSStatus) -> IOError
+	static internal func FromSSlError(_ error: OSStatus) -> IOError
 	{
 		switch error
 		{
 		case errSSLInternal:
-			return .Invalid
+			return .invalid
 		case errSSLConnectionRefused:
-			return .NoRoute
+			return .noRoute
 		case errSSLPeerUnexpectedMsg:
-			return .BadMessage
+			return .badMessage
 		case errSSLClosedAbort:
-			return .BrokenPipe
+			return .brokenPipe
 		case errSSLWouldBlock:
-			return .WouldBlock
+			return .wouldBlock
 		case errSSLClosedGraceful:
-			return .EndOfFile
+			return .endOfFile
 		case errSSLPeerAccessDenied:
-			return .InsufficientPermissions
+			return .insufficientPermissions
 		default:
-			return .Unknown
+			return .unknown
 		}
 	}
 	
@@ -608,41 +619,41 @@ public enum IOError : ErrorType
 		switch errno
 		{
 		case EBADF:
-			return IOError.InvalidSocket
+			return IOError.invalidSocket
 		case EBADMSG:
-			return IOError.BadMessage
+			return IOError.badMessage
 		case EINVAL:
-			return IOError.Invalid
+			return IOError.invalid
 		case EIO:
-			return IOError.Physical
+			return IOError.physical
 		case ENETDOWN:
-			return IOError.NetworkDown
+			return IOError.networkDown
 		case ENETUNREACH:
-			return IOError.Unreachable
+			return IOError.unreachable
 		case EOVERFLOW:
-			return IOError.Overflow
+			return IOError.overflow
 		case ECONNRESET:
-			return IOError.ConnectionReset
+			return IOError.connectionReset
 		case ENOTCONN:
-			return IOError.NotConnected
+			return IOError.notConnected
 		case ETIMEDOUT:
-			return IOError.TimedOut
+			return IOError.timedOut
 		case ENOBUFS:
-			return IOError.InsufficientRessources
+			return IOError.insufficientRessources
 		case ENOMEM:
-			return IOError.OutOfMemory
+			return IOError.outOfMemory
 		case ENXIO:
-			return IOError.NonexistentDevice
+			return IOError.nonexistentDevice
 		case EWOULDBLOCK:
-			return IOError.WouldBlock
-		case EAGAIN:
-			return IOError.Again
+			return IOError.wouldBlock
+//		case EAGAIN:
+//			return IOError.again
 		case EINTR:
-			return IOError.Interrupted
+			return IOError.interrupted
 		case EPIPE:
-			return IOError.BrokenPipe
+			return IOError.brokenPipe
 		default:
-			return IOError.Unknown
+			return IOError.unknown
 		}
 	}
 }
@@ -656,7 +667,7 @@ associated with a socket operation.
 These errors are not very likely to occur.
 
 */
-public enum SocketError : ErrorType
+public enum SocketError : Error
 {
 	
 	/**
@@ -664,7 +675,7 @@ public enum SocketError : ErrorType
 	Indicates that a flag of a socket could not be retrieved or set.
 	
 	*/
-	case Flags
+	case flags
 	
 	
 	/**
@@ -673,7 +684,7 @@ public enum SocketError : ErrorType
 	a socket address to be reused.
 	
 	*/
-	case Reuse
+	case reuse
 	
 	
 	/**
@@ -681,7 +692,7 @@ public enum SocketError : ErrorType
 	Indicates that a socket could not be bound.
 	
 	*/
-	case Bind
+	case bind
 	
 	
 	/**
@@ -690,7 +701,7 @@ public enum SocketError : ErrorType
 	the nonblocking-property of a socket.
 	
 	*/
-	case Nonblocking
+	case nonblocking
 	
 	
 	/**
@@ -698,7 +709,7 @@ public enum SocketError : ErrorType
 	Indicates that an error occurred while trying to make a socket listen.
 	
 	*/
-	case Listen
+	case listen
 	
 	
 	/**
@@ -706,7 +717,7 @@ public enum SocketError : ErrorType
 	Indicates that an error occurred while trying to accept a new connection.
 	
 	*/
-	case Accept
+	case accept
 	
 	
 	/**
@@ -714,7 +725,7 @@ public enum SocketError : ErrorType
 	Indicates that an error occurred while trying to open a socket.
 	
 	*/
-	case Open
+	case open
 }
 
 
@@ -723,10 +734,10 @@ public enum SocketError : ErrorType
 Currently not used.
 
 */
-public enum DNSError : ErrorType
+public enum DNSError : Error
 {
-	case InvalidAddress
-	case LookupFailed(info: String?)
+	case invalidAddress
+	case lookupFailed(info: String?)
 }
 
 
@@ -735,7 +746,7 @@ public enum DNSError : ErrorType
 An error type for errors which may occurr during a TLS/SSL session.
 
 */
-public enum TLSError : ErrorType
+public enum TLSError : Error
 {
 	
 	/**
@@ -743,7 +754,7 @@ public enum TLSError : ErrorType
 	Indicates that a TLS/SSL session could not be created.
 	
 	*/
-	case SessionNotCreated
+	case sessionNotCreated
 	
 	
 	/**
@@ -752,7 +763,7 @@ public enum TLSError : ErrorType
 	between the server and the client failed.
 	
 	*/
-	case HandshakeFailed
+	case handshakeFailed
 	
 	
 	/**
@@ -760,7 +771,7 @@ public enum TLSError : ErrorType
 	Indicates that a certificate could not be loaded.
 	
 	*/
-	case ImportFailed
+	case importFailed
 	
 	
 	/**
@@ -769,7 +780,7 @@ public enum TLSError : ErrorType
 	the data cannot be accessed.
 	
 	*/
-	case DataNotAccessible
+	case dataNotAccessible
 	
 	
 	/**
@@ -777,7 +788,7 @@ public enum TLSError : ErrorType
 	Indicates an unknown TLS/SSL error.
 	
 	*/
-	case Unknown
+	case unknown
 }
 
 
@@ -876,7 +887,7 @@ internal let ntohll = IsLittleEndian ? _OSSwapInt64 : { $0 }
 Custom operator for short conditional statements.
 
 */
-infix operator ?-> { associativity left precedence 50 }
+infix operator ?-> : DefaultPrecedence
 
 
 /**
@@ -905,7 +916,9 @@ If the condition is false, nil will be returned.
 - returns: Optional result of the right function.
 
 */
-@inline(__always) internal func ?-> <Result>(left: Bool, @autoclosure right: () throws -> Result) rethrows -> Result?
+@inline(__always)
+@discardableResult
+internal func ?-> <Result>(left: Bool, right: @autoclosure () throws -> Result) rethrows -> Result?
 {
 	return left ? try right() : nil
 }
@@ -924,9 +937,9 @@ Bytes are grouped and always represented with 2 characters.
 - returns: A string of hexadecimal bytes.
 
 */
-internal func hex(data: UnsafePointer<Void>, length: Int) -> String
+internal func hex(_ data: UnsafeRawPointer, length: Int) -> String
 {
-	var chars = Array<UInt8>(count: length, repeatedValue: 0)
+	var chars = Array<UInt8>(repeating: 0, count: length)
 	memcpy(&chars, data, length)
 	let reduced = chars.reduce("") { "\($0)\(String(format: "%02X", $1)) " }
 	return reduced
@@ -944,7 +957,8 @@ Bytes are grouped and always represented with 2 characters.
 - returns: A string of hexadecimal bytes.
 
 */
-internal func hex(data: [CChar]) -> String
+@inline(__always)
+internal func hex(_ data: [CChar]) -> String
 {
 	return hex(data, length: data.count)
 }

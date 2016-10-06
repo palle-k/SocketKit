@@ -31,15 +31,58 @@ import Foundation
 Date formatter for HTTP time format
 
 */
-internal let HTTPDateFormatter:NSDateFormatter =
+internal let HTTPDateFormatter:DateFormatter =
 {
-	let formatter = NSDateFormatter()
+	let formatter = DateFormatter()
 	formatter.dateFormat = "EEE, d MMM yyyy HH:mm:ss zzz"
-	formatter.locale = NSLocale(localeIdentifier: "en_US")
+	formatter.locale = Locale(identifier: "en_US")
 	return formatter
 }()
 
 
+/**
+
+HTTP Versions
+
+*/
+
+public enum HTTPVersion: String
+{
+	
+	/**
+
+	HTTP Version 1.0
+	
+	*/
+	case v1_0 = "HTTP/1.0"
+	
+	
+	/**
+	
+	HTTP Version 1.1
+	
+	Allows pipelining of requests, put and delete requests
+	
+	*/
+	case v1_1 = "HTTP/1.1"
+	
+	
+	/**
+	
+	HTTP Version 2.0
+	
+	Allows combination of requests, pushing data, further compression and binary data
+	
+	*/
+	case v2_0 = "HTTP/2.0"
+}
+
+
+/**
+
+HTTP Header Fields for Client Requests
+
+*/
 public enum HTTPRequestHeaderField: String
 {
 	
@@ -48,7 +91,7 @@ public enum HTTPRequestHeaderField: String
 	Content-Types that are acceptable for the response. See [Content negotiation](https://en.wikipedia.org/wiki/Content_negotiation).
 	
 	*/
-	case Accept = "Accept"
+	case accept = "Accept"
 	
 	
 	/**
@@ -56,7 +99,7 @@ public enum HTTPRequestHeaderField: String
 	Character sets that are acceptable
 	
 	*/
-	case AcceptCharset = "Accept-Charset"
+	case acceptCharset = "Accept-Charset"
 	
 	
 	/**
@@ -64,7 +107,7 @@ public enum HTTPRequestHeaderField: String
 	List of acceptable encodings. See [HTTP compression](https://en.wikipedia.org/wiki/HTTP_compression).
 	
 	*/
-	case AcceptEncoding = "Accept-Encoding"
+	case acceptEncoding = "Accept-Encoding"
 	
 	
 	/**
@@ -72,7 +115,7 @@ public enum HTTPRequestHeaderField: String
 	List of acceptable human languages for response. See [Content negotiation](https://en.wikipedia.org/wiki/Content_negotiation).
 	
 	*/
-	case AcceptLanguage = "Accept-Language"
+	case acceptLanguage = "Accept-Language"
 	
 	
 	/**
@@ -80,7 +123,7 @@ public enum HTTPRequestHeaderField: String
 	Acceptable version in time
 	
 	*/
-	case AcceptDatetime = "Accept-Datetime"
+	case acceptDatetime = "Accept-Datetime"
 	
 	
 	/**
@@ -88,7 +131,7 @@ public enum HTTPRequestHeaderField: String
 	Authentication credentials for HTTP authentication
 	
 	*/
-	case Authorization = "Authorization"
+	case authorization = "Authorization"
 	
 	
 	/**
@@ -96,7 +139,7 @@ public enum HTTPRequestHeaderField: String
 	Used to specify directives that must be obeyed by all caching mechanisms along the request-response chain
 	
 	*/
-	case CacheControl = "Cache-Control"
+	case cacheControl = "Cache-Control"
 	
 	
 	/**
@@ -104,7 +147,7 @@ public enum HTTPRequestHeaderField: String
 	Control options for the current connection and list of hop-by-hop request fields.
 	
 	*/
-	case Connection = "Connection"
+	case connection = "Connection"
 	
 	
 	/**
@@ -112,7 +155,7 @@ public enum HTTPRequestHeaderField: String
 	An HTTP cookie previously sent by the server with Set-Cookie
 	
 	*/
-	case Cookie = "Cookie"
+	case cookie = "Cookie"
 	
 	
 	/**
@@ -120,7 +163,7 @@ public enum HTTPRequestHeaderField: String
 	The length of the request body in octets (8-bit bytes)
 	
 	*/
-	case ContentLength = "Content-Length"
+	case contentLength = "Content-Length"
 	
 	
 	/**
@@ -128,8 +171,8 @@ public enum HTTPRequestHeaderField: String
 	A Base64-encoded binary MD5 sum of the content of the request body
 	
 	*/
-	@available(*, introduced=0.1, deprecated=0.1)
-	case ContentMD5 = "Content-MD5"
+	@available(*, introduced: 0.1, deprecated: 0.1)
+	case contentMD5 = "Content-MD5"
 	
 	
 	/**
@@ -139,7 +182,7 @@ public enum HTTPRequestHeaderField: String
 	(used with POST and PUT requests)
 	
 	*/
-	case ContentType = "Content-Type"
+	case contentType = "Content-Type"
 	
 	
 	/**
@@ -149,7 +192,7 @@ public enum HTTPRequestHeaderField: String
 	(in "HTTP-date" format as defined by RFC 7231 Date/Time Formats)
 	
 	*/
-	case Date = "Date"
+	case date = "Date"
 	
 	
 	/**
@@ -157,7 +200,7 @@ public enum HTTPRequestHeaderField: String
 	Indicates that particular server behaviors are required by the client
 	
 	*/
-	case Expect = "Expect"
+	case expect = "Expect"
 	
 	
 	/**
@@ -165,7 +208,7 @@ public enum HTTPRequestHeaderField: String
 	Disclose original information of a client connecting to a web server through an HTTP proxy
 	
 	*/
-	case Forwarded = "Forwarded"
+	case forwarded = "Forwarded"
 	
 	
 	/**
@@ -173,7 +216,7 @@ public enum HTTPRequestHeaderField: String
 	The email address of the user making the request
 	
 	*/
-	case From = "From"
+	case from = "From"
 	
 	
 	/**
@@ -186,7 +229,7 @@ public enum HTTPRequestHeaderField: String
 	Mandatory since HTTP/1.1.
 	
 	*/
-	case Host = "Host"
+	case host = "Host"
 	
 	
 	/**
@@ -196,7 +239,7 @@ public enum HTTPRequestHeaderField: String
 	if it has not been modified since the user last updated it.
 	
 	*/
-	case IfMatch = "If-Match"
+	case ifMatch = "If-Match"
 	
 	
 	/**
@@ -204,7 +247,7 @@ public enum HTTPRequestHeaderField: String
 	Allows a 304 Not Modified to be returned if content is unchanged
 	
 	*/
-	case IfModifiedSince = "If-Modified-Since"
+	case ifModifiedSince = "If-Modified-Since"
 	
 	
 	/**
@@ -212,7 +255,7 @@ public enum HTTPRequestHeaderField: String
 	Allows a 304 Not Modified to be returned if content is unchanged, see [HTTP ETag](https://en.wikipedia.org/wiki/HTTP_ETag)
 	
 	*/
-	case IfNoneMatch = "If-None-Match"
+	case ifNoneMatch = "If-None-Match"
 	
 	
 	/**
@@ -221,7 +264,7 @@ public enum HTTPRequestHeaderField: String
 	otherwise, send me the entire new entity
 	
 	*/
-	case IfRange = "If-Range"
+	case ifRange = "If-Range"
 	
 	
 	/**
@@ -229,7 +272,7 @@ public enum HTTPRequestHeaderField: String
 	Only send the response if the entity has not been modified since a specific time.
 	
 	*/
-	case IfUnmodifiedSince = "If-Unmodified-Since"
+	case ifUnmodifiedSince = "If-Unmodified-Since"
 	
 	
 	/**
@@ -237,7 +280,7 @@ public enum HTTPRequestHeaderField: String
 	Limit the number of times the message can be forwarded through proxies or gateways.
 	
 	*/
-	case MaxForwards = "Max-Forwards"
+	case maxForwards = "Max-Forwards"
 	
 	
 	/**
@@ -246,7 +289,7 @@ public enum HTTPRequestHeaderField: String
 	(asks server for an 'Access-Control-Allow-Origin' response field).
 	
 	*/
-	case Origin = "Origin"
+	case origin = "Origin"
 	
 	
 	/**
@@ -254,7 +297,7 @@ public enum HTTPRequestHeaderField: String
 	Implementation-specific fields that may have various effects anywhere along the request-response chain.
 	
 	*/
-	case Pragma = "Pragma"
+	case pragma = "Pragma"
 	
 	
 	/**
@@ -262,7 +305,7 @@ public enum HTTPRequestHeaderField: String
 	Authorization credentials for connecting to a proxy.
 	
 	*/
-	case ProxyAuthorization = "Proxy-Authorization"
+	case proxyAuthorization = "Proxy-Authorization"
 	
 	
 	/**
@@ -271,7 +314,7 @@ public enum HTTPRequestHeaderField: String
 	See [Byte serving](https://en.wikipedia.org/wiki/Byte_serving).
 	
 	*/
-	case Range = "Range"
+	case range = "Range"
 	
 	
 	/**
@@ -283,7 +326,7 @@ public enum HTTPRequestHeaderField: String
 	and is considered correct terminology)
 	
 	*/
-	case Referer = "Referer"
+	case referer = "Referer"
 	
 	
 	/**
@@ -295,7 +338,7 @@ public enum HTTPRequestHeaderField: String
 	in the trailer after the last, zero-sized, chunk.
 	
 	*/
-	case TE = "TE"
+	case transferEncoding = "TE"
 	
 	
 	/**
@@ -303,7 +346,7 @@ public enum HTTPRequestHeaderField: String
 	The user agent string of the user agent
 	
 	*/
-	case UserAgent = "User-Agent"
+	case userAgent = "User-Agent"
 	
 	
 	/**
@@ -311,7 +354,7 @@ public enum HTTPRequestHeaderField: String
 	Ask the server to upgrade to another protocol.
 	
 	*/
-	case Upgrade = "Upgrade"
+	case upgrade = "Upgrade"
 	
 	
 	/**
@@ -319,7 +362,7 @@ public enum HTTPRequestHeaderField: String
 	Informs the server of proxies through which the request was sent.
 	
 	*/
-	case Via = "Via"
+	case via = "Via"
 	
 	
 	/**
@@ -327,7 +370,7 @@ public enum HTTPRequestHeaderField: String
 	A general warning about possible problems with the entity body.
 	
 	*/
-	case Warning = "Warning"
+	case warning = "Warning"
 	
 	
 	// Non standard request headers (X-Headers)
@@ -338,7 +381,7 @@ public enum HTTPRequestHeaderField: String
 	Most JavaScript frameworks send this field with value of XMLHttpRequest
 	
 	*/
-	case XRequestedWith = "X-Requested-With"
+	case x_RequestedWith = "X-Requested-With"
 	
 	
 	/**
@@ -346,7 +389,7 @@ public enum HTTPRequestHeaderField: String
 	Requests a web application to disable their tracking of a user.
 	
 	*/
-	case DNT = "DNT"
+	case doNotTrack = "DNT"
 	
 	
 	/**
@@ -355,7 +398,7 @@ public enum HTTPRequestHeaderField: String
 	of a client connecting to a web server through an HTTP proxy or load balancer
 	
 	*/
-	case XForwardedFor = "X-Forwarded-For"
+	case x_ForwardedFor = "X-Forwarded-For"
 	
 	
 	/**
@@ -366,7 +409,7 @@ public enum HTTPRequestHeaderField: String
 	may differ from the origin server handling the request.
 	
 	*/
-	case XForwardedHost = "X-Forwarded-Host"
+	case x_ForwardedHost = "X-Forwarded-Host"
 	
 	
 	/**
@@ -378,7 +421,7 @@ public enum HTTPRequestHeaderField: String
 	is used by Google clients talking to Google servers.
 	
 	*/
-	case XForwardedProto = "X-Forwarded-Proto"
+	case x_ForwardedProto = "X-Forwarded-Proto"
 	
 	
 	/**
@@ -386,7 +429,7 @@ public enum HTTPRequestHeaderField: String
 	Non-standard header field used by Microsoft applications and load-balancers
 	
 	*/
-	case FrontEndHttps = "Front-End-Https"
+	case frontEndHttps = "Front-End-Https"
 	
 	
 	/**
@@ -401,7 +444,7 @@ public enum HTTPRequestHeaderField: String
 	in which case bypassing it may be the wrong thing to do).
 	
 	*/
-	case XHTTPMethodOverride = "X-HTTP-Method-Override"
+	case x_HTTPMethodOverride = "X-HTTP-Method-Override"
 	
 	
 	/**
@@ -410,7 +453,7 @@ public enum HTTPRequestHeaderField: String
 	that is usually found in the User-Agent String of AT&T Devices
 	
 	*/
-	case XAttDeviceid = "X-Att-Deviceid"
+	case x_AttDeviceid = "X-Att-Deviceid"
 	
 	
 	/**
@@ -419,7 +462,7 @@ public enum HTTPRequestHeaderField: String
 	about the device currently connecting.
 	
 	*/
-	case XWapProfile = "x-wap-profile"
+	case x_WapProfile = "x-wap-profile"
 	
 	
 	/**
@@ -429,7 +472,7 @@ public enum HTTPRequestHeaderField: String
 	Has exactly the same functionality as standard Connection field.
 	
 	*/
-	case ProxyConnection = "Proxy-Connection"
+	case proxyConnection = "Proxy-Connection"
 	
 	
 	/**
@@ -438,7 +481,7 @@ public enum HTTPRequestHeaderField: String
 	also known as "perma-cookie" or "supercookie"
 	
 	*/
-	case XUIDH = "X-UIDH"
+	case x_UIDH = "X-UIDH"
 	
 	
 	/**
@@ -446,10 +489,77 @@ public enum HTTPRequestHeaderField: String
 	Used to prevent cross-site request forgery. Alternative header names are: X-CSRFToken and X-XSRF-TOKEN
 	
 	*/
-	case XCsrfToken = "X-Csrf-Token"
+	case x_CsrfToken = "X-Csrf-Token"
+	
+	
+	static func `for`(name: String) -> HTTPRequestHeaderField!
+	{
+		let fields:[HTTPRequestHeaderField] =
+			[.accept,
+			 .acceptCharset,
+			 .acceptDatetime,
+			 .acceptEncoding,
+			 .acceptLanguage,
+			 .authorization,
+			 .cacheControl,
+			 .connection,
+			 .contentLength,
+			 .contentMD5,
+			 .contentType,
+			 .cookie,
+			 .date,
+			 .doNotTrack,
+			 .expect,
+			 .forwarded,
+			 .from,
+			 .frontEndHttps,
+			 .host,
+			 .ifMatch,
+			 .ifRange,
+			 .ifNoneMatch,
+			 .ifModifiedSince,
+			 .ifUnmodifiedSince,
+			 .maxForwards,
+			 .origin,
+			 .pragma,
+			 .proxyAuthorization,
+			 .proxyConnection,
+			 .range,
+			 .referer,
+			 .transferEncoding,
+			 .upgrade,
+			 .userAgent,
+			 .via,
+			 .warning,
+			 .x_AttDeviceid,
+			 .x_CsrfToken,
+			 .x_ForwardedFor,
+			 .x_ForwardedHost,
+			 .x_ForwardedProto,
+			 .x_HTTPMethodOverride,
+			 .x_RequestedWith,
+			 .x_UIDH,
+			 .x_WapProfile]
+		
+		let namedFields = fields.map{($0.rawValue, $0)}
+		
+		var dict:[String: HTTPRequestHeaderField] = [:]
+		for (name, field) in namedFields
+		{
+			dict[name.lowercased()] = field
+		}
+		//HTTP Header Fields are case insensitive.
+		return dict[name.lowercased()]
+		
+	}
 }
 
 
+/**
+
+HTTP Header fields for Server Responses
+
+*/
 public enum HTTPResponseHeaderField: String
 {
 	
@@ -458,7 +568,7 @@ public enum HTTPResponseHeaderField: String
 	Specifying which web sites can participate in cross-origin resource sharing
 	
 	*/
-	case AccessControlAllowOrigin = "Access-Control-Allow-Origin"
+	case accessControlAllowOrigin = "Access-Control-Allow-Origin"
 	
 	
 	/**
@@ -466,7 +576,7 @@ public enum HTTPResponseHeaderField: String
 	Specifies which patch document formats this server supports
 	
 	*/
-	case AcceptPatch = "Accept-Patch"
+	case acceptPatch = "Accept-Patch"
 	
 	
 	/**
@@ -474,7 +584,7 @@ public enum HTTPResponseHeaderField: String
 	What partial content range types this server supports via byte serving
 	
 	*/
-	case AcceptRanges = "Accept-Ranges"
+	case acceptRanges = "Accept-Ranges"
 	
 	
 	/**
@@ -482,7 +592,7 @@ public enum HTTPResponseHeaderField: String
 	The age the object has been in a proxy cache in seconds
 	
 	*/
-	case Age = "Age"
+	case age = "Age"
 	
 	
 	/**
@@ -490,7 +600,7 @@ public enum HTTPResponseHeaderField: String
 	Valid actions for a specified resource. To be used for a 405 Method not allowed
 	
 	*/
-	case Allow = "Allow"
+	case allow = "Allow"
 	
 	
 	/**
@@ -500,7 +610,7 @@ public enum HTTPResponseHeaderField: String
 	(host or port) or using a different protocol
 	
 	*/
-	case AltSvc = "Alt-Svc"
+	case altSvc = "Alt-Svc"
 	
 	
 	/**
@@ -511,7 +621,7 @@ public enum HTTPResponseHeaderField: String
 	It is measured in seconds
 	
 	*/
-	case CacheControl = "Cache-Control"
+	case cacheControl = "Cache-Control"
 	
 	
 	/**
@@ -519,7 +629,7 @@ public enum HTTPResponseHeaderField: String
 	Control options for the current connection and list of hop-by-hop response fields
 	
 	*/
-	case Connection = "Connection"
+	case connection = "Connection"
 	
 	
 	/**
@@ -528,7 +638,7 @@ public enum HTTPResponseHeaderField: String
 	for a known MIME type with binary format or suggest a filename for dynamic content.
 	
 	*/
-	case ContentDisposition = "Content-Disposition"
+	case contentDisposition = "Content-Disposition"
 	
 	
 	/**
@@ -536,7 +646,7 @@ public enum HTTPResponseHeaderField: String
 	The type of encoding used on the data. See [HTTP compression](https://en.wikipedia.org/wiki/HTTP_compression).
 	
 	*/
-	case ContentEncoding = "Content-Encoding"
+	case contentEncoding = "Content-Encoding"
 	
 	
 	/**
@@ -544,7 +654,7 @@ public enum HTTPResponseHeaderField: String
 	The natural language or languages of the intended audience for the enclosed content
 	
 	*/
-	case ContentLanguage = "Content-Language"
+	case contentLanguage = "Content-Language"
 	
 	
 	/**
@@ -552,7 +662,7 @@ public enum HTTPResponseHeaderField: String
 	The length of the response body in octets (8-bit bytes)
 	
 	*/
-	case ContentLength = "Content-Length"
+	case contentLength = "Content-Length"
 	
 	
 	/**
@@ -560,7 +670,7 @@ public enum HTTPResponseHeaderField: String
 	An alternate location for the returned data
 	
 	*/
-	case ContentLocation = "Content-Location"
+	case contentLocation = "Content-Location"
 	
 	
 	/**
@@ -568,8 +678,8 @@ public enum HTTPResponseHeaderField: String
 	A Base64-encoded binary MD5 sum of the content of the response
 	
 	*/
-	@available(*, introduced=0.1, deprecated=0.1)
-	case ContentMD5 = "Content-MD5"
+	@available(*, introduced: 0.1, deprecated: 0.1)
+	case contentMD5 = "Content-MD5"
 	
 	
 	/**
@@ -577,7 +687,7 @@ public enum HTTPResponseHeaderField: String
 	Where in a full body message this partial message belongs
 	
 	*/
-	case ContentRange = "Content-Range"
+	case contentRange = "Content-Range"
 	
 	
 	/**
@@ -585,7 +695,7 @@ public enum HTTPResponseHeaderField: String
 	The MIME type of this content
 	
 	*/
-	case ContentType = "Content-Type"
+	case contentType = "Content-Type"
 	
 	
 	/**
@@ -593,7 +703,7 @@ public enum HTTPResponseHeaderField: String
 	The date and time that the message was sent (in "HTTP-date" format as defined by RFC 7231)
 	
 	*/
-	case Date = "Date"
+	case date = "Date"
 	
 	
 	/**
@@ -601,7 +711,7 @@ public enum HTTPResponseHeaderField: String
 	An identifier for a specific version of a resource, often a message digest
 	
 	*/
-	case ETag = "ETag"
+	case eTag = "ETag"
 	
 	
 	/**
@@ -610,7 +720,7 @@ public enum HTTPResponseHeaderField: String
 	(in "HTTP-date" format as defined by RFC 7231)
 	
 	*/
-	case Expires = "Expires"
+	case expires = "Expires"
 	
 	
 	/**
@@ -619,7 +729,7 @@ public enum HTTPResponseHeaderField: String
 	(in "HTTP-date" format as defined by RFC 7231)
 	
 	*/
-	case LastModified = "Last-Modified"
+	case lastModified = "Last-Modified"
 	
 	
 	/**
@@ -628,7 +738,7 @@ public enum HTTPResponseHeaderField: String
 	where the relation type is defined by RFC 5988
 	
 	*/
-	case Link = "Link"
+	case link = "Link"
 	
 	
 	/**
@@ -636,7 +746,7 @@ public enum HTTPResponseHeaderField: String
 	Used in redirection, or when a new resource has been created.
 	
 	*/
-	case Location = "Location"
+	case location = "Location"
 	
 	
 	/**
@@ -645,7 +755,7 @@ public enum HTTPResponseHeaderField: String
 	in the form of P3P:CP="your_compact_policy".
 	
 	*/
-	case P3P = "P3P"
+	case p3p = "P3P"
 	
 	
 	/**
@@ -654,7 +764,7 @@ public enum HTTPResponseHeaderField: String
 	anywhere along the request-response chain.
 	
 	*/
-	case Pragma = "Pragma"
+	case pragma = "Pragma"
 	
 	
 	/**
@@ -662,7 +772,7 @@ public enum HTTPResponseHeaderField: String
 	Request authentication to access the proxy.
 	
 	*/
-	case ProxyAuthenticate = "Proxy-Authenticate"
+	case proxyAuthenticate = "Proxy-Authenticate"
 	
 	
 	/**
@@ -670,7 +780,7 @@ public enum HTTPResponseHeaderField: String
 	HTTP Public Key Pinning, announces hash of website's authentic TLS certificate
 	
 	*/
-	case PublicKeyPins = "Public-Key-Pins"
+	case publicKeyPins = "Public-Key-Pins"
 	
 	
 	/**
@@ -678,7 +788,7 @@ public enum HTTPResponseHeaderField: String
 	Used in redirection, or when a new resource has been created.
 	
 	*/
-	case Refresh = "Refresh"
+	case refresh = "Refresh"
 	
 	
 	/**
@@ -687,7 +797,7 @@ public enum HTTPResponseHeaderField: String
 	Value could be a specified period of time (in seconds) or a HTTP-date.
 	
 	*/
-	case RetryAfter = "Retry-After"
+	case retryAfter = "Retry-After"
 	
 	
 	/**
@@ -695,7 +805,7 @@ public enum HTTPResponseHeaderField: String
 	A name for the server
 	
 	*/
-	case Server = "Server"
+	case server = "Server"
 	
 	
 	/**
@@ -703,7 +813,7 @@ public enum HTTPResponseHeaderField: String
 	An HTTP cookie
 	
 	*/
-	case SetCookie = "Set-Cookie"
+	case setCookie = "Set-Cookie"
 	
 	
 	/**
@@ -712,7 +822,7 @@ public enum HTTPResponseHeaderField: String
 	Normal HTTP responses use a separate "Status-Line" instead, defined by RFC 7230.
 	
 	*/
-	case Status = "Status"
+	case status = "Status"
 	
 	
 	/**
@@ -721,7 +831,7 @@ public enum HTTPResponseHeaderField: String
 	and whether this applies to subdomains.
 	
 	*/
-	case StrictTransportSecurity = "Strict-Transport-Security"
+	case strictTransportSecurity = "Strict-Transport-Security"
 	
 	
 	/**
@@ -730,7 +840,7 @@ public enum HTTPResponseHeaderField: String
 	is present in the trailer of a message encoded with chunked transfer coding.
 	
 	*/
-	case Trailer = "Trailer"
+	case trailer = "Trailer"
 	
 	
 	/**
@@ -739,7 +849,7 @@ public enum HTTPResponseHeaderField: String
 	Currently defined methods are: chunked, compress, deflate, gzip, identity.
 	
 	*/
-	case TransferEncoding = "Transfer-Encoding"
+	case transferEncoding = "Transfer-Encoding"
 	
 	
 	/**
@@ -747,7 +857,7 @@ public enum HTTPResponseHeaderField: String
 	Tracking Status Value, value suggested to be sent in response to a DNT(do-not-track)
 	
 	*/
-	case TSV = "TSV"
+	case tsv = "TSV"
 	
 	
 	/**
@@ -755,7 +865,7 @@ public enum HTTPResponseHeaderField: String
 	Ask the client to upgrade to another protocol.
 	
 	*/
-	case Upgrade = "Upgrade"
+	case upgrade = "Upgrade"
 	
 	
 	/**
@@ -765,7 +875,7 @@ public enum HTTPResponseHeaderField: String
 	rather than requesting a fresh one from the origin server.
 	
 	*/
-	case Vary = "Vary"
+	case vary = "Vary"
 	
 	
 	/**
@@ -773,7 +883,7 @@ public enum HTTPResponseHeaderField: String
 	Informs the client of proxies through which the response was sent.
 	
 	*/
-	case Via = "Via"
+	case via = "Via"
 	
 	
 	/**
@@ -781,7 +891,7 @@ public enum HTTPResponseHeaderField: String
 	A general warning about possible problems with the entity body.
 	
 	*/
-	case Warning = "Warning"
+	case warning = "Warning"
 	
 	
 	/**
@@ -789,7 +899,7 @@ public enum HTTPResponseHeaderField: String
 	Indicates the authentication scheme that should be used to access the requested entity.
 	
 	*/
-	case WWWAuthenticate = "WWW-Authenticate"
+	case wwwAuthenticate = "WWW-Authenticate"
 	
 	
 	/**
@@ -797,8 +907,8 @@ public enum HTTPResponseHeaderField: String
 	Clickjacking protection
 	
 	*/
-	@available(*, introduced=0.1, deprecated=0.1)
-	case XFrameOptions = "X-Frame-Options"
+	@available(*, introduced: 0.1, deprecated: 0.1)
+	case x_FrameOptions = "X-Frame-Options"
 	
 	
 	// Non standard request headers (X-Headers)
@@ -808,7 +918,7 @@ public enum HTTPResponseHeaderField: String
 	Cross-site scripting (XSS) filter
 	
 	*/
-	case XXSSProtection = "X-XSS-Protection"
+	case x_XSSProtection = "X-XSS-Protection"
 	
 	
 	/**
@@ -816,7 +926,7 @@ public enum HTTPResponseHeaderField: String
 	Content Security Policy definition.
 	
 	*/
-	case XWebKitCSP = "X-WebKit-CSP"
+	case x_WebKitCSP = "X-WebKit-CSP"
 	
 	
 	/**
@@ -826,7 +936,7 @@ public enum HTTPResponseHeaderField: String
 	This also applies to Google Chrome, when downloading extensions.
 	
 	*/
-	case XContentTypeOptions = "X-Content-Type-Options"
+	case x_ContentTypeOptions = "X-Content-Type-Options"
 	
 	
 	/**
@@ -834,7 +944,7 @@ public enum HTTPResponseHeaderField: String
 	Specifies the technology (e.g. ASP.NET, PHP, JBoss) supporting the web application
 	
 	*/
-	case XPoweredBy = "X-Powered-By"
+	case x_PoweredBy = "X-Powered-By"
 	
 	
 	/**
@@ -845,7 +955,7 @@ public enum HTTPResponseHeaderField: String
 	Also used to activate Chrome Frame in Internet Explorer.
 	
 	*/
-	case XUACompatible = "X-UA-Compatible"
+	case x_UACompatible = "X-UA-Compatible"
 	
 	
 	/**
@@ -855,7 +965,7 @@ public enum HTTPResponseHeaderField: String
 	only supported by Gecko browsers
 	
 	*/
-	case XContentDuration = "X-Content-Duration"
+	case x_ContentDuration = "X-Content-Duration"
 	
 	
 	/**
@@ -865,7 +975,7 @@ public enum HTTPResponseHeaderField: String
 	and can handle Content-Security-Policy: upgrade-insecure-requests
 	
 	*/
-	case UpgradeInsecureRequests = "Upgrade-Insecure-Requests"
+	case upgradeInsecureRequests = "Upgrade-Insecure-Requests"
 	
 	
 	/**
@@ -873,10 +983,25 @@ public enum HTTPResponseHeaderField: String
 	Correlates HTTP requests between a client and server.
 	
 	*/
-	case XRequestID = "X-Request-ID"
+	case x_RequestID = "X-Request-ID"
 }
 
 
+/**
+
+Response Codes for HTTP responses.
+
+- **1XX**: Informational Responses
+
+- **2XX**: Success Responses
+
+- **3XX**: Redirect Responses
+
+- **4XX**: Client Error Responses
+
+- **5XX**: Server Error Responses
+
+*/
 public enum HTTPStatusCode : String
 {
 	//1XX - Informational
@@ -895,7 +1020,7 @@ public enum HTTPStatusCode : String
 	The response 417 Expectation Failed indicates the request should not be continued
 	
 	*/
-	case Continue = "100 Continue"
+	case `continue` = "100 Continue"
 	
 	
 	/**
@@ -903,7 +1028,7 @@ public enum HTTPStatusCode : String
 	The requester has asked the server to switch protocols and the server has agreed to do so.
 	
 	*/
-	case SwitchingProtocols = "101 Switching Protocols"
+	case switchingProtocols = "101 Switching Protocols"
 	
 	
 	/**
@@ -917,7 +1042,7 @@ public enum HTTPStatusCode : String
 	This prevents the client from timing out and assuming the request was lost.
 	
 	*/
-	case Processing = "102 Processing"
+	case processing = "102 Processing"
 	
 	
 	//2XX - Success
@@ -932,7 +1057,7 @@ public enum HTTPStatusCode : String
 	- In a POST request, the response will contain an entity describing or containing the result of the action.
 	
 	*/
-	case OK = "200 OK"
+	case ok = "200 OK"
 	
 	
 	/**
@@ -940,7 +1065,7 @@ public enum HTTPStatusCode : String
 	The request has been fulfilled, resulting in the creation of a new resource.
 	
 	*/
-	case Created = "201 Created"
+	case created = "201 Created"
 	
 	
 	/**
@@ -950,7 +1075,7 @@ public enum HTTPStatusCode : String
 	and may be disallowed when processing occurs.
 	
 	*/
-	case Accepted = "202 Accepted"
+	case accepted = "202 Accepted"
 	
 	
 	/**
@@ -959,7 +1084,7 @@ public enum HTTPStatusCode : String
 	but is returning a modified version of the origin's response.
 	
 	*/
-	case NonAuthoritativeInformation = "203 Non-Authoritative Information"
+	case nonAuthoritativeInformation = "203 Non-Authoritative Information"
 	
 	
 	/**
@@ -967,7 +1092,7 @@ public enum HTTPStatusCode : String
 	The server successfully processed the request and is not returning any content.
 	
 	*/
-	case NoContent = "204 No Content"
+	case noContent = "204 No Content"
 	
 	
 	/**
@@ -976,7 +1101,7 @@ public enum HTTPStatusCode : String
 	Unlike a 204 response, this response requires that the requester reset the document view.
 	
 	*/
-	case ResetContent = "205 Reset Content"
+	case resetContent = "205 Reset Content"
 	
 	
 	/**
@@ -988,7 +1113,7 @@ public enum HTTPStatusCode : String
 	or split a download into multiple simultaneous streams.
 	
 	*/
-	case PartialContent = "206 Partial Content"
+	case partialContent = "206 Partial Content"
 	
 	
 	/**
@@ -998,7 +1123,7 @@ public enum HTTPStatusCode : String
 	depending on how many sub-requests were made.
 	
 	*/
-	case MultiStatus = "207 Multi-Status"
+	case multiStatus = "207 Multi-Status"
 	
 	
 	/**
@@ -1007,7 +1132,7 @@ public enum HTTPStatusCode : String
 	and are not being included again.
 	
 	*/
-	case AlreadyReported = "208 Already Reported"
+	case alreadyReported = "208 Already Reported"
 	
 	
 	/**
@@ -1017,7 +1142,7 @@ public enum HTTPStatusCode : String
 	one or more instance-manipulations applied to the current instance.
 	
 	*/
-	case IMUsed = "226 IM Used"
+	case imUsed = "226 IM Used"
 	
 	
 	//3XX - Redirect
@@ -1030,7 +1155,7 @@ public enum HTTPStatusCode : String
 	to list files with different extensions, or to suggest word sense disambiguation.
 	
 	*/
-	case MultipleChoices = "300 Multiple Choices"
+	case multipleChoices = "300 Multiple Choices"
 	
 	
 	/**
@@ -1038,7 +1163,7 @@ public enum HTTPStatusCode : String
 	This and all future requests should be directed to the given URI.
 	
 	*/
-	case MovedPermanently = "301 Moved Permanently"
+	case movedPermanently = "301 Moved Permanently"
 	
 	
 	/**
@@ -1051,7 +1176,7 @@ public enum HTTPStatusCode : String
 	However, some Web applications and frameworks use the 302 status code as if it were the 303.
 	
 	*/
-	case Found = "302 Found"
+	case found = "302 Found"
 	
 	
 	/**
@@ -1063,7 +1188,7 @@ public enum HTTPStatusCode : String
 	a redirect with a separate GET message.
 	
 	*/
-	case SeeOther = "303 See Other"
+	case seeOther = "303 See Other"
 	
 	
 	/**
@@ -1075,7 +1200,7 @@ public enum HTTPStatusCode : String
 	the client still has a previously-downloaded copy.
 	
 	*/
-	case NotModified = "304 Not Modified"
+	case notModified = "304 Not Modified"
 	
 	
 	/**
@@ -1087,7 +1212,7 @@ public enum HTTPStatusCode : String
 	responses with this status code, primarily for security reasons.
 	
 	*/
-	case UseProxy = "305 Use Proxy"
+	case useProxy = "305 Use Proxy"
 	
 	
 	/**
@@ -1095,8 +1220,8 @@ public enum HTTPStatusCode : String
 	No longer used. Originally meant "Subsequent requests should use the specified proxy."
 	
 	*/
-	@available(*, deprecated=0.1)
-	case SwitchProxy = "306 Switch Proxy"
+	@available(*, deprecated: 0.1)
+	case switchProxy = "306 Switch Proxy"
 	
 	
 	/**
@@ -1109,7 +1234,7 @@ public enum HTTPStatusCode : String
 	For example, a POST request should be repeated using another POST request.
 	
 	*/
-	case TemporaryRedirect = "307 Temporary Redirect"
+	case temporaryRedirect = "307 Temporary Redirect"
 	
 	
 	/**
@@ -1119,7 +1244,7 @@ public enum HTTPStatusCode : String
 	So, for example, submitting a form to a permanently redirected resource may continue smoothly.
 	
 	*/
-	case PermanentRedirect = "308 Permanent Redirect"
+	case permanentRedirect = "308 Permanent Redirect"
 	
 	
 	//4XX - Client Error
@@ -1130,7 +1255,7 @@ public enum HTTPStatusCode : String
 	(e.g., malformed request syntax, invalid request message framing, or deceptive request routing).
 	
 	*/
-	case BadRequest = "400 Bad Request"
+	case badRequest = "400 Bad Request"
 	
 	
 	/**
@@ -1146,7 +1271,7 @@ public enum HTTPStatusCode : String
 	(usually the website domain) and that specific address is refused permission to access a website.
 	
 	*/
-	case Unauthorized = "401 Unauthorized"
+	case unauthorized = "401 Unauthorized"
 	
 	
 	/**
@@ -1157,7 +1282,7 @@ public enum HTTPStatusCode : String
 	Google Developers API uses this status if a particular developer has exceeded the daily limit on requests.
 	
 	*/
-	case PaymentRequired = "402 Payment Required"
+	case paymentRequired = "402 Payment Required"
 	
 	
 	/**
@@ -1167,7 +1292,7 @@ public enum HTTPStatusCode : String
 	the necessary permissions for the resource.
 	
 	*/
-	case Forbidden = "403 Forbidden"
+	case forbidden = "403 Forbidden"
 	
 	
 	/**
@@ -1176,7 +1301,7 @@ public enum HTTPStatusCode : String
 	Subsequent requests by the client are permissible.
 	
 	*/
-	case NotFound = "404 Not Found"
+	case notFound = "404 Not Found"
 	
 	
 	/**
@@ -1186,7 +1311,7 @@ public enum HTTPStatusCode : String
 	or a PUT request on a read-only resource.
 	
 	*/
-	case MethodNotAllowed = "405 Method Not Allowed"
+	case methodNotAllowed = "405 Method Not Allowed"
 	
 	
 	/**
@@ -1195,7 +1320,7 @@ public enum HTTPStatusCode : String
 	not acceptable according to the Accept headers sent in the request.
 	
 	*/
-	case NotAcceptable = "406 Not Acceptable"
+	case notAcceptable = "406 Not Acceptable"
 	
 	
 	/**
@@ -1203,7 +1328,7 @@ public enum HTTPStatusCode : String
 	The client must first authenticate itself with the proxy.
 	
 	*/
-	case ProxyAuthenticationRequired = "407 Proxy Authentication Required"
+	case proxyAuthenticationRequired = "407 Proxy Authentication Required"
 	
 	
 	/**
@@ -1215,7 +1340,7 @@ public enum HTTPStatusCode : String
 	The client MAY repeat the request without modifications at any later time."
 	
 	*/
-	case RequestTimeout = "408 Request Timeout"
+	case requestTimeout = "408 Request Timeout"
 	
 	
 	/**
@@ -1224,7 +1349,7 @@ public enum HTTPStatusCode : String
 	such as an edit conflict between multiple simultaneous updates.
 	
 	*/
-	case Conflict = "409 Conflict"
+	case conflict = "409 Conflict"
 	
 	
 	/**
@@ -1237,7 +1362,7 @@ public enum HTTPStatusCode : String
 	and a "404 Not Found" may be used instead.
 	
 	*/
-	case Gone = "410 Gone"
+	case gone = "410 Gone"
 	
 	
 	/**
@@ -1246,7 +1371,7 @@ public enum HTTPStatusCode : String
 	which is required by the requested resource.
 	
 	*/
-	case LengthRequired = "411 Length Required"
+	case lengthRequired = "411 Length Required"
 	
 	
 	/**
@@ -1254,7 +1379,7 @@ public enum HTTPStatusCode : String
 	The server does not meet one of the preconditions that the requester put on the request.
 	
 	*/
-	case PreconditionFailed = "412 Precondition Failed"
+	case preconditionFailed = "412 Precondition Failed"
 	
 	
 	/**
@@ -1263,7 +1388,7 @@ public enum HTTPStatusCode : String
 	Previously called "Request Entity Too Large".
 	
 	*/
-	case PayloadTooLarge = "413 Payload Too Large"
+	case payloadTooLarge = "413 Payload Too Large"
 	
 	
 	/**
@@ -1275,7 +1400,7 @@ public enum HTTPStatusCode : String
 	Called "Request-URI Too Long" previously.
 	
 	*/
-	case URITooLong = "414 URI Too Long"
+	case uriTooLong = "414 URI Too Long"
 	
 	
 	/**
@@ -1285,7 +1410,7 @@ public enum HTTPStatusCode : String
 	but the server requires that images use a different format.
 	
 	*/
-	case UnsupportedMediaType = "415 Unsupported Media Type"
+	case unsupportedMediaType = "415 Unsupported Media Type"
 	
 	
 	/**
@@ -1298,7 +1423,7 @@ public enum HTTPStatusCode : String
 	Called "Requested Range Not Satisfiable" previously.
 	
 	*/
-	case RangeNotSatisfiable = "416 Range Not Satisfiable"
+	case rangeNotSatisfiable = "416 Range Not Satisfiable"
 	
 	
 	/**
@@ -1306,7 +1431,7 @@ public enum HTTPStatusCode : String
 	The server cannot meet the requirements of the Expect request-header field.
 	
 	*/
-	case ExpectationFailed = "417 Expectation Failed"
+	case expectationFailed = "417 Expectation Failed"
 	
 	
 	/**
@@ -1316,7 +1441,7 @@ public enum HTTPStatusCode : String
 	Should be returned by tea pots requested to brew coffee.
 	
 	*/
-	case ImATeapot = "418 I'm a teapot"
+	case imATeapot = "418 I'm a teapot"
 	
 	
 	/**
@@ -1325,7 +1450,7 @@ public enum HTTPStatusCode : String
 	(for example because a connection reuse).
 	
 	*/
-	case MisdirectedRequest = "421 Misdirected Request"
+	case misdirectedRequest = "421 Misdirected Request"
 	
 	
 	/**
@@ -1333,7 +1458,7 @@ public enum HTTPStatusCode : String
 	The request was well-formed but was unable to be followed due to semantic errors.
 	
 	*/
-	case UnprocessableEntity = "422 Unprocessable Entity"
+	case unprocessableEntity = "422 Unprocessable Entity"
 	
 	
 	/**
@@ -1341,7 +1466,7 @@ public enum HTTPStatusCode : String
 	The resource that is being accessed is locked.
 	
 	*/
-	case Locked = "423 Locked"
+	case locked = "423 Locked"
 	
 	
 	/**
@@ -1349,7 +1474,7 @@ public enum HTTPStatusCode : String
 	The request failed due to failure of a previous request (e.g., a PROPPATCH).
 	
 	*/
-	case FailedDependency = "424 Failed Dependency"
+	case failedDependency = "424 Failed Dependency"
 	
 	
 	/**
@@ -1358,7 +1483,7 @@ public enum HTTPStatusCode : String
 	given in the Upgrade header field.
 	
 	*/
-	case UpgradeRequired = "426 Upgrade Required"
+	case upgradeRequired = "426 Upgrade Required"
 	
 	
 	/**
@@ -1372,7 +1497,7 @@ public enum HTTPStatusCode : String
 	leading to a conflict."
 	
 	*/
-	case PreconditionRequired = "428 Precondition Required"
+	case preconditionRequired = "428 Precondition Required"
 	
 	
 	/**
@@ -1382,7 +1507,7 @@ public enum HTTPStatusCode : String
 	Intended for use with rate limiting schemes.
 	
 	*/
-	case TooManyRequests = "429 Too Many Requests"
+	case tooManyRequests = "429 Too Many Requests"
 	
 	
 	/**
@@ -1391,7 +1516,7 @@ public enum HTTPStatusCode : String
 	or all the header fields collectively, are too large.
 	
 	*/
-	case RequestHeaderFieldsTooLarge = "431 Request Header Fields Too Large"
+	case requestHeaderFieldsTooLarge = "431 Request Header Fields Too Large"
 	
 	
 	/**
@@ -1402,7 +1527,7 @@ public enum HTTPStatusCode : String
 	The code 451 was chosen as a reference to the novel Fahrenheit 451.
 	
 	*/
-	case UnavailableForLegalReasons = "451 Unavailable For Legal Reasons"
+	case unavailableForLegalReasons = "451 Unavailable For Legal Reasons"
 	
 	
 	//5XX - Server Error
@@ -1413,7 +1538,7 @@ public enum HTTPStatusCode : String
 	was encountered and no more specific message is suitable.
 	
 	*/
-	case InternalServerError = "500 Internal Server Error"
+	case internalServerError = "500 Internal Server Error"
 	
 	
 	/**
@@ -1424,7 +1549,7 @@ public enum HTTPStatusCode : String
 	Usually this implies future availability (e.g., a new feature of a web-service API).
 	
 	*/
-	case NotImplemented = "501 Not Implemented"
+	case notImplemented = "501 Not Implemented"
 	
 	
 	/**
@@ -1433,7 +1558,7 @@ public enum HTTPStatusCode : String
 	received an invalid response from the upstream server.
 	
 	*/
-	case BadGateway = "502 Bad Gateway"
+	case badGateway = "502 Bad Gateway"
 	
 	
 	/**
@@ -1442,7 +1567,7 @@ public enum HTTPStatusCode : String
 	Generally, this is a temporary state.
 	
 	*/
-	case ServiceUnavailable = "503 Service Unavailable"
+	case serviceUnavailable = "503 Service Unavailable"
 	
 	
 	/**
@@ -1451,7 +1576,7 @@ public enum HTTPStatusCode : String
 	a timely response from the upstream server.
 	
 	*/
-	case GatewayTimeout = "504 Gateway Timeout"
+	case gatewayTimeout = "504 Gateway Timeout"
 	
 	
 	/**
@@ -1459,7 +1584,7 @@ public enum HTTPStatusCode : String
 	The server does not support the HTTP protocol version used in the request.
 	
 	*/
-	case HTTPVersionNotSupported = "505 HTTP Version Not Supported"
+	case httpVersionNotSupported = "505 HTTP Version Not Supported"
 	
 	
 	/**
@@ -1467,7 +1592,7 @@ public enum HTTPStatusCode : String
 	Transparent content negotiation for the request results in a circular reference.
 	
 	*/
-	case VariantAlsoNegotiates = "506 Variant Also Negotiates"
+	case variantAlsoNegotiates = "506 Variant Also Negotiates"
 	
 	
 	/**
@@ -1475,7 +1600,7 @@ public enum HTTPStatusCode : String
 	The server is unable to store the representation needed to complete the request.
 	
 	*/
-	case InsufficientStorage = "507 Insufficient Storage"
+	case insufficientStorage = "507 Insufficient Storage"
 	
 	
 	/**
@@ -1484,7 +1609,7 @@ public enum HTTPStatusCode : String
 	(sent in lieu of 208 Already Reported).
 	
 	*/
-	case LoopDetected = "508 Loop Detected"
+	case loopDetected = "508 Loop Detected"
 	
 	
 	/**
@@ -1492,7 +1617,7 @@ public enum HTTPStatusCode : String
 	Further extensions to the request are required for the server to fulfil it.
 	
 	*/
-	case NotExtended = "510 Not Extended"
+	case notExtended = "510 Not Extended"
 	
 	
 	/**
@@ -1504,81 +1629,20 @@ public enum HTTPStatusCode : String
 	before granting full Internet access via a Wi-Fi hotspot).
 	
 	*/
-	case NetworkAuthenticationRequired = "511 Network Authentication Required"
+	case networkAuthenticationRequired = "511 Network Authentication Required"
 	
 }
 
 
-public struct HTTPRequest : StreamReadable, StreamWritable
+public enum HTTPMethod: String
 {
-	public init(byReadingFrom stream: InputStream) throws
-	{
-		
-	}
-	
-	public init()
-	{
-		
-	}
-	
-	public func write(to outputStream: OutputStream) throws
-	{
-		
-	}
+	case get = "GET"
+	case put = "PUT"
+	case post = "POST"
+	case head = "HEAD"
+	case delete = "DELETE"
+	case options = "OPTIONS"
+	case connect = "CONNECT"
 }
 
 
-/**
-
-Basic HTTP response to a get request.
-
-Sends the given data as content to the client
-
-*/
-public class HTTPResponse : StreamWritable, StreamReadable
-{
-	public let version:String
-	public let status:String
-	public var header:[String:String]
-	
-	public let content:NSData
-	
-	required public init(byReadingFrom stream: InputStream) throws
-	{
-		content = NSData()
-		version = "HTTP/1.1"
-		status = "200 OK"
-		header = [:]
-	}
-	
-	public init(with content: String)
-	{
-		self.content = content.dataUsingEncoding(NSUTF8StringEncoding)!
-		version = "HTTP/1.1"
-		status = "200 OK"
-		header = [:]
-	}
-	
-	public init(with content: NSData)
-	{
-		self.content = content
-		version = "HTTP/1.1"
-		status = "200 OK"
-		header = [:]
-	}
-	
-	public func write(to outputStream: OutputStream) throws
-	{
-		try outputStream.writeln("HTTP/1.1 200 OK")
-		try outputStream.writeln("Date: \(HTTPDateFormatter.stringFromDate(NSDate()))")
-		try outputStream.writeln("Server: PK-SocketKit/0.1a (OS X/Swift)")
-		try outputStream.writeln("Last-Modified: \(HTTPDateFormatter.stringFromDate(NSDate()))")
-		try outputStream.writeln("Accept-Ranges: bytes")
-		try outputStream.writeln("Connection: close")
-		try outputStream.writeln("Content-Type: text/html")
-		try outputStream.writeln("Content-Length: \(content.length)")
-		try outputStream.writeln()
-		try outputStream.write(content)
-		try outputStream.writeln()
-	}
-}

@@ -44,7 +44,7 @@ public struct Certificate : Equatable
 	and the private key for decryption
 	
 	*/
-	internal let identity:SecIdentityRef
+	internal let identity:SecIdentity
 	
 	
 	/**
@@ -63,24 +63,24 @@ public struct Certificate : Equatable
 	- throws: A TLSError indicating that the certificate could not be loaded.
 	
 	*/
-	public init(withData data:NSData, password:String? = nil) throws
+	public init(with data:Data, password:String? = nil) throws
 	{
 		let options = [String(kSecImportExportPassphrase) : (password ?? "")]
 		var array:CFArray? = nil
-		let status = SecPKCS12Import(data, options, &array)
+		let status = SecPKCS12Import(data as CFData, options as CFDictionary, &array)
 		
 		guard status == errSecSuccess
 		else
 		{
 			DEBUG ?-> print("Import failed. Reason: \(status)")
-			throw TLSError.ImportFailed
+			throw TLSError.importFailed
 		}
 		
 		guard let identities = array as Array<AnyObject>?
 		else
 		{
 			DEBUG ?-> print("Identities not loaded")
-			throw TLSError.ImportFailed
+			throw TLSError.importFailed
 		}
 		
 		DEBUG ?-> identities.forEach { print($0) }
@@ -89,14 +89,14 @@ public struct Certificate : Equatable
 		else
 		{
 			DEBUG ?-> print("Identities empty or not dictionary")
-			throw TLSError.ImportFailed
+			throw TLSError.importFailed
 		}
 		
-		guard let identity = dict[kSecImportItemIdentity as String] as! SecIdentityRef?
+		guard let identity = dict[kSecImportItemIdentity as String] as! SecIdentity?
 		else
 		{
 			DEBUG ?-> print("Identity could not be casted or does not exist")
-			throw TLSError.ImportFailed
+			throw TLSError.importFailed
 		}
 		
 		self.identity = identity
@@ -110,7 +110,7 @@ public struct Certificate : Equatable
 	- parameter identity: Identity containing the certificate and private key to use
 	
 	*/
-	public init(withSecIdentity identity: SecIdentityRef)
+	public init(with identity: SecIdentity)
 	{
 		self.identity = identity
 	}
@@ -132,15 +132,15 @@ public struct Certificate : Equatable
 	- throws: A TLSError indicating that the certificate could not be loaded.
 	
 	*/
-	public init(withContentsOfFile filePath: String, password: String? = nil) throws
+	public init(contentsOf filePath: String, password: String? = nil) throws
 	{
-		guard let data = NSData(contentsOfFile: filePath)
+		guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath))
 		else
 		{
 			DEBUG ?-> print("Data could not be loaded.")
-			throw TLSError.DataNotAccessible
+			throw TLSError.dataNotAccessible
 		}
-		try self.init(withData: data, password: password)
+		try self.init(with: data, password: password)
 	}
 	
 	
@@ -162,10 +162,10 @@ public struct Certificate : Equatable
 	- throws: A TLSError indicating that the certificate could not be loaded.
 	
 	*/
-	public init(withContentsOfFile filePath: String, readingOptions: NSDataReadingOptions, password: String? = nil) throws
+	public init(contentsOf filePath: String, readingOptions: NSData.ReadingOptions, password: String? = nil) throws
 	{
-		let data = try NSData(contentsOfFile: filePath, options: readingOptions)
-		try self.init(withData: data, password: password)
+		let data = try Data(contentsOf: URL(fileURLWithPath: filePath), options: readingOptions)
+		try self.init(with: data, password: password)
 	}
 }
 
@@ -188,14 +188,14 @@ The comparison is based on the private keys of
 */
 public func == (left: Certificate, right: Certificate) -> Bool
 {
-	let leftKeyPtr = UnsafeMutablePointer<SecKey?>.alloc(sizeof(SecKey))
-	let rightKeyPtr = UnsafeMutablePointer<SecKey?>.alloc(sizeof(SecKey))
+	let leftKeyPtr = UnsafeMutablePointer<SecKey?>.allocate(capacity: MemoryLayout<SecKey>.size)
+	let rightKeyPtr = UnsafeMutablePointer<SecKey?>.allocate(capacity: MemoryLayout<SecKey>.size)
 	
 	SecIdentityCopyPrivateKey(left.identity, leftKeyPtr)
 	SecIdentityCopyPrivateKey(right.identity, rightKeyPtr)
 	
-	let result = memcmp(leftKeyPtr, rightKeyPtr, sizeof(SecKey)) > 0
-	leftKeyPtr.dealloc(sizeof(SecKey))
-	rightKeyPtr.dealloc(sizeof(SecKey))
+	let result = memcmp(leftKeyPtr, rightKeyPtr, MemoryLayout<SecKey>.size) > 0
+	leftKeyPtr.deallocate(capacity: MemoryLayout<SecKey>.size)
+	rightKeyPtr.deallocate(capacity: MemoryLayout<SecKey>.size)
 	return result
 }

@@ -14,11 +14,13 @@
 		E669540F1CBC4355004A973A /* OutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669540E1CBC4355004A973A /* OutputStream.swift */; };
 		E66954111CBC4395004A973A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66954101CBC4395004A973A /* Util.swift */; };
 		E66DDFD91CC5B0B300A88A60 /* license in Resources */ = {isa = PBXBuildFile; fileRef = E66DDFD81CC5B0B300A88A60 /* license */; };
+		E6732C211D181C7000E5A14C /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6732C201D181C7000E5A14C /* HTTPRequest.swift */; };
+		E6732C231D181C7C00E5A14C /* HTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6732C221D181C7C00E5A14C /* HTTPResponse.swift */; };
 		E68B45341D10C6E400597DD0 /* TLSUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68B45331D10C6E400597DD0 /* TLSUtil.swift */; };
 		E68C8ADE1CBF9AAA00ABDE14 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C8ADD1CBF9AAA00ABDE14 /* Certificate.swift */; };
 		E68C8AE01CC1407D00ABDE14 /* TLSInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C8ADF1CC1407D00ABDE14 /* TLSInputStream.swift */; };
 		E68C8AE21CC1408800ABDE14 /* TLSOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C8AE11CC1408800ABDE14 /* TLSOutputStream.swift */; };
-		E68C8AE51CC199EB00ABDE14 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C8AE41CC199EB00ABDE14 /* HTTP.swift */; };
+		E68C8AE51CC199EB00ABDE14 /* HTTPUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68C8AE41CC199EB00ABDE14 /* HTTPUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,11 +34,13 @@
 		E66954101CBC4395004A973A /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		E66DDFD71CC5B07C00A88A60 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		E66DDFD81CC5B0B300A88A60 /* license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
+		E6732C201D181C7000E5A14C /* HTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
+		E6732C221D181C7C00E5A14C /* HTTPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
 		E68B45331D10C6E400597DD0 /* TLSUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSUtil.swift; sourceTree = "<group>"; };
 		E68C8ADD1CBF9AAA00ABDE14 /* Certificate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Certificate.swift; sourceTree = "<group>"; };
 		E68C8ADF1CC1407D00ABDE14 /* TLSInputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSInputStream.swift; sourceTree = "<group>"; };
 		E68C8AE11CC1408800ABDE14 /* TLSOutputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSOutputStream.swift; sourceTree = "<group>"; };
-		E68C8AE41CC199EB00ABDE14 /* HTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
+		E68C8AE41CC199EB00ABDE14 /* HTTPUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +77,9 @@
 			children = (
 				E63710001CBAECA500BE64A1 /* SocketKit.h */,
 				E68C8ADD1CBF9AAA00ABDE14 /* Certificate.swift */,
-				E68C8AE41CC199EB00ABDE14 /* HTTP.swift */,
+				E68C8AE41CC199EB00ABDE14 /* HTTPUtil.swift */,
+				E6732C201D181C7000E5A14C /* HTTPRequest.swift */,
+				E6732C221D181C7C00E5A14C /* HTTPResponse.swift */,
 				E66953CD1CBC25C9004A973A /* InputStream.swift */,
 				E669540E1CBC4355004A973A /* OutputStream.swift */,
 				E669540C1CBC42F9004A973A /* ServerSocket.swift */,
@@ -125,11 +131,12 @@
 		E6370FF41CBAECA500BE64A1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Palle Klewitz";
 				TargetAttributes = {
 					E6370FFC1CBAECA500BE64A1 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -166,7 +173,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E68C8AE51CC199EB00ABDE14 /* HTTP.swift in Sources */,
+				E6732C231D181C7C00E5A14C /* HTTPResponse.swift in Sources */,
+				E68C8AE51CC199EB00ABDE14 /* HTTPUtil.swift in Sources */,
+				E6732C211D181C7000E5A14C /* HTTPRequest.swift in Sources */,
 				E68C8AE21CC1408800ABDE14 /* TLSOutputStream.swift in Sources */,
 				E68C8AE01CC1407D00ABDE14 /* TLSInputStream.swift in Sources */,
 				E68B45341D10C6E400597DD0 /* TLSUtil.swift in Sources */,
@@ -196,8 +205,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -246,8 +257,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -280,6 +293,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -293,6 +307,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -300,6 +315,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -312,6 +328,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.palleklewitz.SocketKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
