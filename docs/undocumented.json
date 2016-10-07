@@ -1,0 +1,194 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPRequest.swift",
+      "line": null,
+      "symbol": "HTTPRequest",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPRequest.swift",
+      "line": null,
+      "symbol": "HTTPRequest",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPRequest.swift",
+      "line": 29,
+      "symbol": "HTTPRequest",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPRequest.swift",
+      "line": 31,
+      "symbol": "HTTPRequest.version",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPRequest.swift",
+      "line": 32,
+      "symbol": "HTTPRequest.path",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPRequest.swift",
+      "line": 33,
+      "symbol": "HTTPRequest.method",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPRequest.swift",
+      "line": 34,
+      "symbol": "HTTPRequest.header",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPRequest.swift",
+      "line": 36,
+      "symbol": "HTTPRequest.content",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPRequest.swift",
+      "line": 38,
+      "symbol": "HTTPRequest.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPResponse.swift",
+      "line": 38,
+      "symbol": "HTTPResponse.version",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPResponse.swift",
+      "line": 39,
+      "symbol": "HTTPResponse.status",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPResponse.swift",
+      "line": 40,
+      "symbol": "HTTPResponse.header",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPResponse.swift",
+      "line": 42,
+      "symbol": "HTTPResponse.content",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPResponse.swift",
+      "line": 53,
+      "symbol": "HTTPResponse.init(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPResponse.swift",
+      "line": 61,
+      "symbol": "HTTPResponse.init(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPUtil.swift",
+      "line": 1637,
+      "symbol": "HTTPMethod",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPUtil.swift",
+      "line": 1639,
+      "symbol": "HTTPMethod.get",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPUtil.swift",
+      "line": 1640,
+      "symbol": "HTTPMethod.put",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPUtil.swift",
+      "line": 1641,
+      "symbol": "HTTPMethod.post",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPUtil.swift",
+      "line": 1642,
+      "symbol": "HTTPMethod.head",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPUtil.swift",
+      "line": 1643,
+      "symbol": "HTTPMethod.delete",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPUtil.swift",
+      "line": 1644,
+      "symbol": "HTTPMethod.options",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/HTTPUtil.swift",
+      "line": 1645,
+      "symbol": "HTTPMethod.connect",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/TLSOutputStream.swift",
+      "line": 29,
+      "symbol": "TLSOutputStream",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/Util.swift",
+      "line": 328,
+      "symbol": "DataError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/Util.swift",
+      "line": 739,
+      "symbol": "DNSError.invalidAddress",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Palle/Developer/SocketKit/SocketKit/Util.swift",
+      "line": 740,
+      "symbol": "DNSError.lookupFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/Palle/Developer/SocketKit"
+}

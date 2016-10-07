@@ -177,8 +177,6 @@ public class ServerSocket : CustomStringConvertible
 		socket_ipv4 = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
 		socket_ipv6 = socket(PF_INET6, SOCK_STREAM, IPPROTO_TCP)
 		
-		//Separated into two guard-statements because of compiler issue: Error when using both in a guard statement
-		
 		guard socket_ipv4 >= 0
 			else
 		{
