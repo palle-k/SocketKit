@@ -1,0 +1,2208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HTTPStatusCode Enum Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Enum/HTTPStatusCode" class="dashAnchor"></a>
+
+    <a title="HTTPStatusCode Enum Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          SocketKit Docs
+        </a>
+         (91% documented)
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/palle-k/SocketKit/">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">SocketKit Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      HTTPStatusCode Enum Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/HTTPResponse.html">HTTPResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ServerSocket.html">ServerSocket</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TCPSocket.html">TCPSocket</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TLSInputStream.html">TLSInputStream</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TLSOutputStream.html">TLSOutputStream</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/DNSError.html">DNSError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/DataError.html">DataError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/HTTPMethod.html">HTTPMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/HTTPRequestHeaderField.html">HTTPRequestHeaderField</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/HTTPResponseHeaderField.html">HTTPResponseHeaderField</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/HTTPStatusCode.html">HTTPStatusCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/HTTPVersion.html">HTTPVersion</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/IOError.html">IOError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SocketError.html">SocketError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/TLSError.html">TLSError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:F9SocketKitoi2eeFTVS_11CertificateS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:F9SocketKit19TLSCreateStreamPairFzT15fromInputStreamPS_11InputStream_12outputStreamPS_12OutputStream_12certificatesGSaVS_11Certificate__T11inputStreamCS_14TLSInputStream12outputStreamCS_15TLSOutputStream_">TLSCreateStreamPair(fromInputStream:outputStream:certificates:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/InputStream.html">InputStream</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/InputStreamDelegate.html">InputStreamDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/OutputStream.html">OutputStream</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ServerSocketDelegate.html">ServerSocketDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Socket.html">Socket</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/StreamReadable.html">StreamReadable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/StreamWritable.html">StreamWritable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Certificate.html">Certificate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/HTTPRequest.html">HTTPRequest</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>HTTPStatusCode</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">HTTPStatusCode</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                </div>
+              </div>
+            <p>Response Codes for HTTP responses.</p>
+
+<ul>
+<li><p><strong>1XX</strong>: Informational Responses</p></li>
+<li><p><strong>2XX</strong>: Success Responses</p></li>
+<li><p><strong>3XX</strong>: Redirect Responses</p></li>
+<li><p><strong>4XX</strong>: Client Error Responses</p></li>
+<li><p><strong>5XX</strong>: Server Error Responses</p></li>
+</ul>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode8continueFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/continue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode8continueFMS0_S0_">continue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server has received the request headers and the client 
+should proceed to send the request body 
+(in the case of a request for which a body needs to be sent; for example, a POST request). </p>
+
+<p>Sending a large request body to a server after a request has been rejected
+for inappropriate headers would be inefficient. 
+To have a server check the request&rsquo;s headers, 
+a client must send Expect: 100-continue as a header in its 
+initial request and receive a 100 Continue status code in response before sending the body. 
+The response 417 Expectation Failed indicates the request should not be continued</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="err">`</span><span class="k">continue</span><span class="err">`</span> <span class="o">=</span> <span class="s">"100 Continue"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode18switchingProtocolsFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/switchingProtocols" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode18switchingProtocolsFMS0_S0_">switchingProtocols</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The requester has asked the server to switch protocols and the server has agreed to do so.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">switchingProtocols</span> <span class="o">=</span> <span class="s">"101 Switching Protocols"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode10processingFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/processing" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode10processingFMS0_S0_">processing</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A WebDAV request may contain many sub-requests involving file operations, 
+requiring a long time to complete the request. </p>
+
+<p>This code indicates that the server has received and is processing the request, 
+but no response is available yet.</p>
+
+<p>This prevents the client from timing out and assuming the request was lost.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">processing</span> <span class="o">=</span> <span class="s">"102 Processing"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode2okFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/ok" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode2okFMS0_S0_">ok</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Standard response for successful HTTP requests. </p>
+
+<p>The actual response will depend on the request method used. </p>
+
+<ul>
+<li>In a GET request, the response will contain an entity corresponding to the requested resource.</li>
+<li>In a POST request, the response will contain an entity describing or containing the result of the action.</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">ok</span> <span class="o">=</span> <span class="s">"200 OK"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode7createdFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/created" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode7createdFMS0_S0_">created</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request has been fulfilled, resulting in the creation of a new resource.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">created</span> <span class="o">=</span> <span class="s">"201 Created"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode8acceptedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/accepted" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode8acceptedFMS0_S0_">accepted</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request has been accepted for processing, but the processing has not been completed. 
+The request might or might not be eventually acted upon, 
+and may be disallowed when processing occurs.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">accepted</span> <span class="o">=</span> <span class="s">"202 Accepted"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode27nonAuthoritativeInformationFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/nonAuthoritativeInformation" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode27nonAuthoritativeInformationFMS0_S0_">nonAuthoritativeInformation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server is a transforming proxy (e.g. a Web accelerator) that received a 200 OK from its origin, 
+but is returning a modified version of the origin&rsquo;s response.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">nonAuthoritativeInformation</span> <span class="o">=</span> <span class="s">"203 Non-Authoritative Information"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode9noContentFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/noContent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode9noContentFMS0_S0_">noContent</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server successfully processed the request and is not returning any content.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">noContent</span> <span class="o">=</span> <span class="s">"204 No Content"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode12resetContentFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/resetContent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode12resetContentFMS0_S0_">resetContent</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server successfully processed the request, but is not returning any content. 
+Unlike a 204 response, this response requires that the requester reset the document view.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">resetContent</span> <span class="o">=</span> <span class="s">"205 Reset Content"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode14partialContentFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/partialContent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode14partialContentFMS0_S0_">partialContent</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server is delivering only part of the resource (byte serving) 
+due to a range header sent by the client.</p>
+
+<p>The range header is used by HTTP clients to enable resuming of interrupted downloads, 
+or split a download into multiple simultaneous streams.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">partialContent</span> <span class="o">=</span> <span class="s">"206 Partial Content"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode11multiStatusFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/multiStatus" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode11multiStatusFMS0_S0_">multiStatus</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The message body that follows is an XML message and can contain
+a number of separate response codes,
+depending on how many sub-requests were made.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">multiStatus</span> <span class="o">=</span> <span class="s">"207 Multi-Status"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode15alreadyReportedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/alreadyReported" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode15alreadyReportedFMS0_S0_">alreadyReported</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The members of a DAV binding have already been enumerated in a previous reply to this request, 
+and are not being included again.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">alreadyReported</span> <span class="o">=</span> <span class="s">"208 Already Reported"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode6imUsedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/imUsed" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode6imUsedFMS0_S0_">imUsed</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server has fulfilled a request for the resource, 
+and the response is a representation of the result of 
+one or more instance-manipulations applied to the current instance.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">imUsed</span> <span class="o">=</span> <span class="s">"226 IM Used"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode15multipleChoicesFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/multipleChoices" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode15multipleChoicesFMS0_S0_">multipleChoices</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates multiple options for the resource from which the client may choose. </p>
+
+<p>For example, this code could be used to present multiple video format options, 
+to list files with different extensions, or to suggest word sense disambiguation.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">multipleChoices</span> <span class="o">=</span> <span class="s">"300 Multiple Choices"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode16movedPermanentlyFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/movedPermanently" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode16movedPermanentlyFMS0_S0_">movedPermanently</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This and all future requests should be directed to the given URI.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">movedPermanently</span> <span class="o">=</span> <span class="s">"301 Moved Permanently"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode5foundFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/found" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode5foundFMS0_S0_">found</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The HTTP/1.0 specification (RFC 1945) required the client to perform a temporary redirect 
+(the original describing phrase was <q>Moved Temporarily</q>),
+but popular browsers implemented 302 with the functionality of a 303 See Other. 
+Therefore, HTTP/1.1 added status codes 303 and 307 to distinguish between the two behaviours.</p>
+
+<p>However, some Web applications and frameworks use the 302 status code as if it were the 303.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">found</span> <span class="o">=</span> <span class="s">"302 Found"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode8seeOtherFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/seeOther" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode8seeOtherFMS0_S0_">seeOther</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The response to the request can be found under another URI using a GET method. </p>
+
+<p>When received in response to a POST (or PUT/DELETE), 
+the client should presume that the server has received the data and should issue 
+a redirect with a separate GET message.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">seeOther</span> <span class="o">=</span> <span class="s">"303 See Other"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode11notModifiedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/notModified" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode11notModifiedFMS0_S0_">notModified</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates that the resource has not been modified since 
+the version specified by the request headers If-Modified-Since or If-None-Match. </p>
+
+<p>In such case, there is no need to retransmit the resource since 
+the client still has a previously-downloaded copy.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">notModified</span> <span class="o">=</span> <span class="s">"304 Not Modified"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode8useProxyFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/useProxy" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode8useProxyFMS0_S0_">useProxy</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The requested resource is available only through a proxy, 
+the address for which is provided in the response. </p>
+
+<p>Many HTTP clients (such as Mozilla and Internet Explorer) do not correctly handle 
+responses with this status code, primarily for security reasons.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">useProxy</span> <span class="o">=</span> <span class="s">"305 Use Proxy"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode11switchProxyFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/switchProxy" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode11switchProxyFMS0_S0_">switchProxy</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>No longer used. Originally meant <q>Subsequent requests should use the specified proxy.</q></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">switchProxy</span> <span class="o">=</span> <span class="s">"306 Switch Proxy"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode17temporaryRedirectFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/temporaryRedirect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode17temporaryRedirectFMS0_S0_">temporaryRedirect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>In this case, the request should be repeated with another URI; however, 
+future requests should still use the original URI. 
+In contrast to how 302 was historically implemented, 
+the request method is not allowed to be changed when reissuing the original request. </p>
+
+<p>For example, a POST request should be repeated using another POST request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">temporaryRedirect</span> <span class="o">=</span> <span class="s">"307 Temporary Redirect"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode17permanentRedirectFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/permanentRedirect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode17permanentRedirectFMS0_S0_">permanentRedirect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request and all future requests should be repeated using another URI. 
+307 and 308 parallel the behaviours of 302 and 301, but do not allow the HTTP method to change. 
+So, for example, submitting a form to a permanently redirected resource may continue smoothly.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">permanentRedirect</span> <span class="o">=</span> <span class="s">"308 Permanent Redirect"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode10badRequestFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/badRequest" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode10badRequestFMS0_S0_">badRequest</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server cannot or will not process the request due to an apparent client error 
+(e.g., malformed request syntax, invalid request message framing, or deceptive request routing).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">badRequest</span> <span class="o">=</span> <span class="s">"400 Bad Request"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode12unauthorizedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/unauthorized" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode12unauthorizedFMS0_S0_">unauthorized</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Similar to 403 Forbidden, but specifically for use when authentication is required 
+and has failed or has not yet been provided.
+The response must include a WWW-Authenticate header field containing 
+a challenge applicable to the requested resource. </p>
+
+<p>401 semantically means <q>unauthenticated</q>, i.e. the user does not have the necessary credentials.</p>
+
+<p>Note: Some sites issue HTTP 401 when an IP address is banned from the website 
+(usually the website domain) and that specific address is refused permission to access a website.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">unauthorized</span> <span class="o">=</span> <span class="s">"401 Unauthorized"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode15paymentRequiredFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/paymentRequired" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode15paymentRequiredFMS0_S0_">paymentRequired</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reserved for future use. The original intention was that this code 
+might be used as part of some form of digital cash or micropayment scheme, 
+but that has not happened, and this code is not usually used. 
+Google Developers API uses this status if a particular developer has exceeded the daily limit on requests.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">paymentRequired</span> <span class="o">=</span> <span class="s">"402 Payment Required"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode9forbiddenFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/forbidden" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode9forbiddenFMS0_S0_">forbidden</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request was a valid request, but the server is refusing to respond to it. 
+403 error semantically means <q>unauthorized</q>, i.e. the user does not have 
+the necessary permissions for the resource.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">forbidden</span> <span class="o">=</span> <span class="s">"403 Forbidden"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode8notFoundFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/notFound" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode8notFoundFMS0_S0_">notFound</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The requested resource could not be found but may be available in the future. 
+Subsequent requests by the client are permissible.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">notFound</span> <span class="o">=</span> <span class="s">"404 Not Found"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode16methodNotAllowedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/methodNotAllowed" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode16methodNotAllowedFMS0_S0_">methodNotAllowed</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A request method is not supported for the requested resource; for example, 
+a GET request on a form which requires data to be presented via POST, 
+or a PUT request on a read-only resource.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">methodNotAllowed</span> <span class="o">=</span> <span class="s">"405 Method Not Allowed"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode13notAcceptableFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/notAcceptable" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode13notAcceptableFMS0_S0_">notAcceptable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The requested resource is capable of generating only content 
+not acceptable according to the Accept headers sent in the request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">notAcceptable</span> <span class="o">=</span> <span class="s">"406 Not Acceptable"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode27proxyAuthenticationRequiredFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/proxyAuthenticationRequired" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode27proxyAuthenticationRequiredFMS0_S0_">proxyAuthenticationRequired</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The client must first authenticate itself with the proxy.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">proxyAuthenticationRequired</span> <span class="o">=</span> <span class="s">"407 Proxy Authentication Required"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode14requestTimeoutFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/requestTimeout" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode14requestTimeoutFMS0_S0_">requestTimeout</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server timed out waiting for the request. </p>
+
+<p>According to HTTP specifications: 
+<q>The client did not produce a request within the time that the server was prepared to wait. 
+The client MAY repeat the request without modifications at any later time.</q></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">requestTimeout</span> <span class="o">=</span> <span class="s">"408 Request Timeout"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode8conflictFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/conflict" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode8conflictFMS0_S0_">conflict</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates that the request could not be processed because of conflict in the request, 
+such as an edit conflict between multiple simultaneous updates.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">conflict</span> <span class="o">=</span> <span class="s">"409 Conflict"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode4goneFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/gone" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode4goneFMS0_S0_">gone</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates that the resource requested is no longer available and will not be available again. 
+This should be used when a resource has been intentionally removed and the resource should be purged. 
+Upon receiving a 410 status code, the client should not request the resource in the future. 
+Clients such as search engines should remove the resource from their indices.
+Most use cases do not require clients and search engines to purge the resource, 
+and a <q>404 Not Found</q> may be used instead.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">gone</span> <span class="o">=</span> <span class="s">"410 Gone"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode14lengthRequiredFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/lengthRequired" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode14lengthRequiredFMS0_S0_">lengthRequired</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request did not specify the length of its content, 
+which is required by the requested resource.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">lengthRequired</span> <span class="o">=</span> <span class="s">"411 Length Required"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode18preconditionFailedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/preconditionFailed" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode18preconditionFailedFMS0_S0_">preconditionFailed</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server does not meet one of the preconditions that the requester put on the request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">preconditionFailed</span> <span class="o">=</span> <span class="s">"412 Precondition Failed"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode15payloadTooLargeFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/payloadTooLarge" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode15payloadTooLargeFMS0_S0_">payloadTooLarge</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request is larger than the server is willing or able to process. 
+Previously called <q>Request Entity Too Large</q>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">payloadTooLarge</span> <span class="o">=</span> <span class="s">"413 Payload Too Large"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode10uriTooLongFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/uriTooLong" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode10uriTooLongFMS0_S0_">uriTooLong</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The URI provided was too long for the server to process. 
+Often the result of too much data being encoded as a query-string of a GET request, 
+in which case it should be converted to a POST request.</p>
+
+<p>Called <q>Request-URI Too Long</q> previously.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">uriTooLong</span> <span class="o">=</span> <span class="s">"414 URI Too Long"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode20unsupportedMediaTypeFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/unsupportedMediaType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode20unsupportedMediaTypeFMS0_S0_">unsupportedMediaType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request entity has a media type which the server or resource does not support. 
+For example, the client uploads an image as image/svg+xml, 
+but the server requires that images use a different format.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">unsupportedMediaType</span> <span class="o">=</span> <span class="s">"415 Unsupported Media Type"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode19rangeNotSatisfiableFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/rangeNotSatisfiable" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode19rangeNotSatisfiableFMS0_S0_">rangeNotSatisfiable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The client has asked for a portion of the file (byte serving),
+but the server cannot supply that portion. </p>
+
+<p>For example, if the client asked for a part of the file that lies beyond the end of the file.</p>
+
+<p>Called <q>Requested Range Not Satisfiable</q> previously.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">rangeNotSatisfiable</span> <span class="o">=</span> <span class="s">"416 Range Not Satisfiable"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode17expectationFailedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/expectationFailed" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode17expectationFailedFMS0_S0_">expectationFailed</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server cannot meet the requirements of the Expect request-header field.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">expectationFailed</span> <span class="o">=</span> <span class="s">"417 Expectation Failed"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode9imATeapotFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/imATeapot" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode9imATeapotFMS0_S0_">imATeapot</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Used in Hyper Text Coffee Pot Control Protocol (HTCPCP).</p>
+
+<p>Should be returned by tea pots requested to brew coffee.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">imATeapot</span> <span class="o">=</span> <span class="s">"418 I'm a teapot"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode18misdirectedRequestFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/misdirectedRequest" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode18misdirectedRequestFMS0_S0_">misdirectedRequest</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request was directed at a server that is not able to produce a response 
+(for example because a connection reuse).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">misdirectedRequest</span> <span class="o">=</span> <span class="s">"421 Misdirected Request"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode19unprocessableEntityFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/unprocessableEntity" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode19unprocessableEntityFMS0_S0_">unprocessableEntity</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request was well-formed but was unable to be followed due to semantic errors.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">unprocessableEntity</span> <span class="o">=</span> <span class="s">"422 Unprocessable Entity"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode6lockedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/locked" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode6lockedFMS0_S0_">locked</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The resource that is being accessed is locked.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">locked</span> <span class="o">=</span> <span class="s">"423 Locked"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode16failedDependencyFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/failedDependency" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode16failedDependencyFMS0_S0_">failedDependency</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request failed due to failure of a previous request (e.g., a PROPPATCH).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">failedDependency</span> <span class="o">=</span> <span class="s">"424 Failed Dependency"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode15upgradeRequiredFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/upgradeRequired" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode15upgradeRequiredFMS0_S0_">upgradeRequired</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The client should switch to a different protocol such as TLS/1.0, 
+given in the Upgrade header field.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">upgradeRequired</span> <span class="o">=</span> <span class="s">"426 Upgrade Required"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode20preconditionRequiredFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/preconditionRequired" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode20preconditionRequiredFMS0_S0_">preconditionRequired</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The origin server requires the request to be conditional. </p>
+
+<p>Intended to prevent <q>the &lsquo;lost update&rsquo; problem, 
+where a client GETs a resource&rsquo;s state, modifies it, 
+and PUTs it back to the server, 
+when meanwhile a third party has modified the state on the server, 
+leading to a conflict.</q></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">preconditionRequired</span> <span class="o">=</span> <span class="s">"428 Precondition Required"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode15tooManyRequestsFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/tooManyRequests" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode15tooManyRequestsFMS0_S0_">tooManyRequests</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The user has sent too many requests in a given amount of time. </p>
+
+<p>Intended for use with rate limiting schemes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">tooManyRequests</span> <span class="o">=</span> <span class="s">"429 Too Many Requests"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode27requestHeaderFieldsTooLargeFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/requestHeaderFieldsTooLarge" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode27requestHeaderFieldsTooLargeFMS0_S0_">requestHeaderFieldsTooLarge</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server is unwilling to process the request because either an individual header field, 
+or all the header fields collectively, are too large.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">requestHeaderFieldsTooLarge</span> <span class="o">=</span> <span class="s">"431 Request Header Fields Too Large"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode26unavailableForLegalReasonsFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/unavailableForLegalReasons" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode26unavailableForLegalReasonsFMS0_S0_">unavailableForLegalReasons</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A server operator has received a legal demand to deny access to a resource 
+or to a set of resources that includes the requested resource.</p>
+
+<p>The code 451 was chosen as a reference to the novel Fahrenheit 451.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">unavailableForLegalReasons</span> <span class="o">=</span> <span class="s">"451 Unavailable For Legal Reasons"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode19internalServerErrorFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/internalServerError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode19internalServerErrorFMS0_S0_">internalServerError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A generic error message, given when an unexpected condition 
+was encountered and no more specific message is suitable.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">internalServerError</span> <span class="o">=</span> <span class="s">"500 Internal Server Error"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode14notImplementedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/notImplemented" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode14notImplementedFMS0_S0_">notImplemented</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server either does not recognize the request method, 
+or it lacks the ability to fulfill the request. </p>
+
+<p>Usually this implies future availability (e.g., a new feature of a web-service API).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">notImplemented</span> <span class="o">=</span> <span class="s">"501 Not Implemented"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode10badGatewayFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/badGateway" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode10badGatewayFMS0_S0_">badGateway</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server was acting as a gateway or proxy and 
+received an invalid response from the upstream server.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">badGateway</span> <span class="o">=</span> <span class="s">"502 Bad Gateway"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode18serviceUnavailableFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/serviceUnavailable" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode18serviceUnavailableFMS0_S0_">serviceUnavailable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server is currently unavailable (because it is overloaded or down for maintenance).
+Generally, this is a temporary state.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">serviceUnavailable</span> <span class="o">=</span> <span class="s">"503 Service Unavailable"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode14gatewayTimeoutFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/gatewayTimeout" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode14gatewayTimeoutFMS0_S0_">gatewayTimeout</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server was acting as a gateway or proxy and did not receive 
+a timely response from the upstream server.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">gatewayTimeout</span> <span class="o">=</span> <span class="s">"504 Gateway Timeout"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode23httpVersionNotSupportedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/httpVersionNotSupported" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode23httpVersionNotSupportedFMS0_S0_">httpVersionNotSupported</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server does not support the HTTP protocol version used in the request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">httpVersionNotSupported</span> <span class="o">=</span> <span class="s">"505 HTTP Version Not Supported"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode21variantAlsoNegotiatesFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/variantAlsoNegotiates" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode21variantAlsoNegotiatesFMS0_S0_">variantAlsoNegotiates</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Transparent content negotiation for the request results in a circular reference.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">variantAlsoNegotiates</span> <span class="o">=</span> <span class="s">"506 Variant Also Negotiates"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode19insufficientStorageFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/insufficientStorage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode19insufficientStorageFMS0_S0_">insufficientStorage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server is unable to store the representation needed to complete the request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">insufficientStorage</span> <span class="o">=</span> <span class="s">"507 Insufficient Storage"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode12loopDetectedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/loopDetected" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode12loopDetectedFMS0_S0_">loopDetected</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The server detected an infinite loop while processing the request 
+(sent in lieu of 208 Already Reported).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">loopDetected</span> <span class="o">=</span> <span class="s">"508 Loop Detected"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode11notExtendedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/notExtended" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode11notExtendedFMS0_S0_">notExtended</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Further extensions to the request are required for the server to fulfil it.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">notExtended</span> <span class="o">=</span> <span class="s">"510 Not Extended"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit14HTTPStatusCode29networkAuthenticationRequiredFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/networkAuthenticationRequired" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit14HTTPStatusCode29networkAuthenticationRequiredFMS0_S0_">networkAuthenticationRequired</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The client needs to authenticate to gain network access. </p>
+
+<p>Intended for use by intercepting proxies used to control access to the network
+(e.g., <q>captive portals</q> used to require agreement to Terms of Service 
+before granting full Internet access via a Wi-Fi hotspot).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">networkAuthenticationRequired</span> <span class="o">=</span> <span class="s">"511 Network Authentication Required"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2016 <a class="link" href="https://github.com/palle-k" target="_blank" rel="external">Palle</a>. All rights reserved. (Last updated: 2016-10-07)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

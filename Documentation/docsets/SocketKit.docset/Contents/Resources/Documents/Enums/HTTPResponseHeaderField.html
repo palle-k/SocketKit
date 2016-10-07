@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HTTPResponseHeaderField Enum Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Enum/HTTPResponseHeaderField" class="dashAnchor"></a>
+
+    <a title="HTTPResponseHeaderField Enum Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          SocketKit Docs
+        </a>
+         (91% documented)
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/palle-k/SocketKit/">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">SocketKit Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      HTTPResponseHeaderField Enum Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/HTTPResponse.html">HTTPResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ServerSocket.html">ServerSocket</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TCPSocket.html">TCPSocket</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TLSInputStream.html">TLSInputStream</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TLSOutputStream.html">TLSOutputStream</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/DNSError.html">DNSError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/DataError.html">DataError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/HTTPMethod.html">HTTPMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/HTTPRequestHeaderField.html">HTTPRequestHeaderField</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/HTTPResponseHeaderField.html">HTTPResponseHeaderField</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/HTTPStatusCode.html">HTTPStatusCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/HTTPVersion.html">HTTPVersion</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/IOError.html">IOError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SocketError.html">SocketError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/TLSError.html">TLSError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:F9SocketKitoi2eeFTVS_11CertificateS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:F9SocketKit19TLSCreateStreamPairFzT15fromInputStreamPS_11InputStream_12outputStreamPS_12OutputStream_12certificatesGSaVS_11Certificate__T11inputStreamCS_14TLSInputStream12outputStreamCS_15TLSOutputStream_">TLSCreateStreamPair(fromInputStream:outputStream:certificates:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/InputStream.html">InputStream</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/InputStreamDelegate.html">InputStreamDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/OutputStream.html">OutputStream</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ServerSocketDelegate.html">ServerSocketDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Socket.html">Socket</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/StreamReadable.html">StreamReadable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/StreamWritable.html">StreamWritable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Certificate.html">Certificate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/HTTPRequest.html">HTTPRequest</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>HTTPResponseHeaderField</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">HTTPResponseHeaderField</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                </div>
+              </div>
+            <p>HTTP Header fields for Server Responses</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField24accessControlAllowOriginFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/accessControlAllowOrigin" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField24accessControlAllowOriginFMS0_S0_">accessControlAllowOrigin</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Specifying which web sites can participate in cross-origin resource sharing</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">accessControlAllowOrigin</span> <span class="o">=</span> <span class="s">"Access-Control-Allow-Origin"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField11acceptPatchFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/acceptPatch" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField11acceptPatchFMS0_S0_">acceptPatch</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Specifies which patch document formats this server supports</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">acceptPatch</span> <span class="o">=</span> <span class="s">"Accept-Patch"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField12acceptRangesFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/acceptRanges" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField12acceptRangesFMS0_S0_">acceptRanges</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>What partial content range types this server supports via byte serving</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">acceptRanges</span> <span class="o">=</span> <span class="s">"Accept-Ranges"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField3ageFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/age" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField3ageFMS0_S0_">age</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The age the object has been in a proxy cache in seconds</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">age</span> <span class="o">=</span> <span class="s">"Age"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField5allowFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/allow" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField5allowFMS0_S0_">allow</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Valid actions for a specified resource. To be used for a 405 Method not allowed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">allow</span> <span class="o">=</span> <span class="s">"Allow"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField6altSvcFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/altSvc" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField6altSvcFMS0_S0_">altSvc</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A server uses <q>Alt-Svc</q> header (meaning Alternative Services) 
+to indicate that its resources can also be accessed at a different network location
+(host or port) or using a different protocol</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">altSvc</span> <span class="o">=</span> <span class="s">"Alt-Svc"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField12cacheControlFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/cacheControl" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField12cacheControlFMS0_S0_">cacheControl</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tells all caching mechanisms from server to client 
+whether they may cache this object. </p>
+
+<p>It is measured in seconds</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">cacheControl</span> <span class="o">=</span> <span class="s">"Cache-Control"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField10connectionFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/connection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField10connectionFMS0_S0_">connection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Control options for the current connection and list of hop-by-hop response fields</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">connection</span> <span class="o">=</span> <span class="s">"Connection"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField18contentDispositionFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/contentDisposition" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField18contentDispositionFMS0_S0_">contentDisposition</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An opportunity to raise a <q>File Download</q> dialogue box 
+for a known MIME type with binary format or suggest a filename for dynamic content.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">contentDisposition</span> <span class="o">=</span> <span class="s">"Content-Disposition"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField15contentEncodingFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/contentEncoding" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField15contentEncodingFMS0_S0_">contentEncoding</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The type of encoding used on the data. See <a href="https://en.wikipedia.org/wiki/HTTP_compression">HTTP compression</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">contentEncoding</span> <span class="o">=</span> <span class="s">"Content-Encoding"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField15contentLanguageFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/contentLanguage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField15contentLanguageFMS0_S0_">contentLanguage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The natural language or languages of the intended audience for the enclosed content</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">contentLanguage</span> <span class="o">=</span> <span class="s">"Content-Language"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField13contentLengthFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/contentLength" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField13contentLengthFMS0_S0_">contentLength</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The length of the response body in octets (8-bit bytes)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">contentLength</span> <span class="o">=</span> <span class="s">"Content-Length"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField15contentLocationFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/contentLocation" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField15contentLocationFMS0_S0_">contentLocation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An alternate location for the returned data</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">contentLocation</span> <span class="o">=</span> <span class="s">"Content-Location"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField10contentMD5FMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/contentMD5" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField10contentMD5FMS0_S0_">contentMD5</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A Base64-encoded binary MD5 sum of the content of the response</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">contentMD5</span> <span class="o">=</span> <span class="s">"Content-MD5"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField12contentRangeFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/contentRange" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField12contentRangeFMS0_S0_">contentRange</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Where in a full body message this partial message belongs</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">contentRange</span> <span class="o">=</span> <span class="s">"Content-Range"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField11contentTypeFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/contentType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField11contentTypeFMS0_S0_">contentType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The MIME type of this content</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">contentType</span> <span class="o">=</span> <span class="s">"Content-Type"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField4dateFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/date" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField4dateFMS0_S0_">date</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The date and time that the message was sent (in <q>HTTP-date</q> format as defined by RFC 7231)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">date</span> <span class="o">=</span> <span class="s">"Date"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField4eTagFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/eTag" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField4eTagFMS0_S0_">eTag</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An identifier for a specific version of a resource, often a message digest</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">eTag</span> <span class="o">=</span> <span class="s">"ETag"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField7expiresFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/expires" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField7expiresFMS0_S0_">expires</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Gives the date/time after which the response is considered stale 
+(in <q>HTTP-date</q> format as defined by RFC 7231)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">expires</span> <span class="o">=</span> <span class="s">"Expires"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField12lastModifiedFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/lastModified" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField12lastModifiedFMS0_S0_">lastModified</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The last modified date for the requested object 
+(in <q>HTTP-date</q> format as defined by RFC 7231)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">lastModified</span> <span class="o">=</span> <span class="s">"Last-Modified"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField4linkFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/link" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField4linkFMS0_S0_">link</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Used to express a typed relationship with another resource, 
+where the relation type is defined by RFC 5988</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">link</span> <span class="o">=</span> <span class="s">"Link"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField8locationFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/location" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField8locationFMS0_S0_">location</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Used in redirection, or when a new resource has been created.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">location</span> <span class="o">=</span> <span class="s">"Location"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField3p3pFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/p3p" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField3p3pFMS0_S0_">p3p</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This field is supposed to set P3P policy, 
+in the form of P3P:CP=<q>your_compact_policy</q>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">p3p</span> <span class="o">=</span> <span class="s">"P3P"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField6pragmaFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/pragma" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField6pragmaFMS0_S0_">pragma</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implementation-specific fields that may have various effects 
+anywhere along the request-response chain.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">pragma</span> <span class="o">=</span> <span class="s">"Pragma"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField17proxyAuthenticateFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/proxyAuthenticate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField17proxyAuthenticateFMS0_S0_">proxyAuthenticate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Request authentication to access the proxy.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">proxyAuthenticate</span> <span class="o">=</span> <span class="s">"Proxy-Authenticate"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField13publicKeyPinsFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/publicKeyPins" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField13publicKeyPinsFMS0_S0_">publicKeyPins</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>HTTP Public Key Pinning, announces hash of website&rsquo;s authentic TLS certificate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">publicKeyPins</span> <span class="o">=</span> <span class="s">"Public-Key-Pins"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField7refreshFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/refresh" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField7refreshFMS0_S0_">refresh</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Used in redirection, or when a new resource has been created.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">refresh</span> <span class="o">=</span> <span class="s">"Refresh"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField10retryAfterFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/retryAfter" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField10retryAfterFMS0_S0_">retryAfter</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If an entity is temporarily unavailable, this instructs the client to try again later.
+Value could be a specified period of time (in seconds) or a HTTP-date.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">retryAfter</span> <span class="o">=</span> <span class="s">"Retry-After"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField6serverFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/server" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField6serverFMS0_S0_">server</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A name for the server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">server</span> <span class="o">=</span> <span class="s">"Server"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField9setCookieFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/setCookie" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField9setCookieFMS0_S0_">setCookie</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An HTTP cookie</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">setCookie</span> <span class="o">=</span> <span class="s">"Set-Cookie"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField6statusFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/status" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField6statusFMS0_S0_">status</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>CGI header field specifying the status of the HTTP response. 
+Normal HTTP responses use a separate <q>Status-Line</q> instead, defined by RFC 7230.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">status</span> <span class="o">=</span> <span class="s">"Status"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField23strictTransportSecurityFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/strictTransportSecurity" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField23strictTransportSecurityFMS0_S0_">strictTransportSecurity</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A HSTS Policy informing the HTTP client how long to cache the HTTPS only policy 
+and whether this applies to subdomains.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">strictTransportSecurity</span> <span class="o">=</span> <span class="s">"Strict-Transport-Security"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField7trailerFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/trailer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField7trailerFMS0_S0_">trailer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Trailer general field value indicates that the given set of header fields
+is present in the trailer of a message encoded with chunked transfer coding.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">trailer</span> <span class="o">=</span> <span class="s">"Trailer"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField16transferEncodingFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/transferEncoding" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField16transferEncodingFMS0_S0_">transferEncoding</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The form of encoding used to safely transfer the entity to the user. 
+Currently defined methods are: chunked, compress, deflate, gzip, identity.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">transferEncoding</span> <span class="o">=</span> <span class="s">"Transfer-Encoding"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField3tsvFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/tsv" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField3tsvFMS0_S0_">tsv</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tracking Status Value, value suggested to be sent in response to a DNT(do-not-track)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">tsv</span> <span class="o">=</span> <span class="s">"TSV"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField7upgradeFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/upgrade" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField7upgradeFMS0_S0_">upgrade</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Ask the client to upgrade to another protocol.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">upgrade</span> <span class="o">=</span> <span class="s">"Upgrade"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField4varyFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/vary" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField4varyFMS0_S0_">vary</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tells downstream proxies how to match future request headers
+to decide whether the cached response can be used
+rather than requesting a fresh one from the origin server.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">vary</span> <span class="o">=</span> <span class="s">"Vary"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField3viaFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/via" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField3viaFMS0_S0_">via</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Informs the client of proxies through which the response was sent.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">via</span> <span class="o">=</span> <span class="s">"Via"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField7warningFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/warning" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField7warningFMS0_S0_">warning</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A general warning about possible problems with the entity body.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">warning</span> <span class="o">=</span> <span class="s">"Warning"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField15wwwAuthenticateFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/wwwAuthenticate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField15wwwAuthenticateFMS0_S0_">wwwAuthenticate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates the authentication scheme that should be used to access the requested entity.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">wwwAuthenticate</span> <span class="o">=</span> <span class="s">"WWW-Authenticate"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField14x_FrameOptionsFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/x_FrameOptions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField14x_FrameOptionsFMS0_S0_">x_FrameOptions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Clickjacking protection</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">x_FrameOptions</span> <span class="o">=</span> <span class="s">"X-Frame-Options"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField15x_XSSProtectionFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/x_XSSProtection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField15x_XSSProtectionFMS0_S0_">x_XSSProtection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cross-site scripting (XSS) filter</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">x_XSSProtection</span> <span class="o">=</span> <span class="s">"X-XSS-Protection"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField11x_WebKitCSPFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/x_WebKitCSP" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField11x_WebKitCSPFMS0_S0_">x_WebKitCSP</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Content Security Policy definition.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">x_WebKitCSP</span> <span class="o">=</span> <span class="s">"X-WebKit-CSP"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField20x_ContentTypeOptionsFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/x_ContentTypeOptions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField20x_ContentTypeOptionsFMS0_S0_">x_ContentTypeOptions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The only defined value, <q>nosniff</q>, 
+prevents Internet Explorer from MIME-sniffing a response away from the declared content-type. 
+This also applies to Google Chrome, when downloading extensions.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">x_ContentTypeOptions</span> <span class="o">=</span> <span class="s">"X-Content-Type-Options"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField11x_PoweredByFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/x_PoweredBy" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField11x_PoweredByFMS0_S0_">x_PoweredBy</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Specifies the technology (e.g. ASP.NET, PHP, JBoss) supporting the web application</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">x_PoweredBy</span> <span class="o">=</span> <span class="s">"X-Powered-By"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField14x_UACompatibleFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/x_UACompatible" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField14x_UACompatibleFMS0_S0_">x_UACompatible</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Recommends the preferred rendering engine (often a backward-compatibility mode) 
+to use to display the content.</p>
+
+<p>Also used to activate Chrome Frame in Internet Explorer.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">x_UACompatible</span> <span class="o">=</span> <span class="s">"X-UA-Compatible"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField17x_ContentDurationFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/x_ContentDuration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField17x_ContentDurationFMS0_S0_">x_ContentDuration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Provide the duration of the audio or video in seconds;</p>
+
+<p>only supported by Gecko browsers</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">x_ContentDuration</span> <span class="o">=</span> <span class="s">"X-Content-Duration"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField23upgradeInsecureRequestsFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/upgradeInsecureRequests" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField23upgradeInsecureRequestsFMS0_S0_">upgradeInsecureRequests</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tells a server which (presumably in the middle of a HTTP -&gt; HTTPS migration) 
+hosts mixed content that the client would prefer redirection to HTTPS
+and can handle Content-Security-Policy: upgrade-insecure-requests</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">upgradeInsecureRequests</span> <span class="o">=</span> <span class="s">"Upgrade-Insecure-Requests"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO9SocketKit23HTTPResponseHeaderField11x_RequestIDFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/x_RequestID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO9SocketKit23HTTPResponseHeaderField11x_RequestIDFMS0_S0_">x_RequestID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Correlates HTTP requests between a client and server.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">x_RequestID</span> <span class="o">=</span> <span class="s">"X-Request-ID"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2016 <a class="link" href="https://github.com/palle-k" target="_blank" rel="external">Palle</a>. All rights reserved. (Last updated: 2016-10-07)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

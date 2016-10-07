@@ -7,7 +7,7 @@ SocketKit is a client and server side TCP networking framework for macOS written
 - Use secure streams encrypted with TLS/SSL
 - IPv4 and IPv6 support
 
-Documentation coming soon...
+**[Documentation](https://palle-k.github.io/SocketKit/)**
 
 ## Usage in your own project
 1. Move the SocketKit Xcode project into your own project.
