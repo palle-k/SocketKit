@@ -131,7 +131,7 @@ extension HTTPRequest: StreamReadable
 		path = components[1]
 		version = components[2]
 		
-		var header:[String:String] = [:]
+		let header:[String:String] = [:]
 		
 		while let headerLine = try stream.readLine(.ascii), !headerLine.isEmpty
 		{

@@ -61,6 +61,16 @@ internal func sockaddr_cast(_ addr: inout sockaddr) -> sockaddr_in
 	return sockaddr_in_result
 }
 
+
+/**
+
+Casts a sockaddr_in to a sockaddr
+
+- parameter addr: Address which should be converted
+
+- returns: Converted adress as a sockaddr instance.
+
+*/
 internal func sockaddr_in_cast(_ addr: inout sockaddr_in) -> sockaddr
 {
 	var sockaddr_result = sockaddr()
@@ -68,12 +78,23 @@ internal func sockaddr_in_cast(_ addr: inout sockaddr_in) -> sockaddr
 	return sockaddr_result
 }
 
+
+/**
+
+Casts a sockaddr_in6 to a sockaddr
+
+- parameter addr: IPv6 address which should be converted
+
+- returns: Converted adress as a sockaddr instance
+
+*/
 internal func sockaddr_in_cast(_ addr: inout sockaddr_in6) -> sockaddr
 {
 	var sockaddr_result = sockaddr()
 	memcpy(&sockaddr_result, &addr, MemoryLayout<sockaddr_in6>.size)
 	return sockaddr_result
 }
+
 
 //TODO: Add all these cipher suites to the enum.
 //Group them by the amount of security they provide

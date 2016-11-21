@@ -49,6 +49,13 @@ public struct Certificate : Equatable
 	
 	/**
 
+	Hostname, which should be used.
+
+	*/
+	public let hostname:String
+	
+	/**
+
 	Initialize a new certificate with the given data protected by the given password.
 	The data has to be in PKCS12 format.
 	
@@ -63,7 +70,7 @@ public struct Certificate : Equatable
 	- throws: A TLSError indicating that the certificate could not be loaded.
 	
 	*/
-	public init(with data:Data, password:String? = nil) throws
+	public init(with data:Data, password:String? = nil, hostname:String = Host.current().name ?? "localhost") throws
 	{
 		let options = [String(kSecImportExportPassphrase) : (password ?? "")]
 		var array:CFArray? = nil
@@ -100,6 +107,7 @@ public struct Certificate : Equatable
 		}
 		
 		self.identity = identity
+		self.hostname = hostname
 	}
 	
 	
@@ -110,9 +118,10 @@ public struct Certificate : Equatable
 	- parameter identity: Identity containing the certificate and private key to use
 	
 	*/
-	public init(with identity: SecIdentity)
+	public init(with identity: SecIdentity, hostname:String = Host.current().name ?? "localhost")
 	{
 		self.identity = identity
+		self.hostname = hostname
 	}
 	
 	
@@ -132,7 +141,7 @@ public struct Certificate : Equatable
 	- throws: A TLSError indicating that the certificate could not be loaded.
 	
 	*/
-	public init(contentsOf filePath: String, password: String? = nil) throws
+	public init(contentsOf filePath: String, password: String? = nil, hostname: String = Host.current().name ?? "localhost") throws
 	{
 		guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath))
 		else
@@ -140,7 +149,7 @@ public struct Certificate : Equatable
 			DEBUG ?-> print("Data could not be loaded.")
 			throw TLSError.dataNotAccessible
 		}
-		try self.init(with: data, password: password)
+		try self.init(with: data, password: password, hostname: hostname)
 	}
 	
 	
@@ -162,10 +171,10 @@ public struct Certificate : Equatable
 	- throws: A TLSError indicating that the certificate could not be loaded.
 	
 	*/
-	public init(contentsOf filePath: String, readingOptions: NSData.ReadingOptions, password: String? = nil) throws
+	public init(contentsOf filePath: String, readingOptions: NSData.ReadingOptions, password: String? = nil, hostname: String = Host.current().name ?? "localhost") throws
 	{
 		let data = try Data(contentsOf: URL(fileURLWithPath: filePath), options: readingOptions)
-		try self.init(with: data, password: password)
+		try self.init(with: data, password: password, hostname: hostname)
 	}
 }
 

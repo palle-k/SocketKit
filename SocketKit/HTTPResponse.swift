@@ -33,22 +33,13 @@ Basic HTTP response to a get request.
 Sends the given data as content to the client
 
 */
-open class HTTPResponse
+public struct HTTPResponse
 {
-	open let version:HTTPVersion
-	open let status:HTTPStatusCode
-	open var header:[HTTPResponseHeaderField:String]
+	public var version:HTTPVersion
+	public var status:HTTPStatusCode
+	public var header:[HTTPResponseHeaderField:String]
 	
-	open let content:Data
-	
-//	required public init(byReadingFrom stream: InputStream) throws
-//	{
-//		content = Data()
-//		version = .v1_1
-//		status = .ok
-//		header = [:]
-//		fatalError("Reading HTTP response from stream not yet implemented")
-//	}
+	public var content:Data
 	
 	public init(with content: String)
 	{
@@ -66,14 +57,23 @@ open class HTTPResponse
 		header = [:]
 	}
 	
+	public init(version: HTTPVersion, status: HTTPStatusCode, header: [HTTPResponseHeaderField:String], data: Data)
+	{
+		self.version = version
+		self.status = status
+		self.header = header
+		self.content = data
+	}
 }
 
 extension HTTPResponse: StreamWritable
 {
 	
-	open func write(to outputStream: OutputStream) throws
+	public func write(to outputStream: OutputStream) throws
 	{
 		// Preparing header fields
+		
+		var header = self.header
 		
 		if !header.keys.contains(.date)
 		{
@@ -81,7 +81,7 @@ extension HTTPResponse: StreamWritable
 		}
 		if !header.keys.contains(.server)
 		{
-			header[.server] = "PK-SocketKit/\(Bundle(for: HTTPResponse.self).infoDictionary!["CFBundleShortVersionString"] ?? "")"
+			header[.server] = "PK-SocketKit/\(Bundle(identifier: "com.palleklewitz.SocketKit")?.infoDictionary!["CFBundleShortVersionString"] ?? "")"
 		}
 		if !header.keys.contains(.lastModified)
 		{
@@ -122,3 +122,20 @@ extension HTTPResponse: StreamWritable
 	}
 	
 }
+
+
+extension HTTPResponse: StreamReadable
+{
+
+	public init(byReadingFrom stream: InputStream) throws
+	{
+		content = Data()
+		version = .v1_1
+		status = .ok
+		header = [:]
+		fatalError("Reading HTTP response from stream not yet implemented")
+	}
+
+}
+
+
