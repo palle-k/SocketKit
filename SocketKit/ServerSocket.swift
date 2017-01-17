@@ -123,7 +123,7 @@ public class ServerSocket : CustomStringConvertible
 	on the IPv4 server socket.
 	
 	*/
-	fileprivate var dispatch_source_ipv4:DispatchSource!
+	fileprivate var dispatch_source_ipv4:DispatchSourceRead!
 	
 	
 	/**
@@ -132,7 +132,7 @@ public class ServerSocket : CustomStringConvertible
 	on the IPv6 server socket.
 	
 	*/
-	fileprivate var dispatch_source_ipv6:DispatchSource!
+	fileprivate var dispatch_source_ipv6:DispatchSourceRead!
 	
 	
 	/**
@@ -265,14 +265,14 @@ public class ServerSocket : CustomStringConvertible
 			throw SocketError.listen
 		}
 		
-		dispatch_source_ipv4 = DispatchSource.makeReadSource(fileDescriptor: socket_ipv4, queue: DispatchQueue.global()) /*Migrator FIXME: Use DispatchSourceRead to avoid the cast*/ as! DispatchSource
+		dispatch_source_ipv4 = DispatchSource.makeReadSource(fileDescriptor: socket_ipv4, queue: DispatchQueue.global())
 		dispatch_source_ipv4.setEventHandler
 		{
 			self.acceptConnection(self.socket_ipv4)
 		}
 		dispatch_source_ipv4.resume()
 		
-		dispatch_source_ipv6 = DispatchSource.makeReadSource(fileDescriptor: socket_ipv6, queue: DispatchQueue.global()) /*Migrator FIXME: Use DispatchSourceRead to avoid the cast*/ as! DispatchSource
+		dispatch_source_ipv6 = DispatchSource.makeReadSource(fileDescriptor: socket_ipv6, queue: DispatchQueue.global())
 		dispatch_source_ipv6.setEventHandler
 		{
 			self.acceptConnection(self.socket_ipv6)
