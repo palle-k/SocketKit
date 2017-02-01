@@ -251,8 +251,7 @@ open class TCPSocket : POSIXSocket, CustomStringConvertible
 	and writing may fail because it would otherwise
 	block the current thread.
 	
-	In this case, a .WouldBlock or .Again
-	IOError will be thrown.
+	In this case, a .WouldBlock or .Again IOError will be thrown.
 	
 	The operation must be repeated until it was successful.
 	
