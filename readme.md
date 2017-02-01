@@ -10,8 +10,10 @@ SocketKit is a client and server side TCP networking framework for macOS written
 **[Documentation](https://palle-k.github.io/SocketKit/)**
 
 ## Usage in your own project
-1. Move the SocketKit Xcode project into your own project.
-2. Add SocketKit to the list of included frameworks.
+
+### Using the Swift Package Manager
+
+Include the package `.Package(url: "https://github.com/palle-k/SocketKit.git", majorVersion: 1, minor: 0)` to the list of dependencies in your Package.swift file.
 
 ## License
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
